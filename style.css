@@ -1,0 +1,532 @@
+@import "https://unpkg.com/open-props";
+@import url('https://fonts.googleapis.com/css2?family=Licorice&display=swap');
+@use postcss-preset-env {
+    stage: 0;
+    features: {
+        "logical-properties-and-values": false
+    }
+}
+
+html {
+    /* light */
+    --brand-light: var(--orange-6);
+    --text1-light: var(--gray-8);
+    --text2-light: var(--gray-7);
+    --surface1-light: var(--gray-0);
+    --surface2-light: var(--gray-1);
+    --surface3-light: var(--gray-2);
+    --surface4-light: var(--gray-3);
+    --surface-shadow-light: 200 10% 20%;
+    --shadow-strength-light: .02;
+    /* dark */
+    --brand-dark: var(--orange-3);
+    --text1-dark: var(--gray-1);
+    --text2-dark: var(--gray-3);
+    --surface1-dark: var(--gray-9);
+    --surface2-dark: var(--gray-8);
+    --surface3-dark: var(--gray-7);
+    --surface4-dark: var(--gray-6);
+    --surface-shadow-dark: 200 50% 3%;
+    --shadow-strength-dark: .8;
+    /* dim */
+    --brand-dim: var(--orange-4);
+    --text1-dim: var(--gray-3);
+    --text2-dim: var(--gray-4);
+    --surface1-dim: var(--gray-8);
+    --surface2-dim: var(--gray-7);
+    --surface3-dim: var(--gray-6);
+    --surface4-dim: var(--gray-5);
+    --surface-shadow-dim: 200 10% 13%;
+    --shadow-strength-dim: .2;
+    /* grape */
+    --brand-grape: var(--grape-5);
+    --text1-grape: var(--grape-9);
+    --text2-grape: var(--grape-7);
+    --surface1-grape: var(--grape-0);
+    --surface2-grape: var(--grape-1);
+    --surface3-grape: var(--grape-2);
+    --surface4-grape: var(--grape-3);
+    --surface-shadow-grape: 288 30% 20%;
+    --shadow-strength-grape: .02;
+}
+
+:root {
+    color-scheme: light;
+    /* set defaults */
+    --brand: var(--brand-light);
+    --text1: var(--text1-light);
+    --text2: var(--text2-light);
+    --surface1: var(--surface1-light);
+    --surface2: var(--surface2-light);
+    --surface3: var(--surface3-light);
+    --surface4: var(--surface4-light);
+    --surface-shadow: var(--surface-shadow-light);
+    --shadow-strength: var(--shadow-strength-light);
+}
+
+@media (prefers-color-scheme: dark) {
+     :root {
+        color-scheme: dark;
+        --brand: var(--brand-dark);
+        --text1: var(--text1-dark);
+        --text2: var(--text2-dark);
+        --surface1: var(--surface1-dark);
+        --surface2: var(--surface2-dark);
+        --surface3: var(--surface3-dark);
+        --surface4: var(--surface4-dark);
+        --surface-shadow: var(--surface-shadow-dark);
+        --shadow-strength: var(--shadow-strength-dark);
+    }
+}
+
+[color-scheme="light"] {
+    color-scheme: light;
+    --brand: var(--brand-light);
+    --text1: var(--text1-light);
+    --text2: var(--text2-light);
+    --surface1: var(--surface1-light);
+    --surface2: var(--surface2-light);
+    --surface3: var(--surface3-light);
+    --surface4: var(--surface4-light);
+    --surface-shadow: var(--surface-shadow-light);
+    --shadow-strength: var(--shadow-strength-light);
+}
+
+[color-scheme="dark"] {
+    color-scheme: dark;
+    --brand: var(--brand-dark);
+    --text1: var(--text1-dark);
+    --text2: var(--text2-dark);
+    --surface1: var(--surface1-dark);
+    --surface2: var(--surface2-dark);
+    --surface3: var(--surface3-dark);
+    --surface4: var(--surface4-dark);
+    --surface-shadow: var(--surface-shadow-dark);
+    --shadow-strength: var(--shadow-strength-dark);
+}
+
+[color-scheme="dim"] {
+    color-scheme: dark;
+    --brand: var(--brand-dim);
+    --text1: var(--text1-dim);
+    --text2: var(--text2-dim);
+    --surface1: var(--surface1-dim);
+    --surface2: var(--surface2-dim);
+    --surface3: var(--surface3-dim);
+    --surface4: var(--surface4-dim);
+    --surface-shadow: var(--surface-shadow-dim);
+    --shadow-strength: var(--shadow-strength-dim);
+}
+
+[color-scheme="grape"] {
+    color-scheme: light;
+    --brand: var(--brand-grape);
+    --text1: var(--text1-grape);
+    --text2: var(--text2-grape);
+    --surface1: var(--surface1-grape);
+    --surface2: var(--surface2-grape);
+    --surface3: var(--surface3-grape);
+    --surface4: var(--surface4-grape);
+    --surface-shadow: var(--surface-shadow-grape);
+    --shadow-strength: var(--shadow-strength-grape);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+
+/* 
+html {
+    block-size: 100%;
+    background-color: var(--surface1);
+    color: var(--text1);
+    accent-color: var(--brand);
+} */
+
+
+/* 
+body {
+    min-block-size: 100%;
+    font-family: system-ui, sans-serif;
+    padding: 5vmax;
+    display: grid;
+    place-content: center;
+    gap: 5vmax;
+} */
+
+p {
+    text-align: justify;
+}
+
+main {
+    display: flex;
+    right: 20px;
+    flex-flow: row wrap;
+    align-items: left;
+    align-content: justify;
+    justify-content: left;
+    gap: 10vmax 10vmin;
+    text-align: justify;
+}
+
+main:hover {
+    background-color: rgb(14, 224, 189);
+    font-size: larger;
+}
+
+#left {
+    text-align: justify;
+    left: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: right;
+    align-content: justify;
+    justify-content: right;
+    gap: 10vmax 10vmin;
+}
+
+#Name {
+    font-family: 'Licorice', cursive;
+    color: yellow;
+    font-size: 50px;
+    background-color: black;
+}
+
+#left:hover {
+    background-color: green;
+    color: rgb(104, 97, 207);
+    font-family: 'Licorice', cursive;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+section {
+    display: gird;
+    gap: 2.5vh;
+}
+
+h1 {
+    font-weight: 100;
+}
+
+p {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+p:hover {
+    font-size: larger;
+    color: rgb(15, 141, 68);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+}
+
+form {
+    display: flex;
+    gap: 2ch;
+    &>div {
+        display: inline-flex;
+        align-items: center;
+        gap: .75ch;
+    }
+}
+
+.surface-samples {
+    display: flex;
+    --size: 20ch;
+    grid-template-columns: var(--size) var(--size);
+    grid-auto-rows: var(--size);
+    gap: 2ch;
+    @media (width <=480px) {
+        & {
+            --size: 40vw;
+        }
+    }
+    &>* {
+        border-radius: 1rem;
+        display: flex;
+        place-content: center;
+        font-size: 3rem;
+        font-weight: 200;
+    }
+}
+
+.text-samples {
+    display: flex;
+    gap: 1.5ch;
+    &>h1 {
+        font-size: 2.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 1ch;
+    }
+}
+
+.brand {
+    color: var(--brand);
+    background-color: var(--brand);
+}
+
+.surface1 {
+    background-color: var(--surface1);
+    color: var(--text2);
+}
+
+.surface2 {
+    background-color: var(--surface2);
+    color: var(--text2);
+}
+
+.surface3 {
+    background-color: var(--surface3);
+    color: var(--text1);
+}
+
+.surface4 {
+    background-color: var(--surface4);
+    color: var(--text1);
+}
+
+.text1 {
+    color: var(--text1);
+    @nest p& {
+        font-weight: 200;
+    }
+}
+
+.text2 {
+    color: var(--text2);
+}
+
+input {
+    height: 50px;
+}
+
+button:hover {
+    color: black;
+}
+
+button {
+    background-color: black;
+    color: aliceblue;
+    width: 70px;
+    height: 50px
+}
+
+.swatch {
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: 1.5ch;
+    block-size: 1.5ch;
+    border-radius: 50%;
+    &.text1 {
+        background-color: var(--text1);
+    }
+    &.text2 {
+        background-color: var(--text2);
+    }
+}
+
+.rad-shadow {
+    border: 1px solid hsl(var(--brand-hue) 10% 50% / 15%);
+    box-shadow: 0 1rem .5rem -.5rem;
+    box-shadow: 0 2.8px 2.2px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .03)), 0 6.7px 5.3px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .01)), 0 12.5px 10px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .02)), 0 22.3px 17.9px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .02)), 0 41.8px 33.4px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .03)), 0 100px 80px hsl(var(--surface-shadow) / var(--shadow-strength));
+}
+
+.contact {
+    background-color: rgb(196, 14, 196);
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    color: aliceblue;
+}
+
+.dark {
+    display: flex;
+    right: 20px;
+    flex-flow: row wrap;
+    align-items: left;
+    align-content: justify;
+    justify-content: left;
+    gap: 10vmax 10vmin;
+    text-align: justify;
+    background-color: black;
+}
+
+.heading1 {
+    display: flex;
+    background-color: black;
+    color: rgb(230, 224, 220);
+    font-size: 100px;
+}
+
+.button {
+    background-color: white;
+    font-size: 20px;
+}
+
+button:hover {
+    color: green;
+}
+
+#Project:hover {
+    color: rgb(112, 11, 11);
+    text-decoration: underline;
+}
+
+#story {
+    text-align: center;
+    align-items: center;
+    background-color: black;
+    color: wheat;
+}
+
+pre {
+    text-align: center;
+    border-radius: 15px;
+    background: var(--code-bg) !important;
+}
+
+:not(pre)>code[class*="language-"],
+pre[class*="language-"] {
+    background: var(--code-bg) !important;
+}
+
+@import url("https://rsms.me/inter/inter.css");
+:root {
+    --body-bg: whitesmoke;
+    --article-bg: white;
+    --text-color: black;
+    --primary-shadow: lavender;
+    --code-bg: #1f1f1f;
+    --code-color: #2c2c2c;
+}
+
+.dark {
+    --text-color: white;
+    --primary-shadow: #191f26;
+    --code-color: white;
+    scrollbar-color: var(--article-bg) var(--code-bg);
+}
+
+#theme {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    font-family: "Inter", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+    background-color: var(--body-bg);
+}
+
+.article {
+    width: 640px;
+}
+
+.opinion {
+    background: blue;
+    display: inline-block;
+    padding: 15px;
+    padding-top: 50px;
+    border-radius: 20px;
+    position: absolute;
+    top: -20px;
+    box-shadow: 5px 5px 20px var(--primary-shadow);
+    background-image: linear-gradient( 220deg, #663dff 0%, #aa00ff 37%, #cc4499 100%);
+}
+
+.opinion-icon {
+    stroke: white;
+    margin: 5px;
+}
+
+.opinion-icon:hover {
+    stroke: white;
+    fill: black;
+}
+
+.opinion-selected {
+    stroke: white;
+    fill: black;
+}
+
+.opinion {
+    right: 15%;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 800px) {
+    .article {
+        width: 80vw;
+    }
+    .opinion {
+        right: 40vw;
+        align: center;
+        top: -40px;
+    }
+}
+
+.article {
+    margin: 20px auto;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 20px var(--primary-shadow);
+    background-color: var(--article-bg);
+}
+
+.title {
+    margin-bottom: 40px;
+    color: var(--text-color);
+}
+
+p {
+    margin-top: 30px;
+    color: var(--text-color);
+}
+
+pre {
+    border-radius: 15px;
+    background: var(--code-bg) !important;
+}
+
+:not(pre)>code[class*="language-"],
+pre[class*="language-"] {
+    background: var(--code-bg) !important;
+}
+
+.gradient-stripe {
+    height: 5px;
+    background-color: var(--text-color);
+    background-image: linear-gradient( 319deg, #663dff 0%, #aa00ff 37%, #cc4499 100%);
+    margin: 50px 0 0;
+    border-radius: 15px;
+}
+
+.centered {
+    text-align: center;
+}
+
+#under {
+    color: #191f26;
+}
+
+#under:hover {
+    text-decoration: underline;
+}

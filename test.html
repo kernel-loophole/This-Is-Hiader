@@ -1,0 +1,195 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/8.2.0/index.es.min.js"></script>
+    <script src="https://unpkg.com/randomcolor@0.5.3/randomColor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.min.js.map"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+</head>
+<style>
+    @import url("https://rsms.me/inter/inter.css");
+     :root {
+        --body-bg: whitesmoke;
+        --article-bg: white;
+        --text-color: black;
+        --primary-shadow: lavender;
+        --code-bg: #1f1f1f;
+        --code-color: #2c2c2c;
+    }
+    
+    .dark {
+        --body-bg: #1f2933;
+        --article-bg: #323f4b;
+        --text-color: white;
+        --primary-shadow: #191f26;
+        --code-bg: #1f2933;
+        --code-color: white;
+        scrollbar-color: var(--article-bg) var(--code-bg);
+    }
+    
+    #theme {
+        background: transparent;
+        border: none;
+        font-size: 30px;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: content-box;
+        font-family: "Inter", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+    
+    body {
+        background-color: var(--body-bg);
+    }
+    
+    .article {
+        width: 640px;
+    }
+    
+    .opinion {
+        background: blue;
+        display: inline-block;
+        padding: 15px;
+        padding-top: 50px;
+        border-radius: 20px;
+        position: absolute;
+        top: -20px;
+        box-shadow: 5px 5px 20px var(--primary-shadow);
+        background-image: linear-gradient( 220deg, #663dff 0%, #aa00ff 37%, #cc4499 100%);
+    }
+    
+    .opinion-icon {
+        stroke: white;
+        margin: 5px;
+    }
+    
+    .opinion-icon:hover {
+        stroke: white;
+        fill: black;
+    }
+    
+    .opinion-selected {
+        stroke: white;
+        fill: black;
+    }
+    
+    .opinion {
+        right: 15%;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    @media screen and (max-width: 800px) {
+        .article {
+            width: 80vw;
+        }
+        .opinion {
+            right: 40vw;
+            align: center;
+            top: -40px;
+        }
+    }
+    
+    .article {
+        margin: 20px auto;
+        padding: 50px;
+        border-radius: 25px;
+        box-shadow: 5px 5px 20px var(--primary-shadow);
+        background-color: var(--article-bg);
+    }
+    
+    .title {
+        margin-bottom: 40px;
+        color: var(--text-color);
+    }
+    
+    p {
+        margin-top: 30px;
+        color: var(--text-color);
+    }
+    
+    pre {
+        border-radius: 15px;
+        background: var(--code-bg) !important;
+    }
+    
+     :not(pre)>code[class*="language-"],
+    pre[class*="language-"] {
+        background: var(--code-bg) !important;
+    }
+    
+    .gradient-stripe {
+        height: 5px;
+        background-color: var(--text-color);
+        background-image: linear-gradient( 319deg, #663dff 0%, #aa00ff 37%, #cc4499 100%);
+        margin: 50px 0 0;
+        border-radius: 15px;
+    }
+    
+    .centered {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <!-- A root element for TypeIt to target. -->
+    <!-- The script itself, loaded AFTER your root element. -->
+
+    <pre><code class="lang-css python">
+  
+  <span id="typed6" style="color: #8a0e3e;"></span>
+  </code></pre>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace()
+    </script>
+    <script>
+        var typed6 = new Typed('#typed6', {
+            strings: ['let x=0\n if (x>0)\n{console.log(x)}'],
+            typeSpeed: 80,
+            backSpeed: 10,
+            loop: true
+        });
+        const body = document.getElementsByTagName("BODY")[0];
+        const themeButton = document.getElementById("theme");
+        const opinionButtons = document.getElementsByClassName("opinion-icon");
+
+        // body.classList.remove("dark");
+        // // document.getElementById("#theme").event;
+
+        themeButton.addEventListener("click", function() {
+            if (body.classList.contains("dark")) {
+                body.classList.remove("dark");
+                themeButton.textContent = "🌙";
+            } else {
+                body.classList.add("dark");
+                themeButton.textContent = "☀️";
+            }
+        });
+
+        function castVote(elem) {
+            for (var i = 0; i < opinionButtons.length; i++) {
+                opinionButtons[i].classList.remove("opinion-selected");
+            }
+            if (elem.id == "like") {
+                alert("I'm glad you liked my project! 😎");
+                elem.classList.add("opinion-selected");
+            } else {
+                alert("Really? Well maybe my next project will suit you 🤣");
+                elem.classList.add("opinion-selected");
+            }
+        }
+    </script>
+</body>
+
+</html>

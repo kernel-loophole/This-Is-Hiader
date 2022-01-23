@@ -1,30 +1,14 @@
-<html>
-  <link rel="stylesheet" href="/home/hiader/Downloads/font/css/all.css">  
-<link href="particle.css" ,rel="stylesheet">
-  <script src="particles.min.js"></script>
-  <script src="particles.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
-    <!-- Required meta tags -->
-    <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">  
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
@@ -32,335 +16,263 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.0/typed.min.js.map"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 
+    <script src="source.js"></script>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-#back
-{
-    background:black;
-}
-#text
-{
-  color: #d2dfcc;
-}
-#black
-{
-  background-color: #080808;
-}
-  a:hover {
-   
-    
-    font-family: 'Dancing Script', cursive;
-}
-  #ball{
-display: block;
-position: absolute;
-  left: 50%;
-  right: 75%;
-  top: 50%;
-  width: 100px;
-  height: 100px;
-  bottom: auto;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-radius: 2px;
-  right: 400px;
-  left: 400px;
-  background-color: #0b0c0b;
+    <title>Document</title>
+</head>
 
-    }
-    #color
-    {
-      background-color: #13E8E9;
-      left: 100%;
-    }
-    body{   font-family: 'Dancing Script', cursive; margin:0;} canvas{ display: block; vertical-align: bottom; } /* ---- particles.js container ---- */ #particles-js{ position:absolute; width: 100%; height: 100%; background-color: #2c2e43; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%; } /* ---- stats.js ---- */ .count-particles{ background: #080808; position: absolute; top: 48px; left: 0; width: 80px; color: #13E8E9; font-size: .8em; text-align: left; text-indent: 4px; line-height: 14px; padding-bottom: 2px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; } .js-count-particles{ font-size: 1.1em; } #stats, .count-particles{ -webkit-user-select: none; margin-top: 5px; margin-left: 5px; } #stats{ border-radius: 3px 3px 0 0; overflow: hidden; } .count-particles{ border-radius: 0 0 3px 3px; }
+<body>
+    <div class="dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <h3 class="navbar-brand" href="#">Hiader</h3>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
-#myball{
-    display: none;
-    text-align: center;
-}
-.toggler { width: 500px; height: 200px; position: relative; }
-    #button { padding: .5em 1em; text-decoration: none; }
-    #effect { width: 240px; height: 170px; padding: 0.4em; position: relative; background: #fff; }
-    #effect h3 { margin: 0; padding: 0.4em; text-align: center; }
-  
-</style>  
-<!-- particles.js container --> 
- <!-- stats - count particles -->  <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib --> <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
-<head>
-              <head>
-              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <div id='back'>
-  </div>
-  
-    <title>About me </title>
-  </head>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
 
-  <body onload='myFunction()'>
-    <div id="particles-js">
- <div id="ball" style="display:center"></div>
-  <div style="display:center;" id="myball">
-    <div class="card" style="width: 17rem;  color: rgb(226, 199, 199); background: rgb(224, 188, 24);" id="particles-js" >
-      <img class="card-img-top" src="web.png" alt="Card image cap">
-      <div class="card-body" style="background-color: rgb(224,188,24);">
-      
-        <h2 class="card-title" style="font-family: 'Courier New', Courier, monospace; color: #080808;">I am Zulqarnian Hiader</h2>
-        
-        <h5 class="card-text" style="border: #cecedb; background-color: #0a0a0a; font-family: 'Courier New', Courier, monospace;" >Expert in Web Deveploment,Programming,Database design& managment</h5>
-      <p style="font-size: large;font-family: 'Courier New', Courier, monospace; color: #080808;"> Currently student  of computer science and also work as freelencer fields like Web Deveploment experience in both Back-end & Front-end Deveploment Also here are some Projects that I have Done recently</p>
-       <a href="https://github.com/kernel-loophole" id="github">
-       <i class="fab fa-github-square fa-2x" style="display: flex; color: #080808;"></i>
-       </a >
-       <a  href="https://www.linkedin.com/in/zulqarnain-hiader-3229bb212/" style="display: flex; color: #080808;"><i class="fab fa-linkedin fa-2x"></i><span style="font-size: smaller;"></span></a>
-       <a href="https://twitter.com/Ali65165115">
-        <i class="fab fa-twitter-square fa-2x" style="display: flex; color: #080808;"></i>
-        </a>
-      </div>
-      <div style="background-color: #080808;"><h1>Programming Languages & Web Deveploment</h1>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" style="background-color: #080808; font-family: 'Courier New', Courier, monospace;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Programming
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Courier New', Courier, monospace;">
-            <a class="dropdown-item" href="#">Python</a>
-            <a class="dropdown-item" href="#">C++</a>
-            <a class="dropdown-item" href="#">Javascript
-              
-            </a>
-            <a class="dropdown-item" href="#">HTML
-              
-            </a>
-            <a class="dropdown-item" href="#">CSS
-              
-            </a>
-            <a class="dropdown-item" href="#">PHP</a>
-          </div>
-        </div>
-      </div>
-      <div style="background-color: #080808;"><h1></h1>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" style="background-color: #080808; font-family: 'Courier New', Courier, monospace;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Web Framework
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Courier New', Courier, monospace; background-color: #080808;">
-            <a class="dropdown-item" href="#">Django</a>
-            <a class="dropdown-item" href="#">vue</a>
-            <a class="dropdown-item" href="#">Node
-              
-            </a>
-          </div>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" style="background-color: #080808; font-family: 'Courier New', Courier, monospace; color: #cecedb;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Database server
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Courier New', Courier, monospace; background-color: #080808; color: #cecedb;">
-            <a class="dropdown-item" href="#">Mongodb</a>
-            <a class="dropdown-item" href="#">MYSQL</a>
-          </div>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" style="background-color: #080808; font-family: 'Courier New', Courier, monospace; color: #cecedb;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cloud base
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Courier New', Courier, monospace; background-color: #080808; color: #cecedb;">
-            <a class="dropdown-item" href="#">Kubernetes</a>
-            <a class="dropdown-item" href="#">Amazon Web Server</a>
-          </div>
-        </div>
-      </div>
-    
-      </div>
-      
-      <span>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" style="font-family: 'Courier New', Courier, monospace;">
-          <a class="nav-link active" aria-current="page" href="#home" id="home">
-            <button class="btn btn-outline-success my-2 my-sm-0">home </button></a>
-        </li>
-        <div class="dropdown">
-          <button class="btn btn-success  my-2 my-sm-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: 'Courier New', Courier, monospace;">
-            Projects
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Courier New', Courier, monospace;">
-            <a class="dropdown-item" href="#json">Django App</a>
-            <a class="dropdown-item" href="#django">json</a>
-            <a class="dropdown-item" href="#mysql">MYSQL</a>
-            <a class="dropdown-item" href="#numpy">Numerical Python</a>
-          </div>
-        </div>
-        <li class="nav-item" style="font-family: 'Courier New', Courier, monospace;">
-          <a class="nav-link" href="#github">     <button class="btn btn-outline-success my-2 my-sm-0">Links </button></a>
-        </li>
-        </ul>
-     
-    </div>
-  </div>
-</nav>
-</span>
-
-<div><h1 style="color: #cecedb; font-family: 'Courier New', Courier, monospace;"> <strong> I am <span id="typed6"></span> </strong></h1>
-        </div>
-<h1 style="color: brown;"><strong> Projects</strong></h1>
-
-<div class="card" style="width: 25rem; left: 70%; font-family: 'Courier New', Courier, monospace;" id="particles-js">
-  <a id="django">
-  <img class="card-img-top" src="django.png" alt="Card image cap">
-  <div class="card-body">
- 
-    <h5 class="card-title" style="color: brown;" >Django</h5>
-    </a>
-    <h6 class="card-subtitle mb-2 text-muted">Pizza HUT</h6>
-    <p class="card-text" style="color: #cecedb;">Using  Django(Python web framework) make a web site that will be used  for online ordering here are tools that I used.You can also check the 
-      source code of this Project
-    </p>
-    <div style="background: #080808;">
-    <ul class="list-group text-black list-group-flush" >
-      <li class="list-group-item"> Django(Python Web Framework)</li>
-      <li class="list-group-item">Bootstrap</li>
-      <li class="list-group-item">Mongodb</li>
-      <li class="list-group-item">HTML&CSS</li>
-      <li class="list-group-item">jquery</li>
-    </ul>
-    </div>
-    <a href="https://github.com/kernel-loophole/django-webapp" class="card-link"> <button class="btn btn-outline-success my-2 my-sm-0" >github</button></a>
-    <a href="http://hiader2424.pythonanywhere.com/" class="card-link"> <button class="btn btn-outline-success my-2 my-sm-0">Pizza HUT</button></a>
-    <br>
-      <div class="card-body" id="particles-js">
-        <img class="card-img-top" src="mysql.png" alt="Card image cap">
-        <a id="mysql"></a>
-        <h5 class="card-title" style="color: brown;">MYSQL</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Property Managment System</h6>
-        <p class="card-text" style="color: #cecedb;">Using MYSQL Database server for Update ,Delete and check the property Status.PHP for forms Submission  </p>
-        <div style="background: #080808;">
-          <ul class="list-group text-black list-group-flush" >
-            <li class="list-group-item"> MYSQL</li>
-            <li class="list-group-item">PHP</li>
-            <li class="list-group-item">HTML&CSS</li>
-          </ul>
-          </div>
-      </div>
-    
-  </div>
-</div>
-<div class="card" style="width: 25rem; left: 25%; font-family: 'Courier New', Courier, monospace;" id="particles-js">
-  <a id="json">
-  <img class="card-img-top" src="json.png" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title" style="color: rgb(184, 54, 49);">JSON&Python</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Record keeping with JSON</h6>
-    <p class="card-text" style="color: #cecedb;">Simple Record keeping Database in JSON format using python as high level langauge
-    check it on my github</p>
-    </a>
-    <ul class="list-group text-black list-group-flush" >
-      <li class="list-group-item">Python</li>
-      <li class="list-group-item">JSON</li>
-      <li class="list-group-item"></li>
-    </ul>
-    </div>
-    <a href="https://github.com/kernel-loophole/python-exe" class="card-link"> <button class="btn btn-outline-success my-2 my-sm-0">JSON</button></a>
-      <div class="card"  style="width: 25rem; background-color: #080808; color: #080808;"> 
-        <a id="numpy">
-        <img class="card-img-top" src="num.png" alt="Card image cap">
-      </a>
-      <div class="card-body">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                  </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">upcomming</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
         <br>
-        <h5 class="card-title" style="color: brown;">Numpy</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Python Numpy</h6>
-        <p class="card-text" style="color: #cecedb;">use of python most used library for Numerical computing and for high level Programming and Machine Learning.check it by click</p>
-        <a href="#" class="card-link"> <button class="btn btn-outline-success my-2 my-sm-0">Numpy</button></a>
-      </div>
-      </div>
-  
-  </div>
+        <br>
+    </div>
+    <div class="card" style="width: auto; background-color: black; font-weight: bold; ">
+
+        <div class="card-body" style="font-weight: bold;">
+
+            <h1 style="color:aliceblue;background-color:   black; font-size: 80px; color:brown">I AM <br>
+                <div style="color:aliceblue; font-size: 80px; color:rgb(215, 230, 9); font-weight: bold;"> <span id="typed6"></span></div>
+            </h1>
+            <!-- <h1 style="color:aliceblue;background-color: black; font-size: 80px; color:rgb(20, 245, 234);font-weight: bold;">Programmer <br>
+                <div id="ux" style="color:aliceblue; font-size: 80px; color:rgb(218, 214, 10);font-weight: bold;">Web Developer<span id="ux"></span></div>
+
+            </h1> -->
+        </div>
+        <br>
+        <br>
+        <div id="Name">Zulqarnain Hiader</div>
+    </div>
 
 
-  
-<script>
+
+    <!---------- end of main page----------->
+    <!------start of sticky icons----------->
+    <div class="sticky">
+        <a href=""><i class="fab fa-github fa-4x"></i>
+        </a>
+        <br>
+        <a href=""><i class="fab fa-twitter fa-4x"></i>
+        </a>
+        <br>
+        <a href="">
+            <i class="fab fa-linkedin fa-4x"></i>
+        </a>
+    </div>
 
 
-  var typed6 = new Typed('#typed6', {
-                strings: ['Web Developer', 'Student', 'FreeLancer','Friend','Hiader','Muslim','What you can not imagine'],
-                typeSpeed: 80,
-                backSpeed: 10,
-                loop: true
-            });
-   
+    <!------ start of PROJECTS---------->
+    <!------------------------------------>
+    <!------------------------------------>
+    <!------------------------------------>
+    <!------------------------------------>
 
-  particlesJS("particles-js", {"particles":{"number":{"value":10,"density":{"enable":true,"value_area":7000}},"color":{"value":"#1b1e34"},"shape":{"type":"polygon","stroke":{"width":0,"color":"#000"},"polygon":{"nb_sides":6}, "image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":0.3,"random":true,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":160,"random":false,"anim":{"enable":true,"speed":10,"size_min":40,"sync":false}},"line_linked":{"enable":false,"distance":200,"color":"#ffffff","opacity":1,"width":2},"move":{"enable":true,"speed":8,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":false,"mode":"grab"},"onclick":{"enable":false,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
+    <div id="story">
+        <h1 style="font-weight: bold;text-decoration:underline;">MY StorY</h1>
+        <p style="text-align: center;"> I'm a student, web developer, and expert coder all rolled into one.<br> I was born in the state of Gujarat, where I had my early education. The thing about the educational <br> system in which my studies are taking place is that there was no room
+            for creativity or thinking outside the box.<br><br> As a result, when I was in tenth grade, I never thought about what had happened. <br> But I was fortunate in that I received good grades in matriculation, not outstanding grades, <br> but
+            this is great for me and not for everyone. <br><br> I'm going to Punjab College for intermatidare education after I finish my matriculation. Also, while I was in college, <br> I didn't sure which university I should go. and what I'm better
+            at. But I didn't realise that in college.
+            <br>
+            <br> As a result, I've wasted a year because I haven't applied to any universities. <br> The following years, I applied for a slew of universities and was fortunate enough to get chosen for one. <br> where I made the decision to pursue a degree
+            in computer science.<br> This is a different account of how I came to choose computer science. <br> I am now a student of computer science.
+        </p>
+    </div>
 
-  var myVar;
+    <pre style="height: 500px; width: 700px;  align-items: center;text-align: center;"><code class="lang-css python">
+       <p style="color:red"><span id="typed5" ></span></p>
+        </code></pre>
 
-function myFunction() {
- 
-    var relativeEl = document.querySelector('#ball');
-relativeEl.style.transform = 'translateX(100px)';
+    <div id="Project">
+        <h1 style="position:center;text-align: center;font-weight: bold; ">
+            MY PROJECTS </h1>
+    </div>
+    <br>
+    <main>
 
-anime({
-  targets: '#ball',
-  loop:true,
-  translateX: {
-    value: '*=2.5', // 100px * 2.5 = '250px'
-    duration: 1000
-  },
-  width: {
-    value: '-=20px', // 28 - 20 = '8px'
-    duration: 1800,
-    easing: 'easeInOutSine'
-  },
-  rotate: {
-    value: '+=2turn', // 0 + 2 = '2turn'
-    duration: 1800,
-    easing: 'easeInOutSine'
-  },
-  direction: 'alternate'
-});
-  myVar = setTimeout(showPage, 3000);
-}
-function showPage() {
-  
-  document.getElementById("ball").style.display = "none";
-  document.getElementById("myball").style.display = "block";
-}
 
-var animation = anime({
-  targets: '.card',
-  translateX: 270,
-  direction: 'alternate',
-  loop: 4,
-  easing: 'easeInOutQuad',
-  autoplay: true
-});
+        <img src="https://doodleipsum.com/500x500/flat?i=c982bc352855beee7df64b426cf55746" alt="Card image cap">
 
-function loop(t) {
-  animation.tick(t);
-  customRAF = requestAnimationFrame(loop);
-}
-var animation1 = anime({
-  targets: '#text',
-  translateX: 270,
-  direction: 'alternate',
-  loop: 4,
-  easing: 'easeInOutQuad',
-  autoplay: true
-});
-function loop(t) {
-  animation1.tick(t);
-  customRAF = requestAnimationFrame1(loop);
-}
-requestAnimationFrame(loop);
-requestAnimationFrame1(loop);
-</script>
-</div>  
-  </body>
+        <div class="card" style="width: 40rem;">
+
+            <div class="card-body">
+                <h5 class="card-title" style="color:gray">Hospital Managment System &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <br>
+                    <br>
+                    <i class="far fa-calendar-alt"></i> 08-11 to 12-12 ,2021</h5>
+                <p class="card-text">This is my most recent project, completed in my fifth semester. So, what exactly is a hospital management system? Let me explain: a hospital management system is a simple web-based application that allows patients to register for hospital
+                    appointments. Patients can find out when a doctor is available and what his or her schedule is. After registering, the patient will receive an email and a text message confirming their registration. you may check its source code or
+                    its web site link</p>
+                <h2>Tool Used</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">MYSQL DATABASE SERVER</li>
+                    <li class="list-group-item">HTML&CSS</li>
+                    <li class="list-group-item">bootstrap</li>
+                    <li class="list-group-item">PHP</li>
+                    <li class="list-group-item">XAMPP SERVER</li>
+                </ul>
+                <a href="https://kernel-loophole.github.io/hms/"> <button type="button" class="btn btn-success">HMS</button>
+                </a>
+
+            </div>
+        </div>
+
+    </main>
+    <div id="left">
+        <div class="card" style="width: 40rem;">
+
+            <div class="card-body">
+                <h5 class="card-title" style="color:gray">Pizza Hut &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <i class="far fa-calendar-alt"></i> 20-08-2021 to 20-10-2021</h5>
+                <p class="card-text">Pizza Hut is a fantastic website for ordering pizza online. where customers may see all of the available pizzas and place their orders. After choosing one or more pizzas, the consumer must supply the whole address. such as phone, address,
+                    and email After that, the customer's order is continued. When a consumer completes an order, they will receive an automated system-generated email.</p>
+                <h2>Tool Used</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Django Framework</li>
+                    <li class="list-group-item">Python</li>
+                    <li class="list-group-item">HTML&CSS</li>
+                    <li class="list-group-item">bootstrap</li>
+                    <li class="list-group-item">Javascript</li>
+
+                </ul>
+
+                <a href="https://kernel-loophole.github.io/hms/"> <button type="button" class="btn btn-success">Pizza Hut</button>
+                </a>
+
+            </div>
+        </div>
+        <img src="https://doodleipsum.com/500x500/hand-drawn?i=9b11b7fde5591be86d8928901e68355f" alt="Card image cap">
+    </div>
+    <main>
+
+        <img src="https://doodleipsum.com/500x500/hand-drawn?i=74c909f45ddde824d103db53e2a71e63" alt="Card image cap">
+        <div class="card" style="width: 40rem;">
+
+            <div class="card-body">
+                <h5 class="card-title">Property Managment System &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <br><br><i class="far fa-calendar-alt"></i> 03-03-2020 to 03-06-202</h5>
+                <p class="card-text"> Property management is a website dedicated to real estate. where a buyer may search for available properties by price range or location. The buyer can also determine which property belongs to which owner. If a buyer wishes to contact the
+                    seller, the buyer can look up the seller's contact information.</p>
+                <h2>Tool Used</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">MYSQL DATABASE SERVER</li>
+                    <li class="list-group-item">HTML&CSS</li>
+                    <li class="list-group-item">bootstrap</li>
+                    <li class="list-group-item">PHP</li>
+                    <li class="list-group-item">XAMPP SERVER</li>
+                </ul>
+
+            </div>
+        </div>
+    </main>
+    <div id="left">
+        <div class="card" style="width: 40rem;">
+
+            <div class="card-body">
+                <h5 class="card-title">JSON AND PYTHON &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <br><br><i class="far fa-calendar-alt"></i> 02-01-2019 to 02-03-2019 </h5>
+                <p class="card-text">Keeping track of things with JSON and Python is a fantastic non-graphical application. where the user may add a person's information and it will be saved in JSON format using a Python script. Also, by searching for a person's name, the
+                    user can get a list of people who are alive.</p>
+                <h2>Tool Used</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Python</li>
+                    <li class="list-group-item">JSON</li>
+                </ul>
+                <a href="https://github.com/kernel-loophole/python-exe/blob/main/records.py"><button type="button" class="btn btn-primary">Link</button>
+</a>
+            </div>
+        </div>
+        <img src="https://doodleipsum.com/500x500/hand-drawn?i=9b11b7fde5591be86d8928901e68355f" alt="Card image cap">
+    </div>
+
+
+    <div class="contact">
+
+        <main>
+            <h1 style="color: black;text-align: center; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"> <br> JOIN <br> ME <br> FOR NEWSLETTER</h1>
+
+            <div class="card" style="width: 25rem;">
+                <img class="card-img-top" src="https://doodleipsum.com/500x500?i=3c3a259ced051ff05ebf18363560f8a3">
+                <div class="card-body">
+                    <h3 style="color: black">Email</h3>
+
+                    <input type="text" placeholder="Email">
+                    <h3 style="color: black;">Name</h3>
+                    <input type="text" placeholder="Your name ">
+                    <button type="button" class="btn btn-warning">Join</button>
+
+                </div>
+            </div>
+            <span><a href="https://www.upwork.com/freelancers/~01cc1675f50c83bd8f"><h1 id="under"><i class="fas fa-briefcase fa-1x"></i>Upwork</h1></a>
+                 <span><a href="https://github.com/kernel-loophole"><h1 id="under"> <i class="fab fa-github-alt fa-1x"></i>Github</h1></a></span>
+            <a href="https://www.linkedin.com/in/zulqarnain-hiader-3229bb212/">
+                <h1 id="under"><i class="fab fa-linkedin fa-1x"></i>Linkedin</h1>
+            </a>
+            <a href="https://www.fiverr.com/hiader_kernel?up_rollout=true">
+                <h1 id="under"><i class="fas fa-dollar-sign fa-1x"></i>Fivrr</h1>
+            </a>
+            <a href="https://kernel-loophole.github.io/This-Is-Hiader/">
+                <h1 id="under"><i class="fas fa-portrait fa-1x"></i>Another portfilo</h1>
+            </a>
+
+        </main>
+
+    </div>
+    <script>
+        let d = "\nfrom stringcolor import * \n\n  \n def test_your_name(self): \n  self.x = input(enter your name)\n   return self.x\n class teststing(unittest.TestCase): \n  : \n   ";
+        let x = "from";
+        let y = "import";
+        x.fontcolor("green")
+        var typed6 = new Typed('#typed6', {
+            strings: ['Web Developer\n'.fontcolor("green") + 'Programmer\n\n'.fontcolor("red") + "   UI/UX Designer".fontcolor("white") + " Student".fontcolor("orange")],
+            typeSpeed: 80,
+            backSpeed: 10,
+            loop: true
+        });
+
+        var typed6 = new Typed('#typed5', {
+            strings: [x.fontcolor("red") + ' logging'.fontcolor("green") + '  import'.fontcolor("red") + "    raiseExceptions\n".fontcolor("green") + "import".fontcolor("red") + "  unittest\n".fontcolor("green") + "def".fontcolor("blue") + "   sum(self):\n".fontcolor("yellow") + "    return".fontcolor("red") + "   self".fontcolor("green") + "**2\n".fontcolor("black") + "class".fontcolor("red") + "  teststing(unittest.TestCase):\n".fontcolor("yellow") + "   def".fontcolor("blue") + "  setUp(self)\n".fontcolor("yellow") + "      self.".fontcolor("green") + "  widget".fontcolor("black") + "(The widget)\n".fontcolor("black") + "if".fontcolor("red") + "__name__".fontcolor("green") + "==" + "main():\n" + "  x= sum(10)\n" + "  print".fontcolor("green") + "(x)"],
+            typeSpeed: 30,
+            backSpeed: 20,
+            loop: true
+        });
+    </script>
+</body>
+
 </html>
-
