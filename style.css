@@ -169,12 +169,13 @@ main {
     justify-content: left;
     gap: 10vmax 10vmin;
     text-align: justify;
+    background-color: rgb(15, 175, 122);
 }
-
+/* 
 main:hover {
     background-color: rgb(14, 224, 189);
     font-size: larger;
-}
+} */
 
 #left {
     text-align: justify;
@@ -373,7 +374,7 @@ button {
 }
 
 button:hover {
-    color: green;
+    color: rgb(131, 6, 6)
 }
 
 #Project:hover {
