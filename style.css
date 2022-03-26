@@ -8,6 +8,7 @@
 }
 
 html {
+
     /* light */
     --brand-light: var(--orange-6);
     --text1-light: var(--gray-8);
