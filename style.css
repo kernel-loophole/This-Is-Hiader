@@ -169,17 +169,17 @@ main {
     justify-content: left;
     gap: 10vmax 10vmin;
     text-align: justify;
-    background-color: rgb(15, 175, 122);
 }
-/* 
+
 main:hover {
     background-color: rgb(14, 224, 189);
     font-size: larger;
-} */
+}
 
 #left {
     text-align: justify;
     left: 20px;
+    height: auto;
     display: flex;
     flex-flow: row wrap;
     align-items: right;
@@ -198,7 +198,6 @@ main:hover {
 #left:hover {
     background-color: green;
     color: rgb(104, 97, 207);
-    font-family: 'Licorice', cursive;
 }
 
 .sticky {
@@ -219,13 +218,6 @@ p {
     font-size: 1.25rem;
     line-height: 1.5;
     text-align: justify;
-}
-
-p:hover {
-    font-size: larger;
-    color: rgb(15, 141, 68);
-    font-family: 'Times New Roman', Times, serif;
-    font-size: larger;
 }
 
 form {
@@ -374,7 +366,7 @@ button {
 }
 
 button:hover {
-    color: rgb(131, 6, 6)
+    color: green;
 }
 
 #Project:hover {
@@ -386,7 +378,7 @@ button:hover {
     text-align: center;
     align-items: center;
     background-color: black;
-    color: wheat;
+    color: grgb(108, 231, 104);
 }
 
 pre {
@@ -530,4 +522,108 @@ pre[class*="language-"] {
 
 #under:hover {
     text-decoration: underline;
+}
+
+:root {
+    --background-color: #3a3e4f;
+    --card-color: #282a36;
+    --text-color: #f8f8f2;
+    --clr-green: #a0faa6;
+    --clr-blue: #8bfbf5;
+    --clr-pink: #ff79c6;
+    --clr-purple: #9b70c6;
+    --clr-yellow: #f1fa94;
+    --gradient: linear-gradient( 244deg, #9b70c6 2%, #8bfbf5 49%, #a0faa6 71%, #f1fa94 100%);
+}
+
+body {
+    background: var(--background-color);
+    font-family: Helvetica, atial, sans-serif;
+    color: var(--text-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    height: 100vh;
+    gap: 3vh;
+}
+
+h2 {
+    align-self: center;
+    margin: auto;
+}
+
+.card {
+    display: flex;
+    width: 18rem;
+    height: 24rem;
+    position: relative;
+    background-color: var(--card-color);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    align-self: center;
+    overflow: hidden;
+}
+
+.card1::after {
+    content: "";
+    font-size: 20px;
+    color: var(--clr-yellow);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: var(--clr-yellow);
+    transform: translateY(80%);
+    transition: ease 0.8s;
+    height: 100%;
+    border-radius: 0px 0px 10px 10px;
+    z-index: 2000;
+}
+
+.card1:hover::after {
+    transform: translateY(0%);
+    color: black;
+}
+
+.card2 {
+    background-image: var(--gradient);
+    color: black;
+}
+
+.card2::after {
+    content: "";
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    width: 101%;
+    height: 101%;
+    transform: translateX(-70%) translateY(-90%);
+    transition: ease 0.7s;
+    position: absolute;
+    border-radius: 10px;
+    background-color: #282a36;
+}
+
+.card2:hover::after {
+    transform: translate(0);
+    border-radius: 10px;
+}
+
+.card3::after {
+    content: "";
+    font-size: 20px;
+    writing-mode: vertical-rl;
+    text-align: left;
+    color: black;
+    width: 100%;
+    height: 100%;
+    transform: translateX(90%);
+    transition: ease 0.7s;
+    position: absolute;
+    border-radius: 0px 0px 10px;
+    background-color: var(--clr-purple);
+}
+
+.card3:hover::after {
+    transform: translateX(0%);
+    border-radius: 10px;
 }
