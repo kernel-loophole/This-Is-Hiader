@@ -164,7 +164,7 @@ h2 {
 .card {
     display:inline-flex;
     width: 18rem;
-    height: 24rem;
+    height: 25rem;
     background-color: var(--card-color);
     align-self: center;
     overflow: hidden;
