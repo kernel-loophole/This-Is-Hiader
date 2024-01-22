@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GPT-3 & APPS script</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-actionscript.min.js" integrity="sha512-YSZLJbdXeh9n0X0aJAuJUk8ArMBEu1F0LQPeiydyVXUMlJ2QZPAFzp/84lkxk9M0NpTJ5aSEUTlbsC4UoUpwYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css" integrity="sha512-bd1K4DEquIavX49RSZHIE0Ye6RFOVlGLhtGow9KDbLYqOd/ufhshkP0GoJoVR1jqj7FmOffvVIKuq1tcXlN9ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 28px;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+		img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>OpenAI API & Apps Script</h1>
+		<p>Posted on April 1, 2023 by Zulqarnain</p>
+	</header>
+	
+	<main>
+		<section>
+			<h2>Introduction</h2>
+			<p>n this blog post, we'll explore how you can integrate GPT-3 and Google Apps Script to create powerful automation solutions. GPT-3 is a language model developed by OpenAI that can generate human-like text, while Apps Script is a scripting platform provided by Google to automate tasks and extend Google Workspace applications. 
+                <div> By combining these two technologies, you can build custom applications 
+                and workflows that leverage GPT-3's language generation capabilities, such as chatbots or document generators. This post will provide an introduction to both technologies and show some examples of how they can work together to improve productivity and efficiency.</div></p>
+		</section>
+		
+		<section>
+			<h2></h2>
+			<p>If you're interested in natural language processing (NLP) and automation, you might have heard of GPT-3 and Google Apps Script. GPT-3 is a powerful language model developed by OpenAI, capable of generating human-like text with impressive accuracy and fluency. 
+                Apps Script, on the other hand, is a scripting platform provided by Google to automate tasks and extend Google Workspace (formerly G Suite) applications such as Google Sheets, Docs, and Forms.
+
+                At first glance, these two technologies might seem unrelated, but in fact, they can complement each other in interesting ways. 
+                With Apps Script, you can build custom applications and workflows that leverage the language generation capabilities of GPT-3, creating powerful and flexible tools that can automate complex tasks and improve productivity. 
+            <div> For example, you could build a chatbot that uses GPT-3 to provide intelligent responses to users' inquiries, or a document generator that uses GPT-3 to write reports or summaries based on data entered in a Google Sheet.
+                
+                In this blog post, we'll explore how you can integrate GPT-3 and Apps Script to create intelligent and efficient automation solutions. We'll cover the basics of both technologies and show some examples of how they can work together. 
+                Whether you're a developer, a data analyst, or a business user looking to streamline your workflows, this post will give you some ideas on how to harness the power of NLP and automation with GPT-3 and Apps Script.</div></p>
+			
+		</section>
+		<p><h2>code for apps script</h2>
+            <pre>
+                <code class="language-javascript">
+                    function askChatGPT(question) {
+                        var apiKey = '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';
+                        var url = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+                        
+                        var payload = {
+                          'prompt': question,
+                          'max_tokens': 150,
+                          'temperature': 0.7
+                        };
+                        
+                        var headers = {
+                          'Content-Type': 'application/json',
+                          'Authorization': 'Bearer ' + apiKey
+                        };
+                        
+                        var options = {
+                          'method': 'post',
+                          'headers': headers,
+                          'payload': JSON.stringify(payload)
+                        };
+                        
+                        var response = UrlFetchApp.fetch(url, options);
+                        var result = JSON.parse(response.getContentText());
+                        return result;
+                        // return result.choices[0].text;
+                      }
+                      
+                </code>
+                </pre>
+        </p>
+		<section>
+			<h2 style="text-decoration: underline;">Steps</h2>
+			<h1>Configuring Google Apps Script with GPT-3</h1>
+	<ol>
+		<li>Sign up for GPT-3: To use GPT-3 with Google Apps Script, you'll need to sign up for the API at the OpenAI website. This will give you access to the API key and other necessary credentials to use the language model.</li>
+		<li>Install and enable the Apps Script API: You'll also need to install and enable the Apps Script API in your Google Cloud Console project. This will allow your script to interact with your Google Workspace applications and use the GPT-3 API.</li>
+		<li>Create a new script project: In Google Apps Script, create a new script project and name it. This project will contain the code that interacts with GPT-3 and the Google Workspace applications.</li>
+		<li>Install the GPT-3 library: In the script editor, go to the "Resources" menu and click "Libraries". Then, search for the "GPT-3" library and add it to your project. This will allow you to use GPT-3's API functions directly in your code.</li>
+		<li>Set up authorization: Next, you'll need to set up authorization for your script to use the GPT-3 and Google Workspace APIs. Follow the prompts to authorize your script to access the necessary APIs.</li>
+		<li>Write your code: With the libraries installed and authorized, you can now write your code that uses GPT-3 to generate text or interact with Google Workspace applications. You can find sample code and documentation for the GPT-3 library on the OpenAI website.</li>
+		<li>Test your script: Finally, test your script to make sure it works as expected. You can run the script from the script editor or create a trigger to run it automatically based on a specific event or schedule.</li>
+	</ol>
+	<p>By following these steps, you can configure Google Apps Script to work with GPT-3 and create powerful automation solutions that leverage the language generation capabilities of GPT-3 and the productivity features of Google Workspace applications.</p>
+    <h2>Learn More wanted to access file <a href="/media/testing file.xlsx"> check out file </a></h2>
+        </section>
+    </main>
+</body>
+</html>
