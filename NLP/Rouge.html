@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unlocking the Power of ROUGE in NLP: Evaluating Text Summarization and Beyond</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-actionscript.min.js" integrity="sha512-YSZLJbdXeh9n0X0aJAuJUk8ArMBEu1F0LQPeiydyVXUMlJ2QZPAFzp/84lkxk9M0NpTJ5aSEUTlbsC4UoUpwYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css" integrity="sha512-bd1K4DEquIavX49RSZHIE0Ye6RFOVlGLhtGow9KDbLYqOd/ufhshkP0GoJoVR1jqj7FmOffvVIKuq1tcXlN9ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 28px;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+		img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		
+		<h1>Unlocking the Power of ROUGE in NLP</h1>
+		<p>Posted on April 1, 2023 by Zulqarnain</p>
+	</header>
+	
+	<main>
+		<section>
+			<h2>Introduction</h2>
+<p>In the realm of Natural Language Processing (NLP), the quest for evaluating the effectiveness of automatic summarization algorithms has given rise to various metrics, and one that stands out is ROUGE – a Recall-Oriented Understudy for Gisting Evaluation. Let's delve into the world of ROUGE and explore its significance in shaping the landscape of NLP evaluations.</p>
+		</section>
+		
+		<section>
+			<h2>ROUGE  Overview</h2>
+			<p>ROUGE comprises a suite of metrics designed to measure the quality of summaries by assessing the overlap of words or n-grams between the generated summary and reference summaries. Among the commonly used measures are ROUGE-N, ROUGE-L, and ROUGE-W.</p>
+			<img src="media/Rouge.png" alt="Description of the image">
+			<p>The formula you've presented is part of the computation for the BLEU (Bilingual Evaluation Understudy) score, a metric commonly used in natural language processing (NLP) and machine translation evaluation. This formula specifically addresses the calculation of the precision component of the BLEU score</p>
+		</section>
+        <section>
+			<h2>Understanding ROUGE Metrics</h2>
+			<p>ROUGE comprises a suite of metrics designed to measure the quality of summaries by assessing the overlap of words or n-grams between the generated summary and reference summaries. Among the commonly used measures are ROUGE-N, ROUGE-L, and ROUGE-W.</p>
+            <li>
+                ROUGE-N: This metric evaluates the overlap of n-grams, providing insights into how well the generated summary captures the essence of the reference summary in terms of word sequences.
+            </li>
+            <li>
+                ROUGE-L: Focused on the Longest Common Subsequence (LCS), ROUGE-L emphasizes the importance of preserving the order of words in the generated summary compared to the reference summary.
+            </li>
+            <li>
+                ROUGE-W: Weighted overlap of words is the focus here, offering a nuanced evaluation that considers the importance of individual words in the summaries.
+            </li>
+        </section>
+		<section>
+		<h2> Challenges and Considerations</h2>
+        <p>
+
+While ROUGE provides valuable insights, it is not without its challenges. Critics argue that relying solely on automated metrics might not fully capture the nuances of human language. Balancing precision and recall, and accounting for semantic understanding, remain ongoing challenges in NLP evaluation.
+        </p>
+        </section>
+<section>
+    <h1>Example for ROUGE Metric Calculation</h1>
+
+  <p>Let's consider a simple example to illustrate the calculation of a component of the ROUGE metric using the provided formula. Assume we have a set of sentences C:</p>
+
+  <pre>
+    C = {
+      "The quick brown fox jumps over the lazy dog",
+      "A brown dog jumps over a lazy fox"
+    }
+  </pre>
+
+  <p>For simplicity, let's focus on bigrams (2-grams) and consider the generated summary and reference summary to be the same:</p>
+
+  <pre>Generated Summary: "The quick brown fox jumps over the lazy dog"</pre>
+  <pre>Reference Summary: "The quick brown fox jumps over the lazy dog"</pre>
+
+  <p>Now, let's apply the formula:</p>
+
+  <pre>
+    ∑snt'∈C ∑n-gram∈snt' Countmatch(n-gram)
+    ∑snt'∈C ∑n-gram∈snt' Count(n-gram)
+  </pre>
+
+  <p>For the sake of this example, let's focus on the bigrams "The quick," "quick brown," "brown fox," and so on.</p>
+
+  <ol>
+    <li><strong>Countmatch("The quick"):</strong> This counts how many times the bigram "The quick" appears in both the generated and reference summaries. In this case, it's 1.</li>
+    <li><strong>Count("The quick"):</strong> This counts the total occurrences of the bigram "The quick" in the reference summary. In this case, it's 1.</li>
+  </ol>
+
+  <p>Repeat this process for all relevant bigrams. In this simplified example, all bigrams in the generated summary match with those in the reference summary, so the counts are the same for all, resulting in a perfect match.</p>
+
+  <p>Finally, sum up these counts for all sentences and bigrams in the set C, and use them to calculate the ROUGE metric, typically precision, recall, or F1 score, depending on the specific ROUGE measure being considered.</p>
+
+</section>
+	<section>
+		<h2>This can be Done using Huggingface Dataset Module</h2>
+		<p>
+		<pre>
+			<code class="language-javascript">
+				    """"
+                    import datasets
+                    from transformers import pipeline
+                    from nltk.translate.bleu_score import corpus_bleu, SmoothingFunction
+                    from nltk.translate.bleu_score import sentence_bleu
+                    
+                    # Load a dataset from Hugging Face Datasets
+                    dataset = datasets.load_dataset("cnn_dailymail", "3.0.0")
+                    
+                    # Example references and hypotheses
+                    references = dataset["test"]["highlights"][:10]  # Replace with your actual reference summaries
+                    hypotheses = dataset["test"]["article"][:10]  # Replace with your actual generated summaries
+                    
+                    # Compute BLEU scores using NLTK
+                    smoothie = SmoothingFunction().method4  # Define a smoothing function
+                    bleu_scores = corpus_bleu([[ref.split()] for ref in references], [hyp.split() for hyp in hypotheses], smoothing_function=smoothie)
+                    
+                    # Print BLEU scores
+                    print(f"BLEU Score: {bleu_scores * 100:.2f}%")
+                    
+                    # Alternatively, you can compute BLEU scores for each example individually
+                    individual_bleu_scores = [sentence_bleu([ref.split()], hyp.split(), smoothing_function=smoothie) * 100 for ref, hyp in zip(references, hypotheses)]
+                    for i, score in enumerate(individual_bleu_scores):
+                        print(f"Example {i + 1}: BLEU Score: {score:.2f}%")
+                    
+			</code>
+			</pre>
+	</p>
+	
+</section>
+<section>
+    <h2>The Future of ROUGE</h2>
+    <p>
+        As NLP continues to evolve, so does the need for robust evaluation metrics. ROUGE, with its focus on recall and gist, is likely to remain a key player in the evaluation landscape.
+         However, researchers are actively exploring ways to enhance its capabilities and address its limitations.
+        
+        In conclusion, ROUGE stands as a crucial instrument in the toolkit of NLP researchers and practitioners. As the field advances, so too will the sophistication of evaluation metrics, ensuring that our automated systems continue to strive for linguistic excellence.</p>
+</section>
+    </main>
+</body>
+</html>

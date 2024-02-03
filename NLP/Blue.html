@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unraveling the Power of BLEU Metric in NLP Evaluation</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-actionscript.min.js" integrity="sha512-YSZLJbdXeh9n0X0aJAuJUk8ArMBEu1F0LQPeiydyVXUMlJ2QZPAFzp/84lkxk9M0NpTJ5aSEUTlbsC4UoUpwYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css" integrity="sha512-bd1K4DEquIavX49RSZHIE0Ye6RFOVlGLhtGow9KDbLYqOd/ufhshkP0GoJoVR1jqj7FmOffvVIKuq1tcXlN9ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="C:\Users\kerneloop\Desktop\This-Is-Hiader\style.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 28px;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+		img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		
+		<h1>BLEU Metric in NLP Evaluation</h1>
+		<p>Posted on April 1, 2023 by Zulqarnain</p>
+	</header>
+	
+	<main>
+		<section>
+			<h2>Introduction</h2>
+			<p>Natural Language Processing (NLP) has witnessed remarkable advancements in recent years, with machine-generated text playing a pivotal role in tasks such as machine translation, summarization, and text generation. Evaluating the quality of these generated texts is crucial, and one of the widely adopted metrics for this purpose is BLEU (Bilingual Evaluation Understudy).</p>
+		</section>
+		
+		<section>
+			<h2>BLEU Metric Overview</h2>
+			<p>BLEU, introduced as a metric for machine translation evaluation, has since become a standard in assessing the efficacy of various NLP models. Its core principle involves comparing the similarity between the machine-generated text and one or more human-generated reference texts.</p>
+			<img src="media\blue_for.png" alt="Description of the image">
+			<p>The formula you've presented is part of the computation for the BLEU (Bilingual Evaluation Understudy) score, a metric commonly used in natural language processing (NLP) and machine translation evaluation. This formula specifically addresses the calculation of the precision component of the BLEU score</p>
+		</section>
+        <section>
+			<h2>Precision Calculation</h2>
+			<p>
+
+				At the heart of BLEU lies precision calculation. The metric assesses how well the generated text aligns with the reference texts, employing n-grams (sequential word sequences) for the comparison. BLEU measures precision by counting overlapping n-grams, where n can vary from unigrams to higher-order n-grams like bigrams or trigrams.</p>
+		</section>
+		<section>
+			<h2>			Modified n-gram Precision:
+			</h2>
+<p>BLEU considers modified precision for different n-grams, contributing to a nuanced evaluation. By incorporating multiple n-grams, the metric provides a more comprehensive assessment of the generated text's quality.
+	</p></section>
+	<section>
+		<h2>Example</h2>
+		<p>To illustrate the workings of the BLEU metric, let's consider a machine translation task where the goal is to translate the English sentence "The cat is on the mat" into French. Assume the machine generates the following output: "Le chat est sur le tapis."
+
+		</p>
+		<h3>Precision Calculation:</h3>
+		<li>
+			<strong> Precision:</strong> Both "le" and "chat" appear in the reference translation, so the precision for unigrams is 2/6.
+			</li>
+			<li>
+				<strong>  Bigrams</strong> "le chat" and "chat est" appear in both the generated and reference text, resulting in a precision of 2/5.
+			</li>
+			<li><strong>Trigram</strong> There are no matching trigrams in this example.</li>
+	</section>
+	<section>
+		<h2>This can be Done using Huggingface Dataset Module</h2>
+		<p>
+		<pre>
+			<code class="language-javascript">
+				    """"
+				from datasets import load_metric
+				import numpy as np
+				bleu_metric = load_metric("sacrebleu")
+				bleu_metric.add(prediction="the the the the the the", reference=["the cat is on the mat"])
+				results = bleu_metric.compute(smooth_method="floor", smooth_value=0)
+				results["precisions"] = [np.round(p, 2) for p in
+				results["precisions"]]
+			</code>
+			</pre>
+	</p>
+	<a href="https://huggingface.co/spaces/evaluate-metric/bleu">This is Playground for more info</a>
+</section>
+<section>
+<h2>Limitations and Considerations</h2>
+<p>
+
+	While BLEU is a valuable metric, it is not without limitations. BLEU primarily focuses on surface-level similarities and does not capture semantic meaning or fluency in the generated text. Therefore, using BLEU in conjunction with other evaluation metrics is advisable for a more well-rounded assessment.</p>
+</section>
+    </main>
+</body>
+</html>
