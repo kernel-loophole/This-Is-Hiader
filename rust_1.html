@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unraveling the Power of BLEU Metric in NLP Evaluation</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-actionscript.min.js" integrity="sha512-YSZLJbdXeh9n0X0aJAuJUk8ArMBEu1F0LQPeiydyVXUMlJ2QZPAFzp/84lkxk9M0NpTJ5aSEUTlbsC4UoUpwYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css" integrity="sha512-bd1K4DEquIavX49RSZHIE0Ye6RFOVlGLhtGow9KDbLYqOd/ufhshkP0GoJoVR1jqj7FmOffvVIKuq1tcXlN9ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 28px;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+		img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		
+		<h1>Understanding Rust Ownership: A Deep Dive into Memory Safety</h1>
+		<p>Posted on April 25, 2023 by Zulqarnain</p>
+	</header>
+	
+	<main>
+		<section>
+			<h2>Introduction</h2>
+<p>Enter Rust – a modern systems programming language designed with a strong focus on safety, concurrency, and performance. At the heart of Rust's memory management model lies the concept of ownership, a set of rules that govern how memory is allocated, accessed, and freed within the program. In this blog post, we'll take a deep dive into Rust ownership and explore how it ensures memory safety without the need for a garbage collector.
+</p>
+</section>	
+		
+	
+	<section>
+		<h2>Example</h2>
+		<p>
+		<pre>
+			<code class="language-javascript">
+				    """"
+                    fn main() {
+                        let s = String::from("Hello, Rust!");
+                    
+                        // Ownership of s is transferred to s2
+                        let s2 = s;
+                    
+                        // This line will cause a compile-time error
+                        println!("{}", s);
+                    }
+                    
+			</code>
+			</pre>
+	</p>
+
+</section>
+<section>
+<p>In this example, the ownership of the String s is transferred to s2 when we perform the assignment let s2 = s;. As a result, s is no longer valid, and attempting to use it will result in a compile-time error. This behavior ensures that there are no dangling references or use-after-free errors in Rust programs.</p>
+</section>
+<section>
+    <h2>Borrowing and References</h2>
+    <p>While ownership provides strong guarantees about memory safety, it can be restrictive in certain scenarios. Rust addresses this limitation through borrowing and references, allowing multiple parts of the code to access data without transferring ownership.</p>
+</section>
+<section>
+    <h2>Example</h2>
+    <p>
+    <pre>
+        <code class="language-javascript">
+                """"
+                fn main() {
+                    let s = String::from("Hello, Rust!");
+                
+                    // Create a reference to s
+                    let len = calculate_length(&s);
+                
+                    println!("Length of '{}' is {}", s, len);
+                }
+                
+                fn calculate_length(s: &String) -> usize {
+                    s.len()
+                }
+                
+                
+        </code>
+        </pre>
+</p>
+<p>In this example, calculate_length takes a reference to the String s rather than taking ownership of it. This allows the function to access the value without transferring ownership. References in Rust are immutable by default, meaning they cannot modify the data they refer to, thus ensuring memory safety.</p>
+
+</section>
+<h2>Ownership and Mutability</h2>
+<p>Rust's ownership model also extends to mutable references, allowing safe concurrent access to data. However, it enforces strict rules to prevent data races and mutable aliasing.
+    rust
+    </p>
+<section>
+    <h2>Example</h2>
+    <p>
+    <pre>
+        <code class="language-javascript">
+                """"
+                fn main() {
+                    let mut s = String::from("Hello, Rust!");
+                
+                    // Mutable reference to s
+                    change_string(&mut s);
+                
+                    println!("{}", s);
+                }
+                
+                fn change_string(s: &mut String) {
+                    s.push_str(", World!");
+                }
+                
+                
+        </code>
+        </pre>
+</p>
+<p>In this example, change_string takes a mutable reference to String, denoted by &mut. This allows the function to modify the value of s without transferring ownership. However, Rust ensures that there is only one mutable reference to a piece of data in a particular scope, preventing data races at compile time.</p>
+</section>
+
+    </main>
+</body>
+</html>
