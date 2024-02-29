@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exploring Rust: Strings and Integers</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-actionscript.min.js" integrity="sha512-YSZLJbdXeh9n0X0aJAuJUk8ArMBEu1F0LQPeiydyVXUMlJ2QZPAFzp/84lkxk9M0NpTJ5aSEUTlbsC4UoUpwYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css" integrity="sha512-bd1K4DEquIavX49RSZHIE0Ye6RFOVlGLhtGow9KDbLYqOd/ufhshkP0GoJoVR1jqj7FmOffvVIKuq1tcXlN9ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 28px;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+		img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		
+		<h1>Introduction</h1>
+		<p>Posted on April 29, 2023 by Zulqarnain</p>
+	</header>
+	
+	<main>
+		<section>
+			<h2>Introduction</h2>
+<p>Rust is a modern systems programming language that offers strong safety guarantees while providing high performance. One of the key aspects of Rust is its strong type system, which ensures memory safety without sacrificing performance. In this blog post, we'll delve into how Rust handles strings and integers, two fundamental data types in programming, and explore some of the unique features and capabilities Rust offers in this regard.</p>
+<img src="media/rust ar.png" alt="Description of the image">
+</section>	
+		
+	
+	<section>
+		<h2>Strings in Rust</h2>
+		<p>
+            In Rust, strings are represented by the String type, which is a growable, mutable, UTF-8 encoded string. Rust's approach to strings is quite different from languages like C or C++, where strings are represented as arrays of characters.
+		<pre>
+			<code class="language-javascript">
+				    """"
+                    fn main() {
+                        let greeting = String::from("Hello, world!");
+                        println!("{}", greeting);
+                    }
+                    
+                    
+			</code>
+			</pre>
+	</p>
+
+</section>
+
+<section>
+	<p>    In the above example, we create a new String object called greeting and initialize it with the text "Hello, world!". We then print the string using println! macro.</p>
+
+</section>
+<section>
+    <h2>Example</h2>
+    <pre>
+        <code class="language-javascript">
+                """"
+                fn main() {
+                    let s = String::from("hello");
+                    let slice = &s[0..2]; // slice will be "he"
+                    println!("{}", slice);
+                }
+                
+                
+        </code>
+        </pre>
+
+<p>This feature allows for efficient string manipulation without unnecessary memory allocations.
+    Rust also offers a variety of methods for working with strings, such as push_str, pop, replace, trim, etc., making it easy to perform common string operations.</p>
+</section>
+<section>
+	<h2>Integers in Rust</h2>
+	<p>Rust provides a rich set of integer types, each with its own specific size and behavior. Here are some of the integer types available in Rust: <br>
+		i8, i16, i32, i64, i128: <br>Signed integers with 8, 16, 32, 64, and 128 bits respectively.
+		u8, u16, u32, u64, u128:<br> Unsigned integers with 8, 16, 32, 64, and 128 bits respectively.
+		isize and usize: Signed and unsigned integers with the size of a pointer on the target architecture.</p>
+	
+	<h2>Example</h2>
+    <p>
+    <pre>
+        <code class="language-javascript">
+                """"
+                fn main() {
+                    let decimal = 98_222;
+                    let hex = 0x_dead_beef;
+                    let octal = 0o77;
+                    let binary = 0b1111_0000;
+                }
+                                
+        </code>
+        </pre>
+</p>
+<h2>Conclusion</h2>
+<p>
+    Rust's approach to strings and integers reflects its design principles of safety, performance, and expressiveness. By providing powerful abstractions and compile-time checks, Rust empowers developers to write efficient and safe code while avoiding common pitfalls associated with these fundamental data types. Whether you're building systems software, web applications, or anything in between, Rust's robust support for strings and integers makes it a compelling choice for a wide range of programming tasks.</p>
+</section>
+    </main>
+</body>
+</html>
