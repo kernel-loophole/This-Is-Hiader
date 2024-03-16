@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unraveling the Power of BLEU Metric in NLP Evaluation</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-actionscript.min.js" integrity="sha512-YSZLJbdXeh9n0X0aJAuJUk8ArMBEu1F0LQPeiydyVXUMlJ2QZPAFzp/84lkxk9M0NpTJ5aSEUTlbsC4UoUpwYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css" integrity="sha512-bd1K4DEquIavX49RSZHIE0Ye6RFOVlGLhtGow9KDbLYqOd/ufhshkP0GoJoVR1jqj7FmOffvVIKuq1tcXlN9ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 28px;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 20px;
+		}
+		img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		
+		<h1> Mapping the Landscape of Information</h1>
+		<p>Posted on March 1, 2024 by Zulqarnain</p>
+	</header>
+	
+	<main>
+		<section>
+<p> Python, with its rich ecosystem of natural language processing (NLP) libraries, provides powerful tools for extracting meaning from text. In this blog post, we delve into a Python code snippet that demonstrates the application of NLP techniques for news mining.</p>
+		</section>
+		
+
+        <section>
+			<h2>The Building Blocks of Knowledge Graphs</h2>
+			<p>  <strong style="color: rgb(181, 181, 219);">
+                Nodes:
+                </strong>
+                <br>
+                <strong>
+                Entities:
+            </strong> Represent real-world objects like people, organizations, products, etc.
+            <br>
+                <strong>Concepts</strong>: Abstract ideas or categories that help organize information.
+                <br>
+                <strong style="color: black;">
+                Edges:
+            </strong>
+                <br>
+                <strong>Relationships</strong>: Define how entities are connected or associated with each other.
+                <strong>Attributes</strong>: Provide additional details or properties about nodes.
+                <br>
+                <strong>
+                Properties</strong>:
+                Key-Value Pairs: Store specific attributes or characteristics of nodes and edges.</p>
+		</section>
+		
+	<section>
+<p>        While knowledge graphs offer immense potential, several challenges persist, including data integration, quality assurance, and scalability. Achieving interoperability and ensuring data consistency across diverse sources remain ongoing concerns. Moreover, as knowledge graphs scale in size and complexity, addressing computational and storage requirements becomes paramount.
+</p>
+<p>
+    Looking ahead, advancements in graph database technology, machine learning, and semantic web standards promise to overcome these obstacles, unlocking new possibilities for knowledge representation and reasoning. From dynamic schema evolution to probabilistic reasoning, the evolution of knowledge graphs is poised to revolutionize how we perceive and interact with information.
+</p>
+    </section>
+
+    <h2>module import</h2>
+    <p>
+    <pre>
+        <code class="language-javascript">
+                """"
+                import re
+                from collections import Counter
+                import spacy
+                import json
+                # from BFS import read_json_file
+                from graph_show import GraphShow
+                from textrank import TextRank
+                from textrank import TextrankGraph             
+                
+        </code>
+        </pre>
+</p>
+<h2>Main class which built the graph </h2>
+    <p>
+    <pre>
+        <code class="language-javascript">
+                """"
+                nlp = spacy.load('en_core_web_lg')
+
+                # Define a class for news mining
+                class NewsMining():
+                    """News Mining"""
+                    
+                    def __init__(self):
+                        # Initialize TextRank for keyword extraction
+                        self.textranker = TextRank()
+                        self.events = []  # Store extracted events
+                        self.result_dict = {}  # Store NER results
+                        self.ners = ['PERSON', 'ORG', 'GPE']  # Named Entity Recognition (NER) tags
+                        # Mapping of NER tags to categories
+                        self.ner_dict = {
+                            'PERSON': 'Person',
+                            'ORG': 'Organization',
+                            'GPE': 'Location',
+                        }
+                        # Dependency markers for subjects and objects
+                        self.SUBJECTS = {"nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"}
+                        self.OBJECTS = {"dobj", "dative", "attr", "oprd"}
+                        self.graph_shower = GraphShow()  # Object for displaying graphs
+                        
+                    # Method to clean spaces in text
+                    def clean_spaces(self, s):
+                        s = s.replace('\r', '')
+                        s = s.replace('\t', ' ')
+                        s = s.replace('\n', ' ')
+                        return s
+                    
+                    # Method to remove noisy characters
+                    def remove_noisy(self, content):
+                        """Remove brackets"""
+                        p1 = re.compile(r'（[^）]*）')
+                        p2 = re.compile(r'\([^\)]*\)')
+                        return p2.sub('', p1.sub('', content))
+                
+                    # Method to collect named entities
+                    def collect_ners(self, ents):
+                        """Collect tokens only with PERSON, ORG, GPE"""
+                        collected_ners = []
+                        for token in ents:
+                            if token.label_ in self.ners:
+                                collected_ners.append(token.text + '/' + token.label_)
+                        return collected_ners
+                                
+        </code>
+        </pre>
+</p>
+<h1>Exploring News Mining with Python</h1>
+    <p>This code snippet demonstrates a Python script for news mining using natural language processing (NLP) techniques.</p>
+    
+    <h2>Loading the SpaCy Model</h2>
+    <p>The following line initializes the SpaCy language model for English language processing:</p>
+    <pre><code>nlp = spacy.load('en_core_web_lg')</code></pre>
+    <p>The model loaded here is 'en_core_web_lg', which is a large English language model trained on web text data.</p>
+
+    <h2>Defining the NewsMining Class</h2>
+    <p>The code defines a Python class named <code>NewsMining</code>, encapsulating functionality related to news mining:</p>
+    <pre><code>class NewsMining():
+    """News Mining"""</code></pre>
+    
+    <h2>Initializing the NewsMining Class</h2>
+    <p>The constructor method (<code>__init__</code>) initializes various attributes of the <code>NewsMining</code> class:</p>
+    <pre><code>def __init__(self):
+    # Initialize TextRank for keyword extraction
+    self.textranker = TextRank()
+    self.events = []  # Store extracted events
+    self.result_dict = {}  # Store NER results
+    self.ners = ['PERSON', 'ORG', 'GPE']  # Named Entity Recognition (NER) tags
+    # Mapping of NER tags to categories
+    self.ner_dict = {
+        'PERSON': 'Person',
+        'ORG': 'Organization',
+        'GPE': 'Location',
+    }
+    # Dependency markers for subjects and objects
+    self.SUBJECTS = {"nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"}
+    self.OBJECTS = {"dobj", "dative", "attr", "oprd"}
+    self.graph_shower = GraphShow()  # Object for displaying graphs</code></pre>
+
+    <h2>Additional Methods</h2>
+    <p>The code snippet also includes additional methods such as <code>clean_spaces</code>, <code>remove_noisy</code>, and <code>collect_ners</code>, which perform tasks like cleaning text, removing noisy characters, and collecting named entities, respectively.</p>
+    <h1>Explanation of Python Code for News Mining</h1>
+
+    <h2>Extracting Triples</h2>
+    <p>The <code>extract_triples</code> method takes a sentence as input and returns Subject-Verb-Object (SVO) triples:</p>
+    <pre><code>def extract_triples(self, sent):
+    svo = []
+    tuples = self.syntax_parse(sent)
+    child_dict_list = self.build_parse_chile_dict(sent, tuples)
+    for tuple in tuples:
+        rel = tuple[-1]
+        if rel in self.SUBJECTS:
+            sub_wd = tuple[1]
+            verb_wd = tuple[3]
+            obj = self.complete_VOB(verb_wd, child_dict_list)
+            subj = sub_wd
+            verb = verb_wd.text
+            if not obj:
+                svo.append([subj, verb])
+            else:
+                svo.append([subj, verb + ' ' + obj])
+    return svo</code></pre>
+
+        <h2>Extracting Keywords</h2>
+        <p>The <code>extract_keywords</code> method extracts the top 10 keywords from a list of word-postag pairs:</p>
+        <pre><code>def extract_keywords(self, words_postags):
+        return self.textranker.extract_keywords(words_postags, 10)</code></pre>
+
+        <h2>Main Method for News Mining</h2>
+        <p>The <code>main</code> method is a placeholder for the main functionality of news mining:</p>
+        <pre><code>def main(self, contents):
+        # Implementation details omitted for brevity
+        pass</code></pre>
+
+        <h2>Getting Extracted Events and NER Results</h2>
+        <p>The <code>get_events</code> method returns the extracted events and Named Entity Recognition (NER) results:</p>
+        <pre><code>def get_events(self):
+        return self.events, self.result_dict</code></pre>
+
+        <h2>Instantiating the NewsMining Class</h2>
+        <p>The <code>NewsMining</code> class is instantiated as <code>news_miner</code>:</p>
+        <pre><code>news_miner = NewsMining()</code></pre>
+    <footer>
+        <p>Disclaimer: This code snippet is for educational purposes only.</p>
+        <h3>get the full code <a href="https://github.com/kernel-loophole/KG-graph">github</a></h3>
+    </footer>
+    </main>
+</body>
+</html>
