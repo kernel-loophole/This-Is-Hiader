@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine-Tuning Code LLMs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+        a {
+            color: #1e90ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fine-Tuning Code LLMs</h1>
+        <p>Fine-tuning large language models (LLMs) for code generation, such as Codex, StarCoder, and Code Llama, can significantly improve their relevance to your organization's unique coding standards and proprietary libraries. However, this process can be resource-intensive. This guide shows how to fine-tune a code LLM on private code bases efficiently using a single GPU.</p>
+        <h2>Dataset Preparation</h2>
+        <p>We utilize the top 10 Hugging Face public repositories on GitHub, excluding non-code files like images and audio. The resulting dataset, available at <a href="https://huggingface.co/datasets/smangrul/hf-stack-v1">smangrul/hf-stack-v1</a>, includes repo IDs, file paths, and file contents.</p>
+        <h2>Model Selection</h2>
+        <p>We'll fine-tune the <code>bigcode/starcoderbase-1b</code>, a 1B parameter model trained on 80+ programming languages. Access to this gated model can be requested on the <a href="https://huggingface.co/bigcode/starcoderbase-1b">Hugging Face model page</a>.</p>
+        <pre><code>!pip install -q transformers datasets peft bitsandbytes flash-attn
+
+MODEL = "mistralai/Codestral-22B-v0.1"
+DATASET = "smangrul/hf-stack-v1"
+DATA_COLUMN = "content"
+SEQ_LENGTH = 2048
+MAX_STEPS = 500
+BATCH_SIZE = 16
+LR = 5e-4
+OUTPUT_DIR = "mistralai/Codestral-22B-v0.1"
+BF16 = True</code></pre>
+        <h2>Data Loading and Preprocessing</h2>
+        <p>Load the dataset in streaming mode to handle large data efficiently. Reserve the first 4000 examples for validation and the rest for training.</p>
+        <pre><code>from datasets import load_dataset
+
+dataset = load_dataset(DATASET, data_dir="data", split="train", streaming=True)
+valid_data = dataset.take(4000)
+train_data = dataset.skip(4000)</code></pre>
+        <h2>Tokenization and Data Preparation</h2>
+        <p>Estimate the character-to-token ratio to facilitate fixed-length token sequences.</p>
+        <pre><code>from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained(MODEL, trust_remote_code=True)
+
+def chars_token_ratio(dataset, tokenizer, data_column, nb_examples=400):
+    total_characters, total_tokens = 0, 0
+    for _, example in zip(range(nb_examples), iter(dataset)):
+        total_characters += len(example[data_column])
+        total_tokens += len(tokenizer(example[data_column]).tokens())
+    return total_characters / total_tokens
+
+chars_per_token = chars_token_ratio(train_data, tokenizer, DATA_COLUMN)</code></pre>
+        <h2>Implementing FIM Transformations</h2>
+        <p>FIM transformations enable the model to learn infilling text, not just generating it sequentially.</p>
+        <pre><code>import functools
+import numpy as np
+
+@functools.lru_cache(maxsize=None)
+def get_fim_token_ids(tokenizer):
+    FIM_PREFIX, FIM_MIDDLE, FIM_SUFFIX, FIM_PAD = tokenizer.special_tokens_map["additional_special_tokens"][1:5]
+    return (
+        tokenizer.vocab[FIM_SUFFIX],
+        tokenizer.vocab[FIM_PREFIX],
+        tokenizer.vocab[FIM_MIDDLE],
+        tokenizer.vocab[FIM_PAD]
+    )
+
+def permute(sample, np_rng, suffix_tok_id, prefix_tok_id, middle_tok_id, pad_tok_id, fim_rate=0.5, fim_spm_rate=0.5):
+    if np_rng.binomial(1, fim_rate):
+        boundaries = sorted(np_rng.randint(0, len(sample) + 1, size=2))
+        prefix, middle, suffix = np.array_split(sample, [boundaries[0], boundaries[1]])
+        if np_rng.binomial(1, fim_spm_rate):
+            new_sample = np.concatenate([[prefix_tok_id, suffix_tok_id], suffix, [middle_tok_id], prefix, middle])
+        else:
+            new_sample = np.concatenate([[prefix_tok_id], prefix, [suffix_tok_id], suffix, [middle_tok_id], middle])
+    else:
+        new_sample = sample
+    return list(new_sample), np_rng</code></pre>
+        <h2>Creating the ConstantLengthDataset</h2>
+        <p>This dataset returns constant-length chunks of tokens.</p>
+        <pre><code>def __iter__(self):
+    iterator = iter(self.dataset)
+    np_rng = np.random.RandomState(seed=self.seed)
+    while True:
+        buffer, buffer_len = [], 0
+        while buffer_len < self.max_buffer_size:
+            try:
+                buffer.append(next(iterator)[self.content_field])
+                buffer_len += len(buffer[-1])
+            except StopIteration:
+                break
+        tokenized_inputs = self.tokenizer(buffer, truncation=False)["input_ids"]
+        all_token_ids = [token for tokens in tokenized_inputs for token in tokens + [self.concat_token_id]]
+        examples = [all_token_ids[i: i + self.seq_length] for i in range(0, len(all_token_ids), self.seq_length)]
+        random.shuffle(examples)
+        for example in examples:
+            yield {"input_ids": torch.LongTensor(example), "labels": torch.LongTensor(example)}</code></pre>
+        <h2>Usage example</h2>
+        <pre><code>train_dataset = ConstantLengthDataset(tokenizer, train_data, SEQ_LENGTH, chars_per_token)
+eval_dataset = ConstantLengthDataset(tokenizer, valid_data, SEQ_LENGTH, chars_per_token)</code></pre>
+        <h2>Model Preparation and Quantization</h2>
+        <p>Load and quantize the model using bitsandbytes.</p>
+        <pre><code>from transformers import AutoModelForCausalLM
+from peft import prepare_model_for_kbit_training
+from transformers import BitsAndBytesConfig
+
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True
+)
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL, quantization_config=bnb_config, device_map={"": 0}, use_cache=False, trust_remote_code=True, use_flash_attention_2=True
+)
+model = prepare_model_for_kbit_training(model)</code></pre>
+        <h2>Fine-Tuning with LoRA</h2>
+        <p>Configure and train the model using LoRA for parameter-efficient fine-tuning.</p>
+        <pre><code>from peft import LoraConfig, get_peft_model
+
+lora_config = LoraConfig(
+    r=8, lora_alpha=32, lora_dropout=0.0, target_modules=["c_proj", "c_attn", "q_attn", "c_fc"], task_type="CAUSAL_LM"
+)
+model = get_peft_model(model, lora_config)
+
+training_args = TrainingArguments(
+    per_device_train_batch_size=BATCH_SIZE,
+    learning_rate=LR,
+    max_steps=MAX_STEPS,
+    output_dir=OUTPUT_DIR,
+    evaluation_strategy="steps",
+    eval_steps=100,
+    save_steps=100,
+    logging_steps=25
+)
+
+trainer = Trainer(
+    model=model, args=training_args, train_dataset=train_dataset, eval_dataset=eval_dataset, tokenizer=tokenizer
+)
+
+trainer.train()</code></pre>
+        <p>After the Model is trained, it will automatically push the model to Hugging Face. You can access this model from <a href="https://huggingface.co/zulqarnain-kernel/peft-starcoder-lora-a100">here</a>. Now you can access this model to generate the code which is fine-tuned on your dataset.</p>
+        <h2>Example Usage</h2>
+        <pre><code>from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel, PeftConfig
+import torch
+
+prompt = "Generate a function that converts a hex char[] to its equivalent ASCII character and returns it as unsigned char[]."
+config = PeftConfig.from_pretrained("zulqarnain-kernel/peft-starcoder-lora-a100")
+base_model = AutoModelForCausalLM.from_pretrained("bigcode/starcoderbase-1b")
+model = PeftModel.from_pretrained(base_model, "zulqarnain-kernel/peft-starcoder-lora-a100")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+tokenizer = AutoTokenizer.from_pretrained("bigcode/starcoderbase-1b")
+inputs = tokenizer.encode(prompt, return_tensors="pt").to(device)
+outputs = model.generate(inputs, max_length=500)
+response = tokenizer.decode(outputs[0], clean_up_tokenization_spaces=False)
+print(response)</code></pre>
+    </div>
+</body>
+</html>
