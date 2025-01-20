@@ -1,0 +1,481 @@
+%-------------------------
+% Resume in Latex
+% Author : Aras Gungore
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+\usepackage{enumitem}
+\usepackage{latexsym}
+\usepackage{multicol}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{hyphenat}
+\usepackage{fontawesome}
+\input{glyphtounicode}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+%---------- FONT OPTIONS ----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+
+\newcommand{\resumeSubSubheading}[2]{
+    \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+
+\newcommand{\resumeEducationHeading}[6]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+      \textit{\small#5} & \textit{\small #6} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+
+\newcommand{\resumeOrganizationHeading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textit{\small #2} \\
+      \textit{\small#3}
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%---------- HEADING ----------
+\begin{center}
+    \textbf{\Large \scshape Zulqarnain Haider} \\ \vspace{3pt}
+    \small
+    \hspace{.5pt} \href{tel:9203239932656}{+92 323 9932656 } $|$
+    \hspace{.5pt} \href{mailto:zulqarnain.shahid.iqbal@gmail.com}{zulqarnain.shahid.iqbal@gmail.com} $|$
+     \hspace{.5pt}
+     \href{https://www.linkedin.com/in/zulqarnain--haider/}{https://www.linkedin.com/in/zulqarnain--haider/} $|$
+    \newline
+     \hspace{.5pt} \href{https://github.com/kernel-loophole}{https://github.com/kernel-loophole} $|$
+     \hspace{.5pt}
+     \hspace{.5pt}{House 17,G-13/3,Islamabad} $|$
+     \hspace{.5pt} \href{https://kernel-loophole.github.io/This-Is-Hiader/}{https://kernel-loophole.github.io/}
+    \newline
+\end{center}
+
+
+
+%----------- EDUCATION -----------
+
+% \section{Education}
+%   \vspace{3pt}
+%   \resumeSubHeadingListStart
+    
+%     \resumeEducationHeading{FAST National University of Computer and Emerging Sciences
+%       % \normalfont{(Admission rate: 0.09\%)}
+%       }{Islamabad, Pakistan}
+%       {Bachelor of Science in Computer Science}{ 08/2019 \textbf{--} 06/2023}
+%       {Courses included both CS (Programming,Databases,Artificial intelligence) and Business subjects}
+%         % \resumeItemListStart
+%             % \resumeItem{\textbf{Relevant coursework:} Calculus I-II, Matrix Theory, Differential Equations, Materials Science, Electrical Circuits I-II, Digital System Design, Numerical Methods, Probability Theory, Electronics I-II, Signals and Systems, Electromagnetic Field Theory, Energy Conversion, System Dynamics and Control, Communication Engineering}
+%         % \resumeItemListEnd
+    
+%     \resumeSubheading
+%       {Punjab Group of Colleges
+%       % \normalfont{(Admission rate: 0.85\%)}
+%       }{Gujrat,Pakistan}
+%       {F.SC(pre-enginerning)   \textbf{}}{08/2016  \textbf{--}  06/2018}
+    
+%   \resumeSubHeadingListEnd
+
+
+
+%----------- RESEARCH EXPERIENCE -----------
+
+
+\section{Experience}
+  \vspace{3pt}
+  \resumeSubHeadingListStart
+%        \resumeSubheading
+%   {Parallel Computing Networks }{ H-11,Islamabad}
+%   {Machine Learning Engineer }{11/2023 \textbf{--} {current}}
+%     \resumeItemListStart
+%         \resumeItem{Implemented Graph Neural Networks on news data to uncover patterns and relationships using pytorch.}
+%         % \resumeItem{Managed large-scale data collection and preprocessing, including data augmentation and noise removal.}
+%         % % \resumeItem{Scraped data from multiple news sources and generated a knowledge graph, applying graph algorithms for searching.}
+%         % % \resumeItem{Successfully integrated AWS cloud services into the research infrastructure, optimizing scalability and performance.}
+%         % % \resumeItem{Proactively engaged in brainstorming sessions, addressing challenges, and proposing innovative solutions to enhance project outcomes.}
+%         \resumeItem{
+%         Conducted feature extraction from text for text classification and embedding in NLP tasks using Spacy.
+%         }
+%         \resumeItem{Fine-tuned a transformer-based model using PEFT from HuggingFace for Bias Detection from mutiple news.}
+%         \resumeItem{work on code LSP diagnosis generation using RAG approach for deepseek-coder-v2 model from Huggingface. }
+%         % \resumeItem{Implemented distributed training for large-scale NLP models using PyTorch Distributed to optimize multi-GPU. }
+%          % \resumeItem{
+%          % Collaborated with cross-functional teams to integrate ML models into production systems(AWS).
+%          % }
+%         % \resumeItem{Implemented Graph Neural Networks on news data to uncover patterns and relationships using PyTorch.}
+% % \resumeItem{Managed large-scale data collection and preprocessing, including data augmentation and noise removal.}
+% % \resumeItem{Conducted feature extraction from CT scans for cancer detection, applying advanced image processing techniques.}
+% % \resumeItem{Developed and fine-tuned a convolutional neural network (CNN) model for automated cancer detection from CT.}
+% \resumeItem{Conducted feature extraction from text for text classification and embedding in NLP tasks using Spacy.}
+% % \resumeItem{Fine-tuned a transformer-based model using PEFT from HuggingFace for bias detection from multiple sources.}
+% % \resumeItem{Worked on code LSP diagnosis generation using the RAG approach and fine-tuned deepseek-coder-v2.}
+% \resumeItem{Implemented distributed training for large-scale NLP models using PyTorch Distributed to optimize multi-GPU}
+% % \resumeItem{Collaborated with cross-functional teams to integrate ML models into production systems (AWS).}
+\resumeSubheading
+  {Parallel Computing Networks}{H-11, Islamabad}
+  {Machine Learning Engineer}{11/2023 \textbf{--} {11/2024}}
+  \resumeItemListStart
+      \resumeItem{Implemented Graph Neural Networks on news data to uncover patterns and relationships using PyTorch.}
+      \resumeItem{Conducted feature extraction from text for classification and embedding in NLP tasks using PyTorch.}
+      \resumeItem{Fine-tuned transformer-based models using PEFT from HuggingFace for bias detection across multiple news .}
+      \resumeItem{Optimized distributed training speeding up training times by 25\% and improving model accuracy by 9\%.}
+    \resumeItem{Developed MLOps infrastructure for automated model training and deployment pipelines using Kubeflow.}
+    \resumeItem{implemented CI/CD systems for continuous integration and deployment of ML models using Jenkins.}
+    \resumeItem{Collaborated with cross-functional teams to integrate ML models into production systems using AWS SageMaker.}
+\resumeItemListEnd
+        \resumeSubheading
+    {Replit}{San Francisco, USA (Remote)}
+    {System Programmer (Rust)}{08/2022 \textbf{--} 12/2023}
+    \resumeItemListStart
+        \resumeItem{Developed system-level Rust applications for optimizing data processing pipelines, improving execution.}
+        \resumeItem{Implemented low-level concurrency mechanisms in Rust to enhance multi-threaded performance and memory.}
+        \resumeItem{Optimized PostgreSQL database configurations, indexing strategies, and query performance to improve retrieval.}
+        \resumeItem{Designed custom Rust-based proxy solutions for secure database access, including connection pooling and caching.}
+        \resumeItem{Conducted performance profiling and tuning of Rust applications, resulting in a 30\% reduction in execution time.}
+        \resumeItemListEnd
+           
+    \resumeSubheading
+{JAZZ Telecom.}{EFU House\textbf{-}Lahore,Pakistan}
+      {Machine Learning Intern  }{07/2022   \textbf{--} 09/2022} 
+  
+        \resumeItemListStart
+            \resumeItem{Conducted thorough data cleaning and preprocessing on large datasets,
+ensuring the quality of input data.
+}
+            \resumeItem{Collaborated with the B2B team to develop predictive models using Python and
+scikit-learn.
+}
+            \resumeItem{Analyzed customer behavior data to identify patterns, providing valuable
+insights for marketing,business strategy
+}
+\resumeItem{ Assisted in the development of interactive dashboards in Tableau forreal-time
+analysis, enhancing visualization.
+}
+
+        \resumeItemListEnd
+  \resumeSubHeadingListEnd
+\section{Education}
+  \vspace{3pt}
+  \resumeSubHeadingListStart
+    
+    \resumeEducationHeading{FAST National University of Computer and Emerging Sciences
+      % \normalfont{(Admission rate: 0.09\%)}
+      }{Islamabad, Pakistan}
+      {Bachelor of Science in Computer Science}{ 08/2019 \textbf{--} 06/2023}
+      {Courses included both CS (Programming,Databases,Artificial intelligence) and Business subjects}
+        % \resumeItemListStart
+            % \resumeItem{\textbf{Relevant coursework:} Calculus I-II, Matrix Theory, Differential Equations, Materials Science, Electrical Circuits I-II, Digital System Design, Numerical Methods, Probability Theory, Electronics I-II, Signals and Systems, Electromagnetic Field Theory, Energy Conversion, System Dynamics and Control, Communication Engineering}
+        % \resumeItemListEnd
+    
+    % \resumeSubheading
+    %   {Punjab Group of Colleges
+    %   % \normalfont{(Admission rate: 0.85\%)}
+    %   }{Gujrat,Pakistan}
+    %   {F.SC(pre-enginerning)   \textbf{}}{08/2016  \textbf{--}  06/2018}
+    
+  \resumeSubHeadingListEnd
+
+
+
+
+\section{Open Source Contribution}
+\resumeSubheading
+      {Lumigator Mozilla AI Project}{}
+      {Contributor}{}
+        \resumeItemListStart
+            \resumeItem{Contributed to the Lumigator Mozilla AI project by addressing the handling of llamafiles PR link \href{https://github.com/mozilla-ai/lumigator/pull/321}{#321}.}
+            \resumeItem{Proposed the addition of a \texttt{llamafile://} prefix to manage llamafiles differently,compatibility GGUF files.}
+            \resumeItem{Modified the validation methodology for model names to improve identification and usability.}
+            \resumeItem{Collaborated with project maintainers to implement changes and ensure seamless integration functionalities.}
+        \resumeItemListEnd
+
+\section{Technical Skills}
+\vspace{2pt}
+\resumeSubHeadingListStart
+    \small{\item{
+        \textbf{Programming:} Python, Rust,C  \textbf{bioinformatics:} Biopython, Bioconductor\newline 
+        \textbf{Machine Learning Frameworks:}  PyTorch, Keras, scikit-learn, MLFlow,TensorBoard,torch.distributed\newline
+ %        \textbf{Blockchain:}
+ %        Solana, (dApps) and smart contracts,Ethereum ,Web3.js , blockchain
+ % interaction,Solidity,Decentralization,Scaffold-eth logo,MetaMask,Hyperledger Fabric
+        \textbf{Deep Learning:} Neural Networks, CNNs, GANs, CUDA,TensorRT,Optimisation \newline
+        % \textbf{Speech Processing:} librosa, pyAudio, Kaldi, DeepSpeech\newline
+        % \textbf{Data Manipulation \& Big Data Processing :} Polars, NumPy,Apache Spark,ETL ,Matplotlib\newline
+        % \textbf{Natural Language Processing:} SpaCy, Hugging Face Transformers, NLTK\newline
+        % \textbf{Web Development :} Odoo ERP development, RESTful API design and implementation, HTML, CSS, REACT, Vue
+% \textbf{CI/CD Pipeline:} Jenkins, GitLab CI, CircleCI, GitHub Actions, Docker,Kubernetes, aws bedrock\newline
+
+% \textbf{Development:} IBM App Connect Enterprise, ESQL , XSLT, IBM MQ, RESTful/SOAP API integration
+% \newline
+ 
+        % \textbf{web3:} web.js,ethers.js,Solidity,decentralized finance,Solana
+        % \textbf{Model Development & Optimization:} Algorithm Optimization, Hyperparameter Tuning, Jupyter Notebooks\newline
+        
+    }}
+\resumeSubHeadingListEnd
+
+%----------- RELEVANT COURSEWORK -----------
+% \section{Professional Certiﬁcates}
+%   \resumeSubheading
+%       {}{Coursera }
+%       {Machine Learning Specialization}{10/2023   \textbf{--} 12/2023}
+%         \resumeItemListStart
+%             \resumeItem{Machine Learning: Clustering & Retrieval -89\%}
+%                         \resumeItem{Machine Learning: Regression 95\%}
+%                         \resumeItem{Machine Learning: Classification 91\%}
+
+    
+%         \resumeItemListEnd
+%         {Grow With Google and IRM Scholarship Program}{}
+%       {Coursera}{10/2022   \textbf{--} 12/2022}
+%         \resumeItemListStart
+%             \resumeItem{Google IT Automation with Python (Include Creation of email automation& operating system scheduling).}
+% \resumeItem{Google UX Design (Include Creation of High-Fidelity Designs and Prototypes in Figma& Adobe XD ).}
+    
+%         \resumeItemListEnd
+%     \resumeSubheading
+%       {Git Certiﬁed by GitKraken:}{}
+%       {GitKraken}{09/2022   \textbf{--} 11/2022}
+%         \resumeItemListStart
+%             \resumeItem{Repository management, branch merging, conflict resolution,synchronization.}    
+%         \resumeItemListEnd
+        
+%     \resumeSubheading
+%       {React Global Summit:}{}
+%       {Geekle}{11/2022   \textbf{--} 11/2022}
+%         \resumeItemListStart
+%             \resumeItem{Component-based architecture, JSX syntax and rendering, Handling events and forms.}    
+%         \resumeItemListEnd
+
+% % \section{Relevant Courses}
+% % \begin{multicols}{3}
+% %     \noindent % Prevent paragraph indentation
+% %     \textbullet{} Calculus I-II \\
+% %     \textbullet{} Data Structures and Algorithms \\
+% %     \textbullet{} Object-Oriented Programming \\
+% %     \textbullet{} Numerical Methods \\
+% %     \textbullet{} Database Management Systems \\
+% %     \textbullet{} Parallel,Distributed Computing \\
+% %     \textbullet{} Artificial Intelligence \\
+% %     \textbullet{} Applied Machine Learning \\
+% %     \textbullet{} Cloud Computing \\
+% %     \textbullet{} Software Analysis and Design \\
+% %     \textbullet{} Probability Theory  \\
+% %     \textbullet{} Data Science  \\
+% % \end{multicols}
+
+
+
+
+
+
+% %----------- AWARDS & ACHIEVEMENTS -----------
+
+
+% \section{PROJECTS}
+%   \vspace{3pt}
+%   \resumeSubHeadingListStart
+    
+%     \resumeSubheading
+%       {Urdu Chat Bot API Base System(Flask,Numpy,TensorFlow)}{Final Year Project}
+%       {Natural Language Processing ,API creation}{08/2022   \textbf{--} 05/2023}
+%         \resumeItemListStart
+%             \resumeItem{Designed and developed an advanced Chatbot API-based system utilizing LSTM.}
+%             \resumeItem{Integrated TensorFlow to enable the chat bot respond to user input in Urdu.
+% }
+%             \resumeItem{Implemented user authentication and session management during chat sessions.
+% }
+%         \resumeItemListEnd
+%     \resumeSubheading{Building Scalable Data Pipelines for Machine Learning} {Data Scaling}
+% {Machine Learning+Data Scaling} {09/2022 –- 12/2022 }
+% \resumeItemListStart
+%     \resumeItem{item Design and implement scalable data pipelines using Dask to preprocess and prepare dataset.}
+%     \resumeItem{item Incorporate best practices for data versioning, reproducibility to ensure the integrity of the ML workflow.}
+% \end{itemize}
+% % \resumeSubheading{}
+% % \{} {} {January 2022 – May 2022}
+%   \resumeSubheading{Developing Conversational AI Applications} {AI}
+% {Conversational AI} {01/2022 –- 06/2022 }
+% \begin{itemize}
+%     \item Build conversational AI applications using frameworks like Rasa  to create chatbots, virtual assistants.
+%     \item Experiment with different dialogue management strategies, natural language understanding (NLU).
+%     \item Contribute to open-source conversational AI projects by sharing insights, contributing code, or participating in community discussions and events.
+% \end{itemize}
+% \resumeSubheading{ Online Event Management Platform} {Back-end}
+% {Back-end development } {01/2023 –- 06/2023 }
+% \begin{itemize}
+%     \item Implemented user authentication, payment integration, and event promotion features.
+%     \item Collaborated with frontend developers to integrate backend functionalities with a responsive.
+%     \item Conducted thorough testing and debugging to ensure smooth performance and resolve any issues.
+% \end{itemize}
+% \resumeSubheading{  Decentralized Asset Management Platform} {WEB3}
+% {Back-end development } {04/2023 –- 09/2023 }
+% \begin{itemize}
+%     \item Developed smart contracts using Solidity on the Ethereum blockchain to facilitate token swapping, liquidity provision, and yield farming functionalities.
+%     \item Implemented automated trading strategies, including dollar-cost averaging (DCA) and arbitrage trading, to optimize users' asset portfolios.
+%     \item Incorporated decentralized exchange (DEX) functionalities such as Uniswap and SushiSwap to enable seamless token swapping and liquidity provision.
+% \end{itemize}
+%         \resumeItemListEnd
+        
+
+% ----------- CERTIFICATES -----------
+
+% \section{Certificates}
+%   \resumeSubHeadingListStart
+    
+%     \resumeOrganizationHeading
+%       {Procter \& Gamble VIA Certificate Program}{Feb 2022}{Business Skills, Data and Digital Skills, Project Management and Personal Productivity}
+    
+%   \resumeSubHeadingListEnd
+
+
+
+% % %----------- ORGANIZATIONS -----------
+
+% \section{Organizations}
+%   \resumeSubHeadingListStart
+    
+%     \resumeOrganizationHeading
+%       {Institute of Electrical and Electronics Engineers (IEEE)}{Feb 2022 -- Present}{Student Member}
+    
+%   \resumeSubHeadingListEnd
+
+
+
+% %----------- HOBBIES -----------
+
+% % \section{Hobbies}
+%   % \resumeSubHeadingListStart
+%     % \small{\item{Swimming, Fitness, Eight-ball}}
+%   % \resumeSubHeadingListEnd
+
+
+% ReDI School of Digital Integration Berlin Germany(Remote)
+% Python Teacher 03/2021 – Present
+% • Delivered engaging lessons on computer science principles and introductory Python programming.
+% • Provide personalized guidance and support to students, addressing their individual learning needs.
+% • Create and administer assessments to evaluate student progress and identify areas for improvement.
+% • Recognized by peers and students for creating an inclusive and supportive learning environment.
+
+% \section{References}
+%   \resumeSubHeadingListStart
+%     \textbf{Dr. Hafeez ur Rehman} (Head of Department and Associate Professor at National University of Computer and Emerging
+% Sciences) - hafeez.urrehman@nu.edu.pk
+%   % \resumeSubHeadingListEnd
+%   % \resumeSubHeadingListStart
+%   \newline
+%     \textbf{Dr. Muhammad Waqas} (Associate Professor at National University of Computer and Emerging Sciences) -
+% waqas.ali@nu.edu.pk
+%   \newline
+%     \textbf{Hayley Spire} (Redi school of digital Inergretion-germany) -  hayley@redi-school.org
+
+%   \resumeSubHeadingListEnd
+
+
+  \resumeSubHeadingListEnd
+  \resumeSubHeadingListEnd
+
+
+
+%-------------------------------------------
+\end{document}
