@@ -4,164 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zulqarnain Haider</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<style>
-    
-    #header-image {
-      width: 100px; /* Adjust the width as needed */
-      border-radius: 50%; /* Optional: Rounded corners for circular images */
-    }
-    .highlight_01 {
-/* background:yellowgreen ;
-    font-weight: bold; */
-    color: brown;
-  }
-  .highlight_02
 
-  {
-    color: bisque;
-  }
-</style>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    
-                    <li class="nav-item active">
+    <div class="container">
+        <header class="header">
+            <h1>Zulqarnain Haider</h1>
+            <nav class="nav">
+                <a href="#">Home</a>
+                <a href="Zulqarnain.pdf">Resume</a>
+                <a href="all.html">Blogs</a>
+                <a href="https://github.com/kernel-loophole/">GitHub</a>
+                <a href="https://www.linkedin.com/in/zulqarnain-haider-3229bb212/">LinkedIn</a>
+            </nav>
+        </header>
 
-                        <a href="Zulqarnain.pdf" class="link-to-resume">Resume</a>
-                    </li>                   
-                    <li class="nav-item active">
-                        <a class="nav-link" href="all.html">Blogs</a>
-                    </li>
+        <section class="profile">
+            <img src="media/1730230319409.jpeg" alt="Zulqarnain Haider">
+            <!-- <h2>Machine Learning Engineer</h2> -->
+            <p>I build scalable, impactful solutions in deep learning and NLP, fine-tune transformer models, and design MLOps pipelines for seamless model deployment.</p>
+        </section>
 
-                    <li class="nav-item active">
-                        <a class="nav-link" href="https://github.com/kernel-loophole/" download>GitHub</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="https://www.linkedin.com/in/zulqarnain-haider-3229bb212/" download>Linkedin</a>
-                    </li>
-                </ul>
+        <section class="blog-posts">
+            <h2>Latest Posts</h2>
+
+            <div class="post">
+                <h3>Fine-Tuning a Code LLM on Custom Code with a Single GPU</h3>
+                <p>Fine-tuning large language models (LLMs) for code generation, such as Codex, StarCoder, and Code Llama.</p>
+                <a href="fine_tune.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on June 1, 2024</p>
             </div>
-        </div>
-    </nav>
 
-    <!-- Header -->
-    <header   class="bg-primary-dark text-white" >
-        <div class="container text-center">
-      
+            <div class="post">
+                <h3>Unraveling the Power of Knowledge Graphs part-1</h3>
+                <p>Enter the knowledge graph, a transformative tool reshaping the way we navigate and understand information.</p>
+                <a href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on Feb 1, 2024</p>
+            </div>
 
-    <img src="media/1730230319409.jpeg" alt="image" id="header-image">      
-            <p class="lead" >
-          I’m a Machine Learning Engineer with a passion for building scalable, impactful solutions in deep learning and NLP. I am working on develop and fine-tune transformer models, build Graph Neural Networks to uncover patterns in large datasets, and design MLOps pipelines that make model deployment seamless and efficient. I enjoy finding ways to optimize distributed training, ensuring our models not only run faster but perform better.
-                <br>
-            <br>
-        </div>
-    </header>
+            <div class="post">
+                <h3>BLEU Metric in NLP Evaluation</h3>
+                <p>Unraveling the Power of BLEU Metric in NLP Evaluation. Evaluating the quality of these generated texts is crucial.</p>
+                <a href="Blue.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on December 10, 2023</p>
+            </div>
 
-    <!-- Main Content -->
-    <div id="project" class="container mt-5 " >
-            
-                <h2>Latest Posts</h2>
-                <!-- Blog Post -->
-                <div  class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title">Fine-Tuning a Code LLM on Custom Code with a Single GPU</h2>
-                        <p class="card-text">
-                            Fine-tuning large language models (LLMs) for code generation, such as Codex, StarCoder, and Code Llama.
-                        </p>    
-                    </div>
-                    <a href="fine_tune.html" class="btn btn-primary">Read More &rarr;</a>
-                    <div class="card-footer text-muted">
-                        Posted on JUNE 1, 2024 
-                        <!-- <a href="#">Author</a> -->
-                    </div>
-                </div>
-                <div   class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title">Unraveling the Power of Knowledge Graphs part-1</h2>
-                        <p class="card-text">
-                            Enter the knowledge graph, a transformative tool reshaping the way we navigate and understand information. From powering search engines to enhancing artificial intelligence
-                        </p>
-                        <a href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on Feb 1, 2024 
-                        <!-- <a href="#">Author</a> -->
-                    </div>
-                </div>
-                
-                <div   class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title">BLEU Metric in NLP Evaluation</h2>
-                        <p class="card-text">Unraveling the Power of BLEU Metric in NLP Evaluation. Evaluating the quality of these generated texts is crucial, and one of the widely adopted metrics for this purpose is BLEU (Bilingual Evaluation Understudy).</p>
-                        <a href="Blue.html" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on December 10, 2023 
-                        <!-- <a href="#">Author</a> -->
-                    </div>
-                </div>
-                <!-- Blog Post -->
-                <div   class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title">Unlocking the Power of ROUGE in NLP</h2>
-                        <p class="card-text">The quest for evaluating the effectiveness of automatic summarization algorithms</p>
-                        <a href="Rouge.html" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on December 27, 2023 
-                        <!-- <a href="#">Author</a> -->
-                    </div>
-                </div>
-                <!-- Blog Post -->
-                
-                <div   class="card mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title">Understanding Rust Ownership: A Deep Dive into Memory Safety</h2>
-                        <p class="card-text">At the heart of Rust's ownership system is the idea that each value in Rust has a variable that is its "owner." </p>
-                        <a href="rust_1.html" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on December 3, 2023 
-                        <!-- <a href="#">Author</a> -->
-                    </div>
-                </div>
-                <!-- Blog Post -->
-                
-                <div class="card mb-4">
-                     <div class="card-body">
-                        <h2 class="card-title">Exploring Rust: Strings and Integers</h2>
-                        <p class="card-text">Rust is a modern systems programming language that offers strong safety guarantees while providing high performance </p>
-                        <a href="rust_string_int.html" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on March 3, 2023 
-                        <!-- <a href="#">Author</a> -->
-                    </div>
-                </div>
-                
-        <br>
-        <a href="all.html">View All Posts</a>         
-        </div>
-        
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2024 Zulqarnain Haider. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
 </html>
