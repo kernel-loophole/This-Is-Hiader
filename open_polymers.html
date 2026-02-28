@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Polymers – Predicting Polymer Properties with ML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            color: #16213e;
+            border-left: 4px solid #0f3460;
+            padding-left: 10px;
+            margin-top: 36px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul,
+        ol {
+            margin: 12px 0 12px 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #0f3460;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+            margin-bottom: 14px;
+        }
+
+        .arch-box {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .arch-box h3 {
+            margin-top: 0;
+            color: #0f3460;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: #fff;
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+
+        .stat-card .stat-val {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .stat-card .stat-desc {
+            font-size: 0.8rem;
+            color: #bbb;
+            margin-top: 4px;
+        }
+
+        pre {
+            background: #1a1a2e;
+            color: #a8d8a8;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #0f3460;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover td {
+            background: #f9f9f9;
+        }
+
+        .result-banner {
+            background: linear-gradient(135deg, #0f3460, #e94560);
+            color: #fff;
+            border-radius: 8px;
+            padding: 22px 28px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .result-banner .rank {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .result-banner .rank-label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .result-banner .rank-sub {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 6px;
+        }
+
+        .note {
+            background: #fffbea;
+            border-left: 4px solid #f5a623;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .file-tree {
+            background: #1a1a2e;
+            color: #cdd6f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .file-tree .dir {
+            color: #89b4fa;
+        }
+
+        .file-tree .file {
+            color: #a6e3a1;
+        }
+
+        .file-tree .comment {
+            color: #6c7086;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #0f3460;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Open Polymers – Predicting Polymer Properties with ML</h1>
+        <p class="meta">Posted on June 20, 2025 &nbsp;|&nbsp; Machine Learning &nbsp;|&nbsp; Cheminformatics</p>
+
+        <span class="tag">PyTorch</span>
+        <span class="tag">XGBoost</span>
+        <span class="tag">RDKit</span>
+        <span class="tag">SMILES</span>
+        <span class="tag">Cheminformatics</span>
+        <span class="tag">TensorBoard</span>
+
+        <p>
+            <strong>Open Polymers</strong> is a machine learning project for predicting
+            the physical and thermodynamic properties of polymers directly from their
+            <strong>SMILES</strong> string representations. It combines classical molecular
+            descriptor engineering (via RDKit) with both deep learning (PyTorch) and
+            gradient-boosted trees (XGBoost), ultimately finishing at
+            <strong>656th out of 2,400+ teams</strong> — jumping from rank ~1,200 to
+            <strong>65th</strong> after integrating XGBoost.
+        </p>
+
+        <!-- ── COMPETITION RESULT ─────────────────────────────── -->
+        <div class="result-banner">
+            <div class="rank">🏆 Rank 656 / 2,400+</div>
+            <div class="rank-label">Final Leaderboard Position</div>
+            <div class="rank-sub">XGBoost jump: ~1,200th → 65th on private score</div>
+        </div>
+
+        <!-- ── PROJECT STRUCTURE ──────────────────────────────── -->
+        <h2>1 — Project Structure</h2>
+        <div class="file-tree">
+            <span class="dir">open-polymers/</span><br>
+            &nbsp;&nbsp;├── <span class="file">data.ipynb</span>
+            &nbsp;&nbsp;&nbsp;<span class="comment"># EDA &amp; visualization notebook</span><br>
+            &nbsp;&nbsp;├── <span class="dir">train_v1/</span><br>
+            &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">train.py</span>
+            &nbsp;&nbsp;&nbsp;<span class="comment"># Neural network training script</span><br>
+            &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">infer.py</span>
+            &nbsp;&nbsp;&nbsp;<span class="comment"># Inference on new SMILES inputs</span><br>
+            &nbsp;&nbsp;├── <span class="dir">Data creation/</span><br>
+            &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="comment"># Imputation models for FFV, Tg, Density, Tc,
+                Rg</span><br>
+            &nbsp;&nbsp;├── <span class="dir">DATA/</span><br>
+            &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="comment"># All versioned datasets (filled with different
+                algos)</span><br>
+            &nbsp;&nbsp;├── <span class="file">pca_descriptors.png</span>
+            &nbsp;&nbsp;&nbsp;<span class="comment"># PCA of molecular descriptors</span><br>
+            &nbsp;&nbsp;└── <span class="dir">runs/</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># TensorBoard logs per training run</span>
+        </div>
+
+        <!-- ── DATASET ─────────────────────────────────────────── -->
+        <h2>2 — Dataset</h2>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-val">5</div>
+                <div class="stat-desc">Target properties</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">SMILES</div>
+                <div class="stat-desc">Primary input representation</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">RDKit</div>
+                <div class="stat-desc">Descriptor engine</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">XGBoost</div>
+                <div class="stat-desc">Best-performing model</div>
+            </div>
+        </div>
+
+        <p>Each row in the dataset represents a unique polymer described by its SMILES string, with the following target
+            properties:</p>
+
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Property</th>
+                <th>Unit / Notes</th>
+            </tr>
+            <tr>
+                <td><code>id</code></td>
+                <td>Unique polymer identifier</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td><code>SMILES</code></td>
+                <td>Molecular structure string</td>
+                <td>RDKit-parseable representation</td>
+            </tr>
+            <tr>
+                <td><code>Tg</code></td>
+                <td>Glass transition temperature</td>
+                <td>°C — material processability</td>
+            </tr>
+            <tr>
+                <td><code>FFV</code></td>
+                <td>Fractional free volume</td>
+                <td>Dimensionless — gas permeability proxy</td>
+            </tr>
+            <tr>
+                <td><code>Tc</code></td>
+                <td>Decomposition temperature</td>
+                <td>°C — thermal stability</td>
+            </tr>
+            <tr>
+                <td><code>Density</code></td>
+                <td>Polymer density</td>
+                <td>g/cm³</td>
+            </tr>
+            <tr>
+                <td><code>Rg</code></td>
+                <td>Radius of gyration</td>
+                <td>Å — chain conformation measure</td>
+            </tr>
+        </table>
+
+        <div class="note">
+            📂 The <strong>DATA/</strong> folder contains multiple dataset versions, each filled
+            with a different missing-value imputation algorithm (KNN, regression, iterative, etc.)
+            to handle the sparse property measurements common in polymer datasets.
+        </div>
+
+        <!-- ── MISSING VALUE IMPUTATION ───────────────────────── -->
+        <h2>3 — Handling Missing Values</h2>
+        <p>
+            Polymer datasets are notoriously sparse — labs only measure specific properties for each
+            compound. The <strong>Data creation</strong> module trains separate imputation models for
+            each of the five targets:
+        </p>
+
+        <div class="arch-box">
+            <h3>Imputation Strategy</h3>
+            <ul>
+                <li><strong>RDKit descriptors</strong> computed from SMILES as universal features across all targets
+                </li>
+                <li>Each target (<code>FFV</code>, <code>Tg</code>, <code>Density</code>, <code>Tc</code>,
+                    <code>Rg</code>) gets its own imputer trained on rows where that target is observed
+                </li>
+                <li>Multiple algorithms benchmarked: <strong>KNN Imputer</strong>, <strong>IterativeImputer
+                        (BayesianRidge)</strong>, <strong>XGBoost Regressor</strong> — best per-target model selected
+                </li>
+                <li>Versioned outputs stored in <code>DATA/</code> for reproducibility and ablation</li>
+            </ul>
+        </div>
+
+        <!-- ── FEATURE ENGINEERING ────────────────────────────── -->
+        <h2>4 — Feature Engineering (SMILES → Descriptors)</h2>
+        <p>
+            Raw SMILES strings are converted into numerical feature vectors using
+            <strong>RDKit</strong>. The final feature set was <strong>1,224-dimensional</strong>:
+            208 physicochemical descriptors + 1,024-bit Morgan fingerprint (radius=2).
+        </p>
+
+        <table>
+            <tr>
+                <th>Descriptor Family</th>
+                <th>Count</th>
+                <th>Examples</th>
+            </tr>
+            <tr>
+                <td>Constitutional</td>
+                <td>~30</td>
+                <td>MW, HeavyAtomCount, NumHeteroatoms, RingCount</td>
+            </tr>
+            <tr>
+                <td>Topological</td>
+                <td>~40</td>
+                <td>BertzCT, Chi0, Chi1, Kappa1-3, HallKierAlpha</td>
+            </tr>
+            <tr>
+                <td>Electronic / Charge</td>
+                <td>~20</td>
+                <td>MaxPartialCharge, MinAbsPartialCharge, TPSA</td>
+            </tr>
+            <tr>
+                <td>Lipophilicity</td>
+                <td>~10</td>
+                <td>MolLogP, MolMR, LabuteASA</td>
+            </tr>
+            <tr>
+                <td>Fragment counts</td>
+                <td>~80</td>
+                <td>fr_amide, fr_ArN, fr_ether, fr_C_O, …</td>
+            </tr>
+            <tr>
+                <td>VSA bins (MOE-style)</td>
+                <td>~30</td>
+                <td>PEOE_VSA1–14, SMR_VSA1–10, SlogP_VSA1–12</td>
+            </tr>
+            <tr>
+                <td>Morgan Fingerprint</td>
+                <td>1,024</td>
+                <td>Circular substructure bits (radius=2)</td>
+            </tr>
+        </table>
+
+        <pre><code>from rdkit import Chem
+from rdkit.Chem import Descriptors, rdMolDescriptors
+import pandas as pd, numpy as np
+
+def smiles_to_descriptors(smiles: str) -> dict:
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return {}
+    # 208 physicochemical descriptors
+    desc = {name: fn(mol) for name, fn in Descriptors.descList}
+    # 1024-bit Morgan fingerprint (radius=2)
+    fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=1024)
+    desc.update({f"fp_{i}": int(b) for i, b in enumerate(fp)})
+    return desc
+
+df_features = pd.DataFrame([smiles_to_descriptors(s) for s in df["SMILES"]])
+# Drop descriptors with >50% NaN (usually invalid ring/charge descriptors)
+df_features = df_features.loc[:, df_features.isna().mean() < 0.5]
+df_features = df_features.fillna(df_features.median())</code></pre>
+
+        <p>A PCA was run on the full descriptor space to visualise the chemical diversity of the dataset:</p>
+        <div class="note">
+            📊 <strong>pca_descriptors.png</strong> — clusters in 2D PCA space reveal structurally
+            distinct polymer families (e.g. polycarbonates, polyimides, siloxanes), motivating
+            ensemble models over a single neural network.
+        </div>
+
+        <!-- ── PREPROCESSING ──────────────────────────────────── -->
+        <h2>5 — Preprocessing &amp; Scaling</h2>
+        <p>
+            Before feeding descriptors into either model, a careful preprocessing
+            pipeline is applied. The neural network is especially sensitive to feature scale,
+            while XGBoost is invariant to monotonic transforms but benefits from
+            variance-based feature selection.
+        </p>
+
+        <pre><code>from sklearn.preprocessing import RobustScaler
+from sklearn.feature_selection import VarianceThreshold
+from sklearn.pipeline import Pipeline
+import numpy as np
+
+# Step 1 – remove zero-variance (constant) features
+selector = VarianceThreshold(threshold=0.01)
+X_sel = selector.fit_transform(df_features.values)
+
+# Step 2 – robust scaling (median/IQR — insensitive to outliers)
+#           applied only for the neural network path
+scaler = RobustScaler()
+X_nn  = scaler.fit_transform(X_sel)   # ← used by PolymerNet
+X_xgb = X_sel                          # ← raw for XGBoost
+
+# Step 3 – per-target label scaling (avoids the NN chasing large-scale targets)
+from sklearn.preprocessing import StandardScaler
+target_scalers = {}
+for col in ["Tg", "FFV", "Tc", "Density", "Rg"]:
+    ts = StandardScaler()
+    mask = ~df[col].isna()
+    df.loc[mask, col + "_scaled"] = ts.fit_transform(
+        df.loc[mask, [col]]
+    ).ravel()
+    target_scalers[col] = ts   # saved for inverse-transform at inference
+
+print(f"Feature dims after selection: {X_sel.shape[1]} / {df_features.shape[1]}")
+# >> Feature dims after selection: 987 / 1224</code></pre>
+
+        <!-- ── NEURAL NETWORK ──────────────────────────────────── -->
+        <h2>5 — Neural Network Model (PyTorch)</h2>
+
+        <div class="arch-box">
+            <h3>Architecture</h3>
+            <p>
+                A fully-connected feed-forward network that takes the RDKit descriptor vector
+                as input and predicts all five targets simultaneously (multi-output regression).
+                Batch normalisation and dropout are used to prevent overfitting on the small dataset.
+            </p>
+        </div>
+
+        <pre><code>import torch
+import torch.nn as nn
+
+class PolymerNet(nn.Module):
+    def __init__(self, input_dim: int, output_dim: int = 5):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, 512),
+            nn.BatchNorm1d(512),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+
+            nn.Linear(512, 256),
+            nn.BatchNorm1d(256),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+
+            nn.Linear(256, 128),
+            nn.ReLU(),
+
+            nn.Linear(128, output_dim),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+# Training setup
+model = PolymerNet(input_dim=X_train.shape[1]).to(device)
+optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4, weight_decay=1e-4)
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=10)
+criterion = nn.MSELoss()
+
+# TensorBoard logging
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter(log_dir="runs/polymer_nn_v1")
+
+for epoch in range(300):
+    model.train()
+    pred = model(X_train_t)
+    loss = criterion(pred, y_train_t)
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    scheduler.step(loss)
+    writer.add_scalar("Loss/train", loss.item(), epoch)</code></pre>
+
+        <p>Monitor training with TensorBoard:</p>
+        <pre><code>tensorboard --logdir runs</code></pre>
+
+        <!-- ── XGBOOST ──────────────────────────────────────────── -->
+        <h2>7 — XGBoost (Competition Winner Model)</h2>
+        <p>
+            After the neural network plateaued, <strong>XGBoost</strong> regressors were trained
+            per-target using the same RDKit descriptor features (987-dim after variance filtering).
+            This single switch drove the biggest leaderboard jump of the project.
+        </p>
+
+        <div class="arch-box">
+            <h3>Hyperparameter Tuning with Optuna</h3>
+            <p>Each target's XGBoost was tuned independently using <strong>Optuna</strong>
+                with 100 trials of TPE (Tree-structured Parzen Estimator) search,
+                optimising 5-fold CV RMSE on the observed rows for that target.</p>
+        </div>
+
+        <pre><code>import optuna
+from xgboost import XGBRegressor
+from sklearn.model_selection import cross_val_score
+import numpy as np
+
+def objective(trial, X, y):
+    params = {
+        "n_estimators"     : trial.suggest_int("n_estimators", 200, 2000),
+        "learning_rate"    : trial.suggest_float("lr", 0.005, 0.3, log=True),
+        "max_depth"        : trial.suggest_int("max_depth", 3, 10),
+        "subsample"        : trial.suggest_float("subsample", 0.5, 1.0),
+        "colsample_bytree" : trial.suggest_float("colsample_bytree", 0.4, 1.0),
+        "colsample_bylevel": trial.suggest_float("colsample_bylevel", 0.4, 1.0),
+        "reg_alpha"        : trial.suggest_float("alpha", 1e-4, 10.0, log=True),
+        "reg_lambda"       : trial.suggest_float("lambda", 1e-4, 10.0, log=True),
+        "min_child_weight" : trial.suggest_int("min_child_weight", 1, 20),
+        "eval_metric"      : "rmse",
+        "device"           : "cuda",
+    }
+    model = XGBRegressor(**params)
+    cv = cross_val_score(model, X, y, cv=5, scoring="neg_root_mean_squared_error")
+    return -cv.mean()
+
+# Run per target
+best_params = {}
+for target in ["Tg", "FFV", "Tc", "Density", "Rg"]:
+    mask = ~np.isnan(df[target].values)
+    study = optuna.create_study(direction="minimize")
+    study.optimize(lambda t: objective(t, X_xgb[mask], df[target].values[mask]),
+                   n_trials=100, show_progress_bar=True)
+    best_params[target] = study.best_params
+    print(f"{target}: best RMSE = {study.best_value:.4f}")</code></pre>
+
+        <p>Final 5-fold OOF training with tuned parameters:</p>
+        <pre><code>from sklearn.model_selection import KFold
+
+oof_preds = np.zeros((len(X_xgb), len(targets)))
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
+for t_idx, target in enumerate(targets):
+    y    = df[target].values
+    mask = ~np.isnan(y)
+    Xm, ym = X_xgb[mask], y[mask]
+
+    for fold, (tr, val) in enumerate(kf.split(Xm)):
+        model = XGBRegressor(
+            **best_params[target],
+            early_stopping_rounds=50,
+            device="cuda",
+        )
+        model.fit(
+            Xm[tr], ym[tr],
+            eval_set=[(Xm[val], ym[val])],
+            verbose=False,
+        )
+        oof_preds[np.where(mask)[0][val], t_idx] = model.predict(Xm[val])</code></pre>
+
+        <table>
+            <tr>
+                <th>Target</th>
+                <th>NN CV RMSE</th>
+                <th>XGBoost CV RMSE</th>
+                <th>Best XGB Params (key)</th>
+            </tr>
+            <tr>
+                <td>Tg (°C)</td>
+                <td>18.4</td>
+                <td><strong>11.2</strong></td>
+                <td>max_depth=7, lr=0.03, n_est=1400</td>
+            </tr>
+            <tr>
+                <td>FFV</td>
+                <td>0.031</td>
+                <td><strong>0.019</strong></td>
+                <td>max_depth=5, lr=0.01, n_est=1800</td>
+            </tr>
+            <tr>
+                <td>Tc (°C)</td>
+                <td>22.1</td>
+                <td><strong>13.8</strong></td>
+                <td>max_depth=8, lr=0.04, n_est=1100</td>
+            </tr>
+            <tr>
+                <td>Density (g/cm³)</td>
+                <td>0.082</td>
+                <td><strong>0.051</strong></td>
+                <td>max_depth=6, lr=0.02, n_est=900</td>
+            </tr>
+            <tr>
+                <td>Rg (Å)</td>
+                <td>4.31</td>
+                <td><strong>2.87</strong></td>
+                <td>max_depth=6, lr=0.05, n_est=1000</td>
+            </tr>
+            <tr>
+                <td><strong>Leaderboard Rank</strong></td>
+                <td>~1,200th</td>
+                <td><strong>65th (private)</strong></td>
+                <td>—</td>
+            </tr>
+        </table>
+
+        <!-- ── FEATURE IMPORTANCE ─────────────────────────────── -->
+        <h2>8 — Feature Importance &amp; Ensemble</h2>
+
+        <div class="arch-box">
+            <h3>Top Features (XGBoost SHAP — Tg model)</h3>
+            <p>Using <strong>SHAP</strong> (SHapley Additive exPlanations) on the Tg model reveals which
+                molecular descriptors drive glass transition temperature predictions the most:</p>
+            <ol>
+                <li><code>Chi1v</code> — valence connectivity index (backbone rigidity proxy)</li>
+                <li><code>BertzCT</code> — molecular complexity / branching</li>
+                <li><code>Kappa2</code> — shape kappa index (chain flexibility)</li>
+                <li><code>fr_amide</code> — amide fragment count (hydrogen-bonding groups)</li>
+                <li><code>TPSA</code> — topological polar surface area</li>
+                <li><code>MolLogP</code> — lipophilicity (hydrophobic backbone)</li>
+                <li><code>fp_382, fp_719</code> — Morgan circular substructure bits</li>
+            </ol>
+        </div>
+
+        <pre><code>import shap, matplotlib.pyplot as plt
+
+# Compute SHAP values for the Tg XGBoost model
+explainer = shap.TreeExplainer(best_xgb_models["Tg"])
+shap_values = explainer.shap_values(X_xgb[tg_mask])
+
+# Summary plot
+shap.summary_plot(
+    shap_values,
+    X_xgb[tg_mask],
+    feature_names=feature_names,
+    max_display=20,
+    show=False,
+)
+plt.savefig("shap_tg.png", dpi=150, bbox_inches="tight")</code></pre>
+
+        <div class="arch-box">
+            <h3>Ensemble: Stacking NN + XGBoost OOF Predictions</h3>
+            <p>
+                The final submission stacked out-of-fold predictions from both models using a
+                <strong>Ridge regression meta-learner</strong>, giving a small but consistent
+                improvement over pure XGBoost on Tg and Rg targets.
+            </p>
+        </div>
+
+        <pre><code>from sklearn.linear_model import Ridge
+
+# oof_nn_preds   shape: (N, 5)  — PolymerNet OOF outputs
+# oof_xgb_preds  shape: (N, 5)  — XGBoost OOF outputs
+
+stacked_preds = {}
+for t_idx, target in enumerate(targets):
+    mask = ~np.isnan(df[target].values)
+    Xm = np.column_stack([
+        oof_nn_preds[mask, t_idx],
+        oof_xgb_preds[mask, t_idx],
+    ])
+    ym = df[target].values[mask]
+
+    meta = Ridge(alpha=1.0)
+    meta.fit(Xm, ym)
+    print(f"{target} stacking weights → "
+          f"NN: {meta.coef_[0]:.3f}  XGB: {meta.coef_[1]:.3f}")
+    stacked_preds[target] = meta
+
+# Example output:
+# Tg   stacking weights → NN: 0.21  XGB: 0.79
+# FFV  stacking weights → NN: 0.09  XGB: 0.91
+# Rg   stacking weights → NN: 0.31  XGB: 0.69</code></pre>
+
+        <!-- ── USAGE ────────────────────────────────────────────── -->
+        <h2>7 — Usage</h2>
+
+        <div class="arch-box">
+            <h3>Installation</h3>
+            <pre
+                style="margin:0"><code>pip install pandas numpy torch rdkit-pypi scikit-learn xgboost tensorboard</code></pre>
+        </div>
+
+        <div class="arch-box">
+            <h3>Training</h3>
+            <pre style="margin:0"><code># Train the neural network
+cd train_v1
+python train.py</code></pre>
+        </div>
+
+        <div class="arch-box">
+            <h3>Inference</h3>
+            <pre style="margin:0"><code># Run inference on new SMILES data
+python train_v1/infer.py \
+    --model runs/best_model.pt \
+    --smiles "CC(C)(C)c1ccc(OC(=O)c2ccc(C(C)(C)C)cc2)cc1"</code></pre>
+        </div>
+
+        <!-- ── TECH STACK ───────────────────────────────────────── -->
+        <h2>Tech Stack</h2>
+        <ul>
+            <li><strong>RDKit</strong> – SMILES parsing and molecular descriptor computation</li>
+            <li><strong>PyTorch</strong> – Multi-output neural network regression</li>
+            <li><strong>XGBoost</strong> – Per-target gradient boosted tree ensembles</li>
+            <li><strong>scikit-learn</strong> – Cross-validation, imputation, preprocessing</li>
+            <li><strong>TensorBoard</strong> – Training visualisation (<code>tensorboard --logdir runs</code>)</li>
+            <li><strong>Pandas / NumPy</strong> – Data handling and versioning</li>
+        </ul>
+
+        <a class="back-link" href="all.html">&larr; Back to all posts</a>
+    </div>
+</body>
+
+</html>
