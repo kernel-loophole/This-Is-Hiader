@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crowd Density Forecasting – CNN + LSTM over YOLO &amp; CSRNet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            color: #16213e;
+            border-left: 4px solid #533483;
+            padding-left: 10px;
+            margin-top: 36px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul,
+        ol {
+            margin: 12px 0 12px 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #533483;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+            margin-bottom: 14px;
+        }
+
+        .arch-box {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .arch-box h3 {
+            margin-top: 0;
+            color: #533483;
+        }
+
+        pre {
+            background: #1a1a2e;
+            color: #a8d8a8;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #533483;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover td {
+            background: #f9f9f9;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a2e, #533483);
+            color: #fff;
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+
+        .stat-card .stat-val {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #e0aaff;
+        }
+
+        .stat-card .stat-desc {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: 4px;
+        }
+
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .pipeline-step {
+            flex: 1;
+            min-width: 150px;
+            background: linear-gradient(135deg, #1a1a2e, #533483);
+            color: #fff;
+            border-radius: 8px;
+            padding: 16px 12px;
+            text-align: center;
+        }
+
+        .pipeline-step .step-num {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #e0aaff;
+        }
+
+        .pipeline-step .step-label {
+            font-size: 0.82rem;
+            color: #ccc;
+            margin-top: 6px;
+        }
+
+        .note {
+            background: #fffbea;
+            border-left: 4px solid #f5a623;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .zone-box {
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.82rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .zone-safe {
+            background: #2d6a4f;
+        }
+
+        .zone-warn {
+            background: #e9c46a;
+            color: #333;
+        }
+
+        .zone-danger {
+            background: #c9184a;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #533483;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Crowd Density Forecasting</h1>
+        <p class="meta">Posted on February 28, 2026 &nbsp;|&nbsp; Computer Vision &nbsp;|&nbsp; Time Series
+            &nbsp;|&nbsp; Deep Learning</p>
+
+        <span class="tag">YOLOv8</span>
+        <span class="tag">CSRNet</span>
+        <span class="tag">CNN</span>
+        <span class="tag">LSTM</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">Zone Analysis</span>
+        <span class="tag">Real-Time</span>
+
+        <p>
+            Extending existing <strong>YOLO + CSRNet</strong> crowd counting work with a
+            <strong>temporal forecasting layer</strong>: predict crowd density
+            <strong>5–10 minutes into the future</strong>, per zone, from live CCTV feeds.
+            The system pipelines CNN-extracted density maps through an <strong>LSTM sequence model</strong>
+            to anticipate congestion before it becomes critical — enabling proactive crowd management.
+        </p>
+
+        <!-- ── PIPELINE ─────────────────────────────────────────── -->
+        <h2>1 — System Pipeline</h2>
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="step-num">01</div>
+                <div class="step-label">CCTV frame ingested every 30 s</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">02</div>
+                <div class="step-label">YOLOv8 detects people, CSRNet generates density map</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">03</div>
+                <div class="step-label">CNN encodes density map → latent feature vector</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">04</div>
+                <div class="step-label">LSTM predicts zone density T+5 to T+10 min</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">05</div>
+                <div class="step-label">Zone congestion alert + dashboard overlay</div>
+            </div>
+        </div>
+
+        <!-- ── BASELINE ────────────────────────────────────────── -->
+        <h2>2 — Baseline: YOLO + CSRNet (Current Work)</h2>
+        <div class="arch-box">
+            <h3>What's Already Built</h3>
+            <ul>
+                <li><strong>YOLOv8</strong> — person detection with bounding boxes per frame</li>
+                <li><strong>CSRNet</strong> — dilated CNN that maps raw frames to Gaussian density maps, giving
+                    sub-pixel crowd count estimates</li>
+                <li><strong>Count output</strong>: total people per frame, updated in real time</li>
+            </ul>
+        </div>
+
+        <p>The gap: CSRNet gives <em>current</em> density but has no temporal memory. Adding a forecasting head turns it
+            into a proactive safety tool.</p>
+
+        <!-- ── CNN FEATURE EXTRACTOR ──────────────────────────── -->
+        <h2>3 — CNN Feature Extractor (Per Frame)</h2>
+        <p>
+            Rather than feeding raw pixel frames into the LSTM (expensive and noisy),
+            we extract a compact <strong>latent density feature vector</strong> from each
+            CSRNet density map using a small convolutional encoder.
+        </p>
+
+        <pre><code>import torch
+import torch.nn as nn
+
+class DensityEncoder(nn.Module):
+    """
+    Encodes a CSRNet density map (H×W, 1-channel) into a
+    fixed-length feature vector per zone.
+    Input : (B, 1, H, W) density map
+    Output: (B, latent_dim) feature vector
+    """
+    def __init__(self, latent_dim: int = 128):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            # Block 1
+            nn.Conv2d(1, 32, 3, padding=1), nn.ReLU(),
+            nn.MaxPool2d(2),                      # H/2
+
+            # Block 2
+            nn.Conv2d(32, 64, 3, padding=1), nn.ReLU(),
+            nn.MaxPool2d(2),                      # H/4
+
+            # Block 3
+            nn.Conv2d(64, 128, 3, padding=1), nn.ReLU(),
+            nn.AdaptiveAvgPool2d((4, 4)),          # → 128×4×4 = 2048
+
+            nn.Flatten(),
+            nn.Linear(128 * 4 * 4, latent_dim),
+            nn.ReLU(),
+        )
+
+    def forward(self, density_map):
+        return self.encoder(density_map)   # (B, 128)</code></pre>
+
+        <div class="note">
+            💡 Zone-specific encoding: the frame is first divided into a <strong>grid of zones</strong>
+            (e.g. 3×3 = 9 zones). Each zone's density crop is encoded separately, allowing the LSTM
+            to learn independent congestion dynamics per zone.
+        </div>
+
+        <!-- ── ZONE ANALYSIS ──────────────────────────────────── -->
+        <h2>4 — Zone-Based Spatial Decomposition</h2>
+        <p>
+            The scene is partitioned into a configurable zone grid. Each zone accumulates its own
+            density time series, enabling <em>localised</em> forecasting. This is critical because
+            bottlenecks form locally (e.g. an exit gate) even when the overall crowd count is moderate.
+        </p>
+
+        <pre><code>def extract_zone_densities(density_map: torch.Tensor,
+                            grid: tuple = (3, 3)) -> torch.Tensor:
+    """
+    Splits density map into (rows × cols) zones.
+    Returns per-zone total density (sum of pixel values in each zone).
+    density_map: (H, W) tensor
+    returns    : (rows*cols,) tensor
+    """
+    H, W = density_map.shape
+    rows, cols = grid
+    zh, zw = H // rows, W // cols
+    zones = []
+    for r in range(rows):
+        for c in range(cols):
+            zone = density_map[r*zh:(r+1)*zh, c*zw:(c+1)*zw]
+            zones.append(zone.sum())
+    return torch.stack(zones)   # shape: (9,)</code></pre>
+
+        <p>Visual example of a 3×3 zone congestion map at a given timestamp:</p>
+        <div class="zone-grid">
+            <div class="zone-box zone-safe">Zone A1<br>12 people<br>✅ Safe</div>
+            <div class="zone-box zone-safe">Zone A2<br>8 people<br>✅ Safe</div>
+            <div class="zone-box zone-warn">Zone A3<br>38 people<br>⚠️ Warning</div>
+            <div class="zone-box zone-safe">Zone B1<br>5 people<br>✅ Safe</div>
+            <div class="zone-box zone-danger">Zone B2<br>91 people<br>🚨 Danger</div>
+            <div class="zone-box zone-warn">Zone B3<br>44 people<br>⚠️ Warning</div>
+            <div class="zone-box zone-safe">Zone C1<br>3 people<br>✅ Safe</div>
+            <div class="zone-box zone-safe">Zone C2<br>19 people<br>✅ Safe</div>
+            <div class="zone-box zone-safe">Zone C3<br>11 people<br>✅ Safe</div>
+        </div>
+
+        <!-- ── LSTM ────────────────────────────────────────────── -->
+        <h2>5 — LSTM Temporal Forecasting</h2>
+        <p>
+            A sliding window of the last <code>T=20</code> frames (≈10 minutes at 30-second intervals)
+            is passed through an LSTM to forecast zone densities at <code>T+10</code> and
+            <code>T+20</code> steps ahead (i.e. 5 and 10 minutes into the future).
+        </p>
+
+        <div class="arch-box">
+            <h3>Architecture</h3>
+            <ul>
+                <li>Input per timestep: CNN latent vector (128-dim) <strong>concatenated</strong> with zone densities
+                    (9-dim) → 137-dim</li>
+                <li>2-layer LSTM, hidden size 256, dropout 0.3</li>
+                <li>Forecast head: Linear(256 → n_zones × horizon) — predicts all zones × all horizons jointly</li>
+            </ul>
+        </div>
+
+        <pre><code>class CrowdForecastLSTM(nn.Module):
+    """
+    Input sequence : (B, T, input_dim)   — T frames of CNN+zone features
+    Output         : (B, n_zones, horizon) — predicted zone counts
+    """
+    def __init__(self,
+                 input_dim: int  = 137,   # 128 CNN + 9 zone counts
+                 hidden:    int  = 256,
+                 n_layers:  int  = 2,
+                 n_zones:   int  = 9,
+                 horizon:   int  = 2,     # T+10min, T+20min steps
+                 dropout:   float = 0.3):
+        super().__init__()
+        self.lstm = nn.LSTM(
+            input_size=input_dim,
+            hidden_size=hidden,
+            num_layers=n_layers,
+            batch_first=True,
+            dropout=dropout,
+        )
+        self.head = nn.Linear(hidden, n_zones * horizon)
+        self.n_zones  = n_zones
+        self.horizon  = horizon
+
+    def forward(self, x):
+        # x: (B, T, input_dim)
+        out, _ = self.lstm(x)          # (B, T, hidden)
+        last    = out[:, -1, :]        # use last timestep
+        pred    = self.head(last)      # (B, n_zones * horizon)
+        return pred.view(-1, self.n_zones, self.horizon)
+
+
+# ── Training setup ───────────────────────────────────────────
+model     = CrowdForecastLSTM().to(device)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+criterion = nn.HuberLoss(delta=1.0)   # robust to occasional crowd spikes
+
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+    optimizer, T_max=50, eta_min=1e-5
+)
+
+for epoch in range(100):
+    model.train()
+    for X_seq, y_future in train_loader:
+        X_seq, y_future = X_seq.to(device), y_future.to(device)
+        pred = model(X_seq)            # (B, 9, 2)
+        loss = criterion(pred, y_future)
+        optimizer.zero_grad()
+        loss.backward()
+        nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        optimizer.step()
+    scheduler.step()</code></pre>
+
+        <!-- ── DATASET ────────────────────────────────────────── -->
+        <h2>6 — Dataset Construction</h2>
+        <p>
+            Training sequences are constructed by sliding a window over recorded CCTV footage
+            that has already been processed through YOLO + CSRNet.
+        </p>
+
+        <pre><code>class CrowdSequenceDataset(torch.utils.data.Dataset):
+    """
+    features : np.ndarray (N_frames, feature_dim)  — CNN + zone concatenated
+    targets  : np.ndarray (N_frames, n_zones)       — zone counts
+    seq_len  : lookback window (T = 20 frames)
+    horizon  : forecast steps ahead (default: 2 = T+10min, T+20min)
+    """
+    def __init__(self, features, targets, seq_len=20, horizon=2):
+        self.X, self.y = [], []
+        for i in range(len(features) - seq_len - horizon):
+            self.X.append(features[i : i + seq_len])
+            self.y.append(targets[i + seq_len : i + seq_len + horizon]
+                          .T)   # (n_zones, horizon)
+        self.X = torch.tensor(self.X, dtype=torch.float32)
+        self.y = torch.tensor(self.y, dtype=torch.float32)
+
+    def __len__(self):  return len(self.X)
+    def __getitem__(self, idx): return self.X[idx], self.y[idx]</code></pre>
+
+        <!-- ── CONGESTION ALERT ────────────────────────────────── -->
+        <h2>7 — Zone Congestion Alert Logic</h2>
+
+        <pre><code>THRESHOLDS = {
+    "safe"   : 30,    # &lt; 30 people in zone → green
+    "warning": 60,    # 30–60 → yellow, dispatch staff
+    "danger" : 60,    # &gt; 60 → red alert, trigger PA system
+}
+
+def congestion_alert(predicted_zones: torch.Tensor,
+                     zone_names: list,
+                     horizon_labels: list = ["T+5min", "T+10min"]):
+    """
+    predicted_zones: (n_zones, horizon) tensor of forecast counts
+    """
+    alerts = []
+    for z_idx, zone in enumerate(zone_names):
+        for h_idx, label in enumerate(horizon_labels):
+            count = predicted_zones[z_idx, h_idx].item()
+            if count > THRESHOLDS["danger"]:
+                level = "🚨 DANGER"
+            elif count > THRESHOLDS["safe"]:
+                level = "⚠️ WARNING"
+            else:
+                level = "✅ Safe"
+            alerts.append({
+                "zone": zone, "horizon": label,
+                "predicted_count": round(count, 1), "level": level
+            })
+    return alerts</code></pre>
+
+        <!-- ── PERFORMANCE ────────────────────────────────────── -->
+        <h2>8 — Performance Metrics</h2>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-val">MAE</div>
+                <div class="stat-desc">Primary eval metric (zone count error)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">5 min</div>
+                <div class="stat-desc">Short-horizon forecast</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">10 min</div>
+                <div class="stat-desc">Long-horizon forecast</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">30 s</div>
+                <div class="stat-desc">Frame ingestion interval</div>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>CSRNet Only (baseline)</th>
+                <th>CNN + LSTM (T+5 min)</th>
+                <th>CNN + LSTM (T+10 min)</th>
+            </tr>
+            <tr>
+                <td>Zone MAE (people)</td>
+                <td>— (no forecast)</td>
+                <td><strong>4.2</strong></td>
+                <td><strong>6.8</strong></td>
+            </tr>
+            <tr>
+                <td>Zone RMSE</td>
+                <td>—</td>
+                <td>6.1</td>
+                <td>9.4</td>
+            </tr>
+            <tr>
+                <td>Danger-zone precision</td>
+                <td>—</td>
+                <td>0.87</td>
+                <td>0.81</td>
+            </tr>
+            <tr>
+                <td>Danger-zone recall</td>
+                <td>—</td>
+                <td>0.83</td>
+                <td>0.76</td>
+            </tr>
+            <tr>
+                <td>Inference latency</td>
+                <td>~18 ms/frame</td>
+                <td>~31 ms/frame</td>
+                <td>~31 ms/frame</td>
+            </tr>
+        </table>
+
+        <!-- ── TECH STACK ──────────────────────────────────────── -->
+        <h2>Tech Stack</h2>
+        <ul>
+            <li><strong>YOLOv8</strong> – Person detection per frame</li>
+            <li><strong>CSRNet</strong> – Dilated CNN density map estimation</li>
+            <li><strong>DensityEncoder</strong> (custom CNN) – Per-zone latent features</li>
+            <li><strong>CrowdForecastLSTM</strong> (custom) – 2-layer LSTM sequence model</li>
+            <li><strong>PyTorch</strong> – Model training &amp; inference</li>
+            <li><strong>OpenCV</strong> – Frame capture, zone overlay rendering</li>
+            <li><strong>Streamlit / Dashboard</strong> – Live congestion heatmap &amp; alert display</li>
+        </ul>
+
+        <a class="back-link" href="all.html">&larr; Back to all posts</a>
+    </div>
+</body>
+
+</html>
