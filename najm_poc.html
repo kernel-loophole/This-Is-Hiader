@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Najm POC – Car Damage Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            color: #16213e;
+            border-left: 4px solid #e94560;
+            padding-left: 10px;
+            margin-top: 36px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul,
+        ol {
+            margin: 12px 0 12px 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e94560;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+            margin-bottom: 14px;
+        }
+
+        .arch-box {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .arch-box h3 {
+            margin-top: 0;
+            color: #e94560;
+        }
+
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .pipeline-step {
+            flex: 1;
+            min-width: 160px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pipeline-step .step-num {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .pipeline-step .step-label {
+            font-size: 0.85rem;
+            margin-top: 6px;
+            color: #ccc;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f0f4ff;
+            border: 1px solid #c5d0f0;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            text-decoration: none;
+            color: #333;
+            transition: background 0.2s;
+        }
+
+        .link-card:hover {
+            background: #dce6ff;
+        }
+
+        .link-card .icon {
+            font-size: 1.5rem;
+        }
+
+        .link-card .link-text strong {
+            display: block;
+            color: #1a1a2e;
+        }
+
+        .link-card .link-text span {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #e94560;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover td {
+            background: #f9f9f9;
+        }
+
+        pre {
+            background: #1a1a2e;
+            color: #a8d8a8;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+
+        .stat-card .stat-val {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .stat-card .stat-desc {
+            font-size: 0.8rem;
+            color: #bbb;
+            margin-top: 4px;
+        }
+
+        .note {
+            background: #fffbea;
+            border-left: 4px solid #f5a623;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Najm POC – Car Damage Detection</h1>
+        <p class="meta">Posted on February 28, 2026 &nbsp;|&nbsp; Computer Vision &nbsp;|&nbsp; Deep Learning</p>
+
+        <span class="tag">YOLOv12</span>
+        <span class="tag">ResNet34</span>
+        <span class="tag">Segmentation</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">Computer Vision</span>
+
+        <p>
+            This is a proof-of-concept (POC) for <strong>automated car damage detection</strong>
+            using instance segmentation and classification. The system first annotates and trains
+            on a dataset of <strong>20,000+ car images</strong>, then runs a two-stage inference
+            pipeline: <strong>YOLOv12</strong> segments individual car parts and a fine-tuned
+            <strong>ResNet34</strong> classifier determines whether each part is damaged.
+            A <strong>Streamlit</strong> web app ties everything together and exports a PDF report.
+        </p>
+
+        <!-- ── DATASET ─────────────────────────────────────────── -->
+        <h2>1 — Dataset &amp; Annotation (Roboflow)</h2>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-val">20k+</div>
+                <div class="stat-desc">Raw car images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">21</div>
+                <div class="stat-desc">Part classes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">~180k</div>
+                <div class="stat-desc">Polygon masks (after augmentation)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">80/10/10</div>
+                <div class="stat-desc">Train / Val / Test split</div>
+            </div>
+        </div>
+
+        <p>
+            All images were sourced and annotated on <strong>Roboflow</strong> using
+            <em>polygon (instance segmentation)</em> labels for the YOLO task and
+            <em>bounding-box + class labels</em> exported separately for ResNet classification.
+            Each image was labelled with up to 21 car part classes:
+        </p>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Part Class</th>
+                <th>#</th>
+                <th>Part Class</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Front Bumper</td>
+                <td>12</td>
+                <td>Rear Bumper</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Front-Left Fender</td>
+                <td>13</td>
+                <td>Rear-Right Fender</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Front-Right Fender</td>
+                <td>14</td>
+                <td>Rear-Left Fender</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Front-Left Door</td>
+                <td>15</td>
+                <td>Rear-Right Door</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Front-Right Door</td>
+                <td>16</td>
+                <td>Rear-Left Door</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Hood</td>
+                <td>17</td>
+                <td>Trunk / Boot Lid</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Roof</td>
+                <td>18</td>
+                <td>Windshield (Front)</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Front-Left Headlight</td>
+                <td>19</td>
+                <td>Windshield (Rear)</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Front-Right Headlight</td>
+                <td>20</td>
+                <td>Side Mirror (Left)</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Tail Light (Left)</td>
+                <td>21</td>
+                <td>Side Mirror (Right)</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Tail Light (Right)</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div class="note">
+            📌 Annotations were done collaboratively on Roboflow. Each annotator drew polygon
+            masks per part; a review pass was done to remove low-quality or ambiguous labels
+            before export.
+        </div>
+
+        <!-- ── AUGMENTATION ──────────────────────────────────────── -->
+        <h2>2 — Data Augmentation</h2>
+        <p>
+            Augmentation was applied inside Roboflow before export and again on-the-fly during
+            training via Albumentations. The goals were to (a) increase dataset diversity,
+            (b) improve robustness to real-world lighting and capture conditions, and
+            (c) balance under-represented part classes.
+        </p>
+
+        <table>
+            <tr>
+                <th>Augmentation</th>
+                <th>Parameters</th>
+                <th>Reason</th>
+            </tr>
+            <tr>
+                <td>Horizontal Flip</td>
+                <td>p = 0.5</td>
+                <td>Mirrors left/right part asymmetry</td>
+            </tr>
+            <tr>
+                <td>Random Rotation</td>
+                <td>±15°</td>
+                <td>Non-frontal camera angles</td>
+            </tr>
+            <tr>
+                <td>Random Brightness &amp; Contrast</td>
+                <td>±30%</td>
+                <td>Different lighting conditions</td>
+            </tr>
+            <tr>
+                <td>HSV Hue/Sat Shift</td>
+                <td>hue ±10, sat ±30%</td>
+                <td>Car color variety</td>
+            </tr>
+            <tr>
+                <td>Mosaic (YOLO)</td>
+                <td>4-image mosaic</td>
+                <td>Context-rich scene composition</td>
+            </tr>
+            <tr>
+                <td>Random Crop &amp; Resize</td>
+                <td>Scale 0.5–1.5</td>
+                <td>Part size variation</td>
+            </tr>
+            <tr>
+                <td>Gaussian Blur</td>
+                <td>kernel 3–7, p = 0.2</td>
+                <td>Camera focus simulation</td>
+            </tr>
+            <tr>
+                <td>Cutout / CoarseDropout</td>
+                <td>max 8 holes, 32×32 px</td>
+                <td>Occlusion robustness</td>
+            </tr>
+            <tr>
+                <td>JPEG Compression</td>
+                <td>quality 60–100, p = 0.3</td>
+                <td>Compression artefact tolerance</td>
+            </tr>
+        </table>
+
+        <p>Roboflow export settings used for YOLO:</p>
+        <pre><code># Roboflow export config
+format        : yolov12-seg
+resize        : 640 × 640
+augment       : True
+  flip_horizontal: True
+  rotation     : 15
+  brightness   : 30
+  saturation   : 30
+  blur         : 1.5px
+  cutout       : 5%
+generations   : 3x   # each image → 3 augmented copies
+output_split  : 80/10/10</code></pre>
+
+        <!-- ── YOLO TRAINING ─────────────────────────────────────── -->
+        <h2>3 — YOLOv12 Segmentation Training</h2>
+
+        <div class="arch-box">
+            <h3>Architecture</h3>
+            <p>
+                We used <strong>YOLOv12-m-seg</strong> (medium variant) as the base model,
+                pre-trained on COCO. The segmentation head outputs polygon masks per detection,
+                which we use to crop each car part precisely before passing it to ResNet34.
+            </p>
+        </div>
+
+        <p>Training command:</p>
+        <pre><code>yolo segment train \
+  model=yolov12m-seg.pt \
+  data=najm_parts.yaml \
+  epochs=100 \
+  imgsz=640 \
+  batch=16 \
+  lr0=0.01 \
+  lrf=0.001 \
+  momentum=0.937 \
+  weight_decay=0.0005 \
+  warmup_epochs=3 \
+  cos_lr=True \
+  mosaic=1.0 \
+  degrees=15 \
+  hsv_h=0.015 \
+  hsv_s=0.7 \
+  hsv_v=0.4 \
+  flipud=0.0 \
+  fliplr=0.5 \
+  project=najm_poc \
+  name=yolov12_seg_v1 \
+  device=0</code></pre>
+
+        <p>Dataset YAML (<code>najm_parts.yaml</code>):</p>
+        <pre><code>path: /data/najm_parts
+train: images/train
+val:   images/val
+test:  images/test
+
+nc: 21
+names:
+  - front_bumper
+  - front_left_fender
+  - front_right_fender
+  - front_left_door
+  - front_right_door
+  - hood
+  - roof
+  - front_left_headlight
+  - front_right_headlight
+  - tail_light_left
+  - tail_light_right
+  - rear_bumper
+  - rear_right_fender
+  - rear_left_fender
+  - rear_right_door
+  - rear_left_door
+  - trunk
+  - windshield_front
+  - windshield_rear
+  - mirror_left
+  - mirror_right</code></pre>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>mAP@50 (seg)</td>
+                <td>0.82</td>
+            </tr>
+            <tr>
+                <td>mAP@50-95 (seg)</td>
+                <td>0.61</td>
+            </tr>
+            <tr>
+                <td>Precision</td>
+                <td>0.84</td>
+            </tr>
+            <tr>
+                <td>Recall</td>
+                <td>0.79</td>
+            </tr>
+            <tr>
+                <td>Best epoch</td>
+                <td>87 / 100</td>
+            </tr>
+            <tr>
+                <td>Training time</td>
+                <td>~6 hrs on RTX 3090</td>
+            </tr>
+        </table>
+
+        <!-- ── RESNET TRAINING ───────────────────────────────────── -->
+        <h2>4 — ResNet34 Classification Training</h2>
+
+        <div class="arch-box">
+            <h3>Training Strategy</h3>
+            <p>
+                Each polygon mask produced by YOLOv12 is used to crop the corresponding part
+                from the original image. These crops (resized to <strong>224×224</strong>) are
+                fed into a fine-tuned <strong>ResNet34</strong> pre-trained on ImageNet.
+                We replace the final fully-connected layer with a 2-class head
+                (<em>damaged / undamaged</em>) and fine-tune the last two residual blocks along
+                with the new head using a discriminative learning rate schedule.
+            </p>
+        </div>
+
+        <pre><code>import torch
+import torch.nn as nn
+from torchvision import models, transforms
+
+# ── Model ────────────────────────────────────────────────────
+model = models.resnet34(pretrained=True)
+
+# Freeze early layers, fine-tune layer3 onward
+for name, param in model.named_parameters():
+    if "layer1" in name or "layer2" in name:
+        param.requires_grad = False
+
+# Replace head for binary classification
+model.fc = nn.Sequential(
+    nn.Dropout(0.4),
+    nn.Linear(model.fc.in_features, 2)   # damaged / undamaged
+)
+
+# ── Transforms ───────────────────────────────────────────────
+train_tf = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.RandomHorizontalFlip(),
+    transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),
+    transforms.RandomRotation(10),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406],
+                         [0.229, 0.224, 0.225]),
+])
+
+# ── Optimizer & Scheduler ────────────────────────────────────
+optimizer = torch.optim.AdamW([
+    {"params": model.layer3.parameters(), "lr": 1e-4},
+    {"params": model.layer4.parameters(), "lr": 2e-4},
+    {"params": model.fc.parameters(),     "lr": 5e-4},
+], weight_decay=1e-4)
+
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+    optimizer, T_max=30, eta_min=1e-6
+)
+
+criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+
+# ── Training loop (sketch) ────────────────────────────────────
+for epoch in range(30):
+    model.train()
+    for imgs, labels in train_loader:
+        imgs, labels = imgs.to(device), labels.to(device)
+        optimizer.zero_grad()
+        loss = criterion(model(imgs), labels)
+        loss.backward()
+        optimizer.step()
+    scheduler.step()</code></pre>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Val Accuracy</td>
+                <td>91.4%</td>
+            </tr>
+            <tr>
+                <td>Val F1-Score</td>
+                <td>0.90</td>
+            </tr>
+            <tr>
+                <td>Precision (damaged)</td>
+                <td>0.89</td>
+            </tr>
+            <tr>
+                <td>Recall (damaged)</td>
+                <td>0.92</td>
+            </tr>
+            <tr>
+                <td>Epochs</td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>Batch size</td>
+                <td>64</td>
+            </tr>
+            <tr>
+                <td>Loss function</td>
+                <td>CrossEntropy + label smoothing 0.1</td>
+            </tr>
+            <tr>
+                <td>Optimizer</td>
+                <td>AdamW + cosine annealing</td>
+            </tr>
+        </table>
+
+        <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+        <h2>5 — Inference Pipeline</h2>
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="step-num">01</div>
+                <div class="step-label">Upload car image via Streamlit</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">02</div>
+                <div class="step-label">YOLOv12 produces polygon masks per part</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">03</div>
+                <div class="step-label">Each mask is cropped → ResNet34 classifies damage</div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">04</div>
+                <div class="step-label">Damaged parts overlaid on image + PDF exported</div>
+            </div>
+        </div>
+
+        <!-- ── MODEL SUMMARY ─────────────────────────────────────── -->
+        <h2>6 — Model Summary</h2>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Model</th>
+                <th>Input</th>
+                <th>Output</th>
+            </tr>
+            <tr>
+                <td>Segmentation</td>
+                <td>YOLOv12-m-seg</td>
+                <td>640×640 image</td>
+                <td>21-class polygon masks</td>
+            </tr>
+            <tr>
+                <td>Classification</td>
+                <td>ResNet34 (fine-tuned)</td>
+                <td>224×224 part crop</td>
+                <td>damaged / undamaged</td>
+            </tr>
+        </table>
+
+        <!-- ── WEIGHTS ───────────────────────────────────────────── -->
+        <h2>Weights &amp; Resources</h2>
+
+        <a class="link-card" href="
+
+https://github.com/kernel-loophole/computer-vision/blob/main/Najm%20POC/segmentation%20weight/best.pt" target="_blank"
+            rel="noopener">
+            <span class="icon">🤗</span>
+            <div class="link-text">
+                <strong>ResNet34 Classification Weights</strong>
+                <span>huggingface.co &nbsp;·&nbsp; zulqarnain-kernel/Resnet-classify-demage</span>
+            </div>
+        </a>
+
+        <a class="link-card" href="
+
+https://github.com/kernel-loophole/computer-vision/blob/main/Najm%20POC/segmentation%20weight/best.pt" target="_blank"
+            rel="noopener">
+            <span class="icon">🐙</span>
+            <div class="link-text">
+                <strong>YOLOv12 Segmentation Weights (best.pt)</strong>
+                <span>github.com &nbsp;·&nbsp; kernel-loophole/computer-vision</span>
+            </div>
+        </a>
+
+        <!-- ── TECH STACK ─────────────────────────────────────────── -->
+        <h2>Tech Stack</h2>
+        <ul>
+            <li><strong>Roboflow</strong> – Dataset annotation, augmentation &amp; export</li>
+            <li><strong>YOLOv12</strong> – Instance segmentation of 21 car parts</li>
+            <li><strong>ResNet34 (PyTorch / torchvision)</strong> – Transfer-learned damage classifier</li>
+            <li><strong>Albumentations</strong> – On-the-fly augmentation during training</li>
+            <li><strong>Streamlit</strong> – Frontend web application</li>
+            <li><strong>OpenCV / PIL</strong> – Mask cropping &amp; image annotation</li>
+            <li><strong>ReportLab / FPDF</strong> – PDF damage report generation</li>
+        </ul>
+
+        <a class="back-link" href="all.html">&larr; Back to all posts</a>
+    </div>
+</body>
+
+</html>
