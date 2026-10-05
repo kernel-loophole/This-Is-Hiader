@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpreting and Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</title>
+    <!-- MathJax for rendering LaTeX formulas -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1150px;
+            width: 92%;
+            margin: 30px auto;
+            padding: 40px 50px;
+            box-sizing: border-box;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.07);
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 96%;
+                padding: 20px;
+                margin: 15px auto;
+            }
+        }
+
+        h1 {
+            color: #222;
+            font-size: 1.95rem;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .meta {
+            font-size: 0.88rem;
+            color: #777;
+            margin-bottom: 16px;
+        }
+
+        .tags {
+            margin-bottom: 22px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #eef2f6;
+            color: #475569;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        h2 {
+            color: #222;
+            font-size: 1.35rem;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-top: 22px;
+            margin-bottom: 8px;
+        }
+
+        h4 {
+            color: #444;
+            font-size: 0.98rem;
+            margin-top: 16px;
+            margin-bottom: 6px;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul,
+        ol {
+            margin: 10px 0 14px 22px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .note {
+            background-color: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 14px 18px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+
+        .note strong {
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .rq-box {
+            background: #fafafa;
+            border-left: 3px solid #64748b;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .rq-box strong {
+            color: #1e293b;
+        }
+
+        .hypothesis-item {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            border-left: 3px solid #2563eb;
+            padding: 10px 14px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .hypothesis-item strong {
+            color: #1d4ed8;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 14px 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.55;
+            margin: 14px 0;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+
+        p code,
+        li code {
+            background-color: #f1f5f9;
+            color: #2563eb;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #333;
+            padding: 9px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 9px 12px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #fafafa;
+        }
+
+        .formula-box {
+            background-color: #fbfbfb;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .back-nav {
+            margin-top: 36px;
+            padding-top: 18px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Interpreting and Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</h1>
+        <p class="meta">Posted on October 5, 2026 &nbsp;|&nbsp; Mechanistic Interpretability &nbsp;|&nbsp; Vision-Language Models &nbsp;|&nbsp; Representation Engineering</p>
+
+        <div class="tags">
+            <span class="tag">Sparse Autoencoders</span>
+            <span class="tag">Mechanistic Interpretability</span>
+            <span class="tag">Vision-Language Models</span>
+            <span class="tag">Spatial Reasoning</span>
+            <span class="tag">Causal Steering</span>
+            <span class="tag">PyTorch</span>
+        </div>
+
+        <p>
+            <strong>Code &amp; Repository:</strong>
+            <a href="https://github.com/kernel-loophole/Master-thesis" target="_blank" rel="noopener noreferrer">https://github.com/kernel-loophole/autoencoder &rarr;</a>
+        </p>
+
+        <p>
+            Linear probing and direct linear interventions (\(h_t' = h_t + \alpha \cdot \text{probe}\)) in vision-language models can produce collateral semantic changes because learned linear directions are frequently entangled with non-target properties such as <strong>color, texture, object identity, shape, background, and language attributes</strong>.
+        </p>
+
+        <p>
+            This research codebase investigates whether <strong>Multimodal Sparse Autoencoders (SAEs)</strong> provide a more interpretable, disentangled feature basis for spatial concepts (such as <em>containment, inside/outside, left/right, above/below, front/behind, depth ordering</em>).
+        </p>
+
+        <div class="note">
+            <strong>Project Status &mdash; Experimental Research Framework</strong>
+            This repository is designed for hypothesis testing and controlled falsification. Empirical conclusions regarding SAE superiority or feature monosemanticity have not yet been established and are subject to ongoing experimental verification.
+        </div>
+
+        <!-- ── SECTION 1: MOTIVATION ────────────────────────────── -->
+        <h2>1. Motivation</h2>
+        <p>
+            Linear probing and direct linear interventions (\(h_t' = h_t + \alpha \cdot \text{probe}\)) in vision-language models (VLMs) can produce collateral semantic changes because learned linear directions are frequently entangled with non-target visual and linguistic properties, such as object color, shape, texture, identity, and background context.
+        </p>
+
+        <div class="formula-box">
+            $$h_t' = h_t + \alpha \cdot w_{\text{probe}}$$
+        </div>
+
+        <p>
+            This project investigates whether Sparse Autoencoders (SAEs) can extract a more interpretable, disentangled feature basis that enables precise causal steering of spatial reasoning while preserving unrelated semantic attributes.
+        </p>
+
+        <!-- ── SECTION 2: HYPOTHESES ────────────────────────────── -->
+        <h2>2. Hypotheses</h2>
+
+        <div class="hypothesis-item">
+            <strong>H1 (Representation):</strong> Spatial reasoning features in VLMs are localized in intermediate multimodal residual stream layers and vision-language projector representations rather than early visual encoders or final text generation tokens alone.
+        </div>
+
+        <div class="hypothesis-item">
+            <strong>H2 (Sparse Feature Discovery):</strong> Multimodal SAEs can discover sparse, highly selective latent features corresponding to primitive spatial concepts (containment, adjacency, relative positioning, depth ordering).
+        </div>
+
+        <div class="hypothesis-item">
+            <strong>H3 (Disentanglement):</strong> Individual SAE features exhibit significantly lower attribute leakage and higher purity than direct linear probe direction vectors when tested on counterfactual scene pairs.
+        </div>
+
+        <div class="hypothesis-item">
+            <strong>H4 (Causal Steering):</strong> Intervening on sparse SAE features (\(z_i' = z_i + \alpha\) or \(z_i' = c\)) steers spatial predictions with higher target specificity and lower collateral semantic mutation than linear probe steering.
+        </div>
+
+        <!-- ── SECTION 3: CORE RESEARCH QUESTIONS ────────────────── -->
+        <h2>3. Core Research Questions</h2>
+
+        <div class="rq-box">
+            <strong>RQ1 &mdash; Representation: Where inside a vision-language model are spatial relations represented?</strong>
+            <br>
+            <em>Target activation sources:</em> Vision encoder outputs, vision-language projector, multimodal token embeddings, intermediate transformer residual streams, selected attention/MLP layer outputs.
+        </div>
+
+        <div class="rq-box">
+            <strong>RQ2 &mdash; Feature Discovery: Can sparse autoencoders discover interpretable features corresponding to spatial concepts?</strong>
+            <br>
+            <em>Concepts explored:</em> inside, outside, left/right, above/below, front/behind, near/far, containment, overlap.
+            <br>
+            <em>Experimental design:</em> Allows 1-to-many, many-to-1, distributed, and polysemantic feature mappings without hardcoding 1-to-1 assumptions.
+        </div>
+
+        <div class="rq-box">
+            <strong>RQ3 &mdash; Disentanglement: Are SAE features less entangled with irrelevant attributes than ordinary linear probe directions?</strong>
+            <br>
+            <em>Evaluated confounds:</em> Object color, shape, texture, object identity, background, language templates, image position, object size.
+        </div>
+
+        <div class="rq-box">
+            <strong>RQ4 &mdash; Causal Steering: Can individual SAE features be causally manipulated to alter spatial reasoning while minimizing collateral semantic shift?</strong>
+            <br>
+            <em>Intervention strategies:</em> Compares <code>add</code>, <code>clamp</code>, <code>suppress</code>, and <code>scale</code> in the SAE latent space (\(h \to z \to z' \to h'\)).
+        </div>
+
+        <!-- ── SECTION 4: EXPERIMENTAL VARIABLES & BASELINES ─────── -->
+        <h2>4. Experimental Variables &amp; Baselines</h2>
+
+        <h3>Experimental Variables</h3>
+        <ul>
+            <li>
+                <strong>Independent Variables:</strong>
+                <ul>
+                    <li>Intervention method: Linear probe vector vs. SAE latent feature vs. Random feature vs. Matched control feature.</li>
+                    <li>Intervention strength (\(\alpha \in [-10.0, 10.0]\)).</li>
+                    <li>Target layer / representation source.</li>
+                    <li>Scene attribute variations (colors, shapes, background grid, counterfactual attribute swaps).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Dependent Variables:</strong>
+                <ul>
+                    <li>Target spatial relation prediction accuracy.</li>
+                    <li>Feature selectivity &amp; purity index.</li>
+                    <li>Counterfactual invariance score.</li>
+                    <li>Specificity score &amp; collateral semantic shift.</li>
+                    <li>KL divergence of output logit distributions.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Baselines</h3>
+        <ol>
+            <li><strong>Unintervened Model Baseline:</strong> Clean forward pass without any intervention.</li>
+            <li><strong>Linear Probe Intervention Baseline:</strong> Direct linear direction steering (\(h' = h + \alpha \cdot w_{\text{probe}}\)).</li>
+            <li><strong>Random Feature Steering Control:</strong> Modifying arbitrary random SAE features with equal norm.</li>
+            <li><strong>Matched-Control Feature Steering:</strong> Modifying correlated non-spatial SAE features (e.g., color-selective features).</li>
+        </ol>
+
+        <!-- ── SECTION 5: SYSTEM ARCHITECTURE ───────────────────── -->
+        <h2>5. System Architecture</h2>
+        <p>
+            The framework implements an end-to-end modular pipeline consisting of seven decoupled stages:
+        </p>
+
+        <pre><code>                    ┌─────────────────────────┐
+                    │ Synthetic Scene Data    │
+                    │ &amp; Counterfactual Pairs  │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Vision-Language Model   │
+                    │      (VLM Adapter)      │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Activation Extraction   │
+                    │ &amp; Layer Storage         │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Sparse Autoencoder      │
+                    │      (SAE Training)     │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Feature Discovery &amp;     │
+                    │ Correlation Analysis    │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Causal Steering         │
+                    │ Intervention Engine     │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Disentanglement &amp;       │
+                    │ Causal Evaluation       │
+                    └─────────────────────────┘</code></pre>
+
+        <!-- ── SECTION 6: MATHEMATICAL FORMULATIONS ─────────────── -->
+        <h2>6. Mathematical Formulations</h2>
+
+        <h3>Sparse Autoencoder (SAE) Formulation</h3>
+        <p>
+            Given extracted model residual activations \(x \in \mathbb{R}^d\), the Sparse Autoencoder projects \(x\) into an expanded sparse latent representation \(z \in \mathbb{R}^M\):
+        </p>
+
+        <div class="formula-box">
+            $$\begin{aligned}
+            z &amp;= \text{ReLU}\left(W_{\text{enc}} (x - b_{\text{dec}}) + b_{\text{enc}}\right) \\
+            \hat{x} &amp;= W_{\text{dec}} z + b_{\text{dec}}
+            \end{aligned}$$
+        </div>
+
+        <p>With an \(L_1\)-penalized reconstruction loss:</p>
+
+        <div class="formula-box">
+            $$\mathcal{L}_{\text{SAE}}(x) = \|x - \hat{x}\|_2^2 + \lambda \|z\|_1$$
+        </div>
+
+        <p>Or alternatively using <strong>Top-K SAEs</strong>:</p>
+
+        <div class="formula-box">
+            $$z = \text{TopK}\left(\text{ReLU}\left(W_{\text{enc}} (x - b_{\text{dec}}) + b_{\text{enc}}\right), k\right)$$
+        </div>
+
+        <h3>Causal Steering Intervention</h3>
+        <p>
+            During forward pass inference, we intercept activation \(h\) at the target layer, compute latent activations \(z\), manipulate the target spatial feature index \(j\), and reconstruct into the residual stream:
+        </p>
+
+        <div class="formula-box">
+            $$\begin{aligned}
+            z'_j &amp;= z_j + \alpha \quad \text{or} \quad z'_j = c \\
+            h' &amp;= h + W_{\text{dec}} (z' - z)
+            \end{aligned}$$
+        </div>
+
+        <!-- ── SECTION 7: DIRECTORY STRUCTURE & MODULES ─────────── -->
+        <h2>7. Directory Structure &amp; Core Modules</h2>
+
+        <pre><code>.
+├── README.md
+├── LICENSE
+├── pyproject.toml
+├── .gitignore
+├── .env.example
+├── configs/
+│   ├── model/           # VLM specifications (Qwen2-VL, LLaVA, Mock)
+│   ├── data/            # Synthetic scene &amp; counterfactual configs
+│   ├── sae/             # SAE architectures (L1, Top-K, loss)
+│   ├── extraction/      # Activation caching &amp; layer storage configs
+│   ├── intervention/    # Causal steering strategies &amp; strengths
+│   └── experiments/     # End-to-end evaluation runs
+├── src/
+│   └── spatial_sae/
+│       ├── data/         # Synthetic scene rendering &amp; counterfactual pairs
+│       ├── models/       # VLM adapters &amp; forward hook interceptors
+│       ├── extraction/   # Layer activation collectors &amp; chunked disk storage
+│       ├── sae/          # Sparse Autoencoder PyTorch models &amp; trainers
+│       ├── probing/      # Linear probe baselines &amp; probe direction steering
+│       ├── intervention/ # SAE causal steering engine &amp; runtime hooks
+│       ├── evaluation/   # Spatial flip rate, attribute specificity &amp; KL drift
+│       ├── experiments/  # Compositional binding &amp; relation transfer benchmarks
+│       └── utils/        # Utilities, config loaders &amp; logging
+├── scripts/
+│   ├── prepare_data.py
+│   ├── extract_activations.py
+│   ├── train_sae.py
+│   ├── analyze_features.py
+│   ├── run_probe.py
+│   └── run_intervention.py
+├── tests/
+├── notebooks/
+├── checkpoints/
+└── outputs/</code></pre>
+
+        <h3>Core Modules Breakdown</h3>
+        <table>
+            <tr>
+                <th>Module</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.data</code></td>
+                <td>Manages synthetic scene rendering, counterfactual pair generation, schemas, and PyTorch datasets.</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.models</code></td>
+                <td>VLM adapters (<code>VLMAdapter</code>, <code>HuggingFaceVLMAdapter</code>, <code>MockVLMAdapter</code>), representation definitions, and forward hook managers.</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.extraction</code></td>
+                <td>Layer activation collection, disk storage shards (<code>ActivationStorage</code>), and extraction pipelines (<code>ActivationExtractor</code>).</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.sae</code></td>
+                <td>PyTorch Sparse Autoencoder (<code>SparseAutoencoder</code>), \(L_1\) / Top-K loss functions (<code>SAELoss</code>), trainer (<code>SAETrainer</code>), metrics, and feature discovery tools.</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.probing</code></td>
+                <td>Linear probe baselines (<code>LinearProbe</code>) and direction steering comparison (\(h' = h + \alpha \cdot w_{\text{probe}}\)).</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.intervention</code></td>
+                <td>Steering intervention engine (<code>SAEInterventionEngine</code>), PyTorch forward steering hooks, and strategies (<code>add</code>, <code>clamp</code>, <code>suppress</code>, <code>scale</code>).</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.evaluation</code></td>
+                <td>Quantitative metrics for spatial accuracy, feature selectivity, counterfactual invariance, specificity score, and KL divergence.</td>
+            </tr>
+            <tr>
+                <td><code>spatial_sae.experiments</code></td>
+                <td>Standardized experiment execution scripts and compositional binding evaluation.</td>
+            </tr>
+        </table>
+
+        <!-- ── SECTION 8: QUICK START ──────────────────────────── -->
+        <h2>8. Quick Start (Synthetic Dry Run)</h2>
+        <p>
+            You can run a complete end-to-end synthetic pipeline (dataset generation, dry-run extraction, SAE training, feature discovery, and causal intervention) without downloading a VLM model:
+        </p>
+
+        <h3>Step 1: Generate Synthetic Dataset &amp; Counterfactual Pairs</h3>
+        <pre><code>python scripts/prepare_data.py --config configs/data/default.yaml --num_pairs 100</code></pre>
+
+        <h3>Step 2: Extract Activations (Dry Run with Mock VLM)</h3>
+        <pre><code>python scripts/extract_activations.py --config configs/extraction/default.yaml --dry_run</code></pre>
+
+        <h3>Step 3: Train Sparse Autoencoder (SAE)</h3>
+        <pre><code>python scripts/train_sae.py --config configs/sae/default.yaml</code></pre>
+
+        <h3>Step 4: Discover Features &amp; Analyze Correlations</h3>
+        <pre><code>python scripts/analyze_features.py --config configs/sae/default.yaml</code></pre>
+
+        <h3>Step 5: Run Linear Probe Baseline vs Causal Steering Interventions</h3>
+        <pre><code># Linear Probe Baseline
+python scripts/run_probe.py --config configs/experiments/default.yaml
+
+# SAE Causal Steering &amp; Compositional Binding Experiment
+python scripts/run_intervention.py --config configs/intervention/default.yaml --compositional</code></pre>
+
+        <!-- ── SECTION 9: REAL VLM EXPERIMENTS ─────────────────── -->
+        <h2>9. Real VLM Model Experiments</h2>
+        <p>
+            To configure and run experiments on a real open-source Vision-Language Model (such as <code>Qwen/Qwen2-VL-7B-Instruct</code> or <code>llava-hf/llava-1.5-7b-hf</code>):
+        </p>
+
+        <h3>Step 1: Edit Model Config (<code>configs/model/default.yaml</code>)</h3>
+        <pre><code>model_name: "Qwen/Qwen2-VL-7B-Instruct"
+adapter_type: "huggingface"
+device: "cuda"
+dtype: "bfloat16"
+target_layer: "model.layers.16"</code></pre>
+
+        <h3>Step 2: Extract Activations from Real VLM</h3>
+        <pre><code>python scripts/extract_activations.py --config configs/extraction/default.yaml --model_config configs/model/default.yaml</code></pre>
+
+        <h3>Step 3: Train SAE &amp; Run Interventions</h3>
+        <pre><code>python scripts/train_sae.py --config configs/sae/default.yaml
+python scripts/run_intervention.py --config configs/intervention/default.yaml</code></pre>
+
+        <!-- ── SECTION 10: METRICS, ABLATIONS & FAILURE MODES ──── -->
+        <h2>10. Evaluation Metrics, Ablations &amp; Failure Modes</h2>
+
+        <h3>Core Evaluation Metrics</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Definition &amp; Objective</th>
+            </tr>
+            <tr>
+                <td><strong>Spatial Accuracy</strong></td>
+                <td>Correctness of target spatial relation classification.</td>
+            </tr>
+            <tr>
+                <td><strong>Spatial Selectivity &amp; Purity</strong></td>
+                <td>Correlation with spatial label vs. maximum correlation with non-spatial attribute confounds.</td>
+            </tr>
+            <tr>
+                <td><strong>Counterfactual Invariance</strong></td>
+                <td>Cosine similarity of feature activations between counterfactual scene pairs (e.g., <em>A: red ball in blue box</em> vs <em>B: blue ball in red box</em>).</td>
+            </tr>
+            <tr>
+                <td><strong>Intended Effect Rate</strong></td>
+                <td>Percentage of steered forward passes where model prediction matches the targeted spatial relation.</td>
+            </tr>
+            <tr>
+                <td><strong>Specificity &amp; Collateral Shift</strong></td>
+                <td>Frequency of unintended mutations to object identity/color bindings; measured alongside KL divergence of output logit distributions.</td>
+            </tr>
+        </table>
+
+        <h3>Planned Ablations</h3>
+        <ul>
+            <li><strong>SAE Expansion Factor:</strong> Varying latent dictionary capacity (\(4\times, 8\times, 16\times\)).</li>
+            <li><strong>Sparsity Loss Formulation:</strong> Comparing \(L_1\) penalty regularization vs. Top-K exact activation selection.</li>
+            <li><strong>Intervention Locality:</strong> Steering at a single intermediate layer vs. multi-layer simultaneous interventions.</li>
+        </ul>
+
+        <h3>Expected Failure Modes</h3>
+        <ul>
+            <li><strong>Polysemantic Features:</strong> Single SAE features responding to both a spatial relation AND specific object identities.</li>
+            <li><strong>Distributed Spatial Concepts:</strong> Spatial concept represented across a linear combination of multiple SAE features rather than an isolated monosemantic unit.</li>
+            <li><strong>Reconstruction Degradation:</strong> High SAE reconstruction error distorting general language generation capabilities and token coherence.</li>
+        </ul>
+
+        <!-- ── SECTION 11: REPRODUCIBILITY ─────────────────────── -->
+        <h2>11. Reproducibility Protocol</h2>
+        <ul>
+            <li><strong>Deterministic Seeding:</strong> Explicit global random seed management (<code>set_seed()</code>) synchronized across Python, NumPy, and PyTorch.</li>
+            <li><strong>Configuration Tracking:</strong> Exact configuration files (<code>configs/**/*.yaml</code>) serialized and saved alongside all checkpoint weights and evaluation runs.</li>
+            <li><strong>Full Metadata Recording:</strong> Comprehensive logging of activation extraction shapes, layer designations, trained SAE loss trajectories, and benchmark metrics.</li>
+        </ul>
+
+        <!-- ── SECTION 12: REPOSITORY & CODE ───────────────────── -->
+        <h2>12. Repository &amp; Source Code</h2>
+        <p>
+            The full research codebase, experimental configs, and reproduction scripts are hosted on GitHub:
+            <br>
+            <a href="https://github.com/kernel-loophole/Master-thesis" target="_blank" rel="noopener noreferrer">https://github.com/kernel-loophole/autoencoder &rarr;</a>
+        </p>
+
+        <!-- ── FOOTER & NAV ────────────────────────────────────── -->
+        <div class="back-nav">
+            <a href="all.html">&larr; Back to all blog posts</a>
+            <a href="index.html">Home &rarr;</a>
+        </div>
+
+    </div>
+</body>
+
+</html>
