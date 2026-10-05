@@ -16,12 +16,22 @@
         }
 
         .container {
-            max-width: 820px;
+            max-width: 1150px;
+            width: 92%;
             margin: 30px auto;
-            padding: 30px 40px;
+            padding: 40px 50px;
+            box-sizing: border-box;
             background-color: #fff;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
             border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 96%;
+                padding: 20px;
+                margin: 15px auto;
+            }
         }
 
         h1 {

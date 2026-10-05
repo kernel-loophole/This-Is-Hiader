@@ -14,11 +14,22 @@
             color: #333;
         }
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 1150px;
+            width: 92%;
+            margin: 30px auto;
+            padding: 40px 50px;
+            box-sizing: border-box;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 96%;
+                padding: 20px;
+                margin: 15px auto;
+            }
         }
         h1, h2, h3, h4 {
             color: #333;
