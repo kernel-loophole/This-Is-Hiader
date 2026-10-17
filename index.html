@@ -4,104 +4,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zulqarnain Haider</title>
+    <title>Zulqarnain Haider | Machine Learning Engineer &amp; Researcher</title>
     <link rel="stylesheet" href="style1.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Zulqarnain Haider</h1>
-            <nav class="nav">
-                <a href="#">Home</a>
-                <a href="Zulqarnain.pdf">Resume</a>
+    <!-- Top Horizontal Navigation Bar (Academic Style) -->
+    <header class="site-header">
+        <div class="site-nav-container">
+            <nav class="site-nav">
+                <a href="index.html" class="active">About me</a>
+                <a href="#research">Research</a>
                 <a href="ML/index.html">ML Series</a>
+                <a href="#projects">Projects</a>
                 <a href="all.html">Blogs</a>
-                <a href="https://github.com/kernel-loophole/">GitHub</a>
-                <a href="https://www.linkedin.com/in/zulqarnain-haider-3229bb212/">LinkedIn</a>
+                <a href="Zulqarnain.pdf" target="_blank">CV</a>
+                <a href="#experience">Experience</a>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <section class="profile">
-            <img src="media/profile.jpeg" alt="Zulqarnain Haider">
-            <!-- <h2>Machine Learning Engineer</h2> -->
-            <p>I build scalable, impactful solutions in deep learning and NLP, fine-tune transformer models, and design
-                MLOps pipelines for seamless model deployment.</p>
-        </section>
+    <!-- Main Two-Column Layout -->
+    <div class="layout-container">
+        <!-- Left Sidebar: Profile & Social/Academic Links -->
+        <aside class="sidebar">
+            <div class="sidebar-avatar-wrapper">
+                <img src="media/profile.jpeg" alt="Zulqarnain Haider" class="sidebar-avatar">
+            </div>
+            
+            <h1 class="sidebar-name">Zulqarnain Haider</h1>
+            <p class="sidebar-role">Machine Learning Engineer &amp; AI Researcher</p>
+            <p class="sidebar-focus">Deep Learning &middot; Multimodal SAEs &middot; Time Series &middot; Systems &amp; MLOps</p>
 
-        <section class="blog-posts">
-            <h2>Latest Posts</h2>
+            <ul class="sidebar-links">
+                <li class="sidebar-link-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Islamabad, Pakistan</span>
+                </li>
+                <li class="sidebar-link-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <a href="mailto:zulqarnain.shahid.iqbal@gmail.com">Email</a>
+                </li>
+                <li class="sidebar-link-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    <a href="https://www.linkedin.com/in/zulqarnain-haider-3229bb212/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </li>
+                <li class="sidebar-link-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <a href="https://github.com/kernel-loophole" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </li>
+                <li class="sidebar-link-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4 3.111v6.782l8 4.607 8-4.607v-6.782l4-3.111L12 0z"/>
+                    </svg>
+                    <a href="https://scholar.google.com/scholar?q=Zulqarnain+Haider" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                </li>
+            </ul>
+        </aside>
 
-            <div class="post">
-                <h3>Foundations of Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces</h3>
-                <p>How do modern AI frameworks train massive neural networks without collapsing under the computational weight of calculus? Explore primitives, input/weight Jacobians, vectorization, and reverse-mode AD.</p>
-                <a href="ML/automatic_differentiation.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on October 17, 2026 &nbsp;|&nbsp; ML Series</p>
+        <!-- Right Column: Main Content -->
+        <main class="main-content" id="about">
+            <!-- Academic Project / Research Overview Headline -->
+            <h2 class="page-title">Scalable Deep Learning, Mechanistic Interpretability &amp; Systems</h2>
+            
+            <div class="project-meta">
+                <p><strong>Focus:</strong> Multimodal Sparse Autoencoders (SAEs), Reverse-Mode AD, Distributed Training &amp; High-Throughput Inference</p>
+                <p><strong>Education:</strong> MS in Computer Science @ UET Lahore (2026–Present) &middot; BS in Computer Science @ FAST NUCES Islamabad</p>
+                <p><strong>Affiliations &amp; Prior Experience:</strong> CodeNinja Inc., Parallel Computing Networks, Replit</p>
             </div>
 
-            <div class="post">
-                <h3>Interpreting &amp; Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</h3>
-                <p>Investigating whether Multimodal Sparse Autoencoders can identify, disentangle, and causally steer spatial reasoning features inside vision-language models without collateral semantic changes.</p>
-                <a href="spatial_sae.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on October 5, 2026</p>
+            <p class="intro-text">
+                I am a Machine Learning Engineer and AI Researcher building scalable deep learning systems and investigating representation learning. My research interests include mechanistic interpretability (disentangling neural activations via Sparse Autoencoders), foundational calculus mechanics for automatic differentiation, and architecting distributed training pipelines using Ray and PyTorch.
+            </p>
+
+            <!-- Callout Highlights (Matching the reference layout) -->
+            <h2 class="section-title">Research Highlights &amp; Announcements</h2>
+
+            <div class="callout-banner">
+                <strong>Featured Research:</strong> <a href="spatial_sae.html">Interpreting &amp; Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</a> &mdash; Investigating whether multimodal SAEs can identify, isolate, and causally steer spatial reasoning features inside vision-language models without semantic drift.
             </div>
 
-            <div class="post">
-                <h3>Crowd Density Forecasting – CNN + LSTM over YOLO &amp; CSRNet</h3>
-                <p>Extends YOLO+CSRNet crowd counting with a CNN+LSTM pipeline to forecast zone-level crowd density 5–10
-                    minutes ahead and trigger proactive congestion alerts.</p>
-                <a href="crowd_density.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on February 28, 2026</p>
+            <p class="section-prose">
+                This project evaluates cross-modal alignment and causal intervention techniques inside transformer backbones. We train high-capacity sparse autoencoders over residual stream activations to discover monosemantic spatial directions that govern coordinate mapping and relational reasoning.
+            </p>
+
+            <div class="callout-banner">
+                <strong>New Interactive Lesson:</strong> <a href="ML/automatic_differentiation.html">Foundations of Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces</a> &mdash; A rigorous exploration of how modern deep learning frameworks execute reverse-mode AD and vector-Jacobian products (VJPs).
             </div>
 
-            <div class="post">
-                <h3>Open Polymers – Predicting Polymer Properties with ML</h3>
-                <p>ML pipeline using RDKit, PyTorch, and XGBoost to predict Tg, FFV, Density, Tc, and Rg from SMILES
-                    strings. Ranked 656/2,400+ (65th on private leaderboard with XGBoost).</p>
-                <a href="open_polymers.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on June 20, 2025</p>
+            <!-- Latest Research & Posts Section -->
+            <h2 class="section-title" id="research">Latest Research &amp; Articles</h2>
+            
+            <div class="posts-container">
+                <article class="post-card">
+                    <h3>
+                        <a href="ML/automatic_differentiation.html">Foundations of Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces</a>
+                    </h3>
+                    <p class="post-desc">
+                        How do modern AI frameworks train massive neural networks without collapsing under the computational weight of calculus? Explore primitives, input/weight Jacobians, vectorization, and reverse-mode AD.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span class="series-tag">ML Series</span>
+                            <span>&bull;</span>
+                            <span>October 17, 2026</span>
+                        </div>
+                        <a href="ML/automatic_differentiation.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="spatial_sae.html">Interpreting &amp; Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</a>
+                    </h3>
+                    <p class="post-desc">
+                        Investigating whether Multimodal Sparse Autoencoders can identify, disentangle, and causally steer spatial reasoning features inside vision-language models without collateral semantic changes.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>October 5, 2026</span>
+                        </div>
+                        <a href="spatial_sae.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="crowd_density.html">Crowd Density Forecasting &ndash; CNN + LSTM over YOLO &amp; CSRNet</a>
+                    </h3>
+                    <p class="post-desc">
+                        Extends YOLO+CSRNet crowd counting with a CNN+LSTM pipeline to forecast zone-level crowd density 5&ndash;10 minutes ahead and trigger proactive congestion alerts in dense pedestrian environments.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>February 28, 2026</span>
+                        </div>
+                        <a href="crowd_density.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="open_polymers.html">Open Polymers &ndash; Predicting Polymer Properties with ML</a>
+                    </h3>
+                    <p class="post-desc">
+                        ML pipeline using RDKit, PyTorch, and XGBoost to predict Tg, FFV, Density, Tc, and Rg directly from SMILES strings. Ranked 656/2,400+ overall (65th on private leaderboard with XGBoost).
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>June 20, 2025</span>
+                        </div>
+                        <a href="open_polymers.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="najm_poc.html">Najm POC &ndash; Car Damage Detection using YOLOv12 &amp; ResNet34</a>
+                    </h3>
+                    <p class="post-desc">
+                        A proof-of-concept system that segments car parts using YOLOv12, classifies damage severity with a fine-tuned ResNet34, and compiles an automated PDF damage inspection report via Streamlit.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>December 9, 2025</span>
+                        </div>
+                        <a href="najm_poc.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="fine_tune.html">Fine-Tuning a Code LLM on Custom Code with a Single GPU</a>
+                    </h3>
+                    <p class="post-desc">
+                        Techniques and memory-efficient strategies for adapting large language models (Codex, StarCoder, Code Llama) to specialized domain codebases using LoRA/PEFT on commodity hardware.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>June 1, 2024</span>
+                        </div>
+                        <a href="fine_tune.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c" target="_blank" rel="noopener noreferrer">Unraveling the Power of Knowledge Graphs (Part 1)</a>
+                    </h3>
+                    <p class="post-desc">
+                        Enter the knowledge graph, a transformative framework reshaping how we structure, navigate, and reason over complex interconnected relational data.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>February 1, 2024</span>
+                        </div>
+                        <a href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c" class="read-more" target="_blank" rel="noopener noreferrer">Read on Notion &rarr;</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <h3>
+                        <a href="Blue.html">BLEU Metric in NLP Evaluation</a>
+                    </h3>
+                    <p class="post-desc">
+                        A mathematical breakdown of precision clipping, brevity penalties, and n-gram overlap in evaluating machine translation and text generation systems.
+                    </p>
+                    <div class="post-card-footer">
+                        <div class="post-card-meta">
+                            <span>December 10, 2023</span>
+                        </div>
+                        <a href="Blue.html" class="read-more">Read More &rarr;</a>
+                    </div>
+                </article>
             </div>
 
-            <div class="post">
-                <h3>Najm POC – Car Damage Detection using YOLOv12 &amp; ResNet34</h3>
-                <p>A POC that segments car parts with YOLOv12, classifies damage with a fine-tuned ResNet34, and
-                    generates a PDF damage report via Streamlit.</p>
-                <a href="najm_poc.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on December 9, 2025</p>
+            <!-- Professional Experience Section -->
+            <h2 class="section-title" id="experience">Professional Experience</h2>
+            
+            <div class="post-card" style="margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                    <h3 style="margin-bottom: 0;">Machine Learning Engineer &bull; CodeNinja Inc.</h3>
+                    <span style="font-size: 13px; color: #6b7280;">12/2024 &ndash; 04/2026 &middot; Lahore, Pakistan</span>
+                </div>
+                <p class="post-desc" style="margin-bottom: 0;">
+                    Orchestrated distributed model training and data pipelines using Ray with GPU-aware scheduling. Engineered real-time anomaly detection pipelines for high-volume transactions using deep autoencoders, optimized end-to-end inference (reducing latency by 42%), and built production RAG systems with vector databases.
+                </p>
             </div>
 
-            <div class="post">
-                <h3>Fine-Tuning a Code LLM on Custom Code with a Single GPU</h3>
-                <p>Fine-tuning large language models (LLMs) for code generation, such as Codex, StarCoder, and Code
-                    Llama.</p>
-                <a href="fine_tune.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on June 1, 2024</p>
+            <div class="post-card" style="margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                    <h3 style="margin-bottom: 0;">AI Researcher &bull; Parallel Computing Networks</h3>
+                    <span style="font-size: 13px; color: #6b7280;">11/2023 &ndash; 11/2024 &middot; Islamabad, Pakistan</span>
+                </div>
+                <p class="post-desc" style="margin-bottom: 0;">
+                    Designed and deployed scalable data pipelines for multimodal datasets. Optimized distributed training workflows using PyTorch Distributed and Ray (reducing training times by 25%), fine-tuned transformers via PEFT/LoRA, and maintained MLOps infrastructure using Kubeflow and Airflow.
+                </p>
             </div>
 
-            <div class="post">
-                <h3>Unraveling the Power of Knowledge Graphs part-1</h3>
-                <p>Enter the knowledge graph, a transformative tool reshaping the way we navigate and understand
-                    information.</p>
-                <a href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c"
-                    class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on Feb 1, 2024</p>
+            <div class="post-card" style="margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                    <h3 style="margin-bottom: 0;">System Programmer (Rust) &bull; Replit</h3>
+                    <span style="font-size: 13px; color: #6b7280;">08/2022 &ndash; 12/2023 &middot; San Francisco, USA (Remote)</span>
+                </div>
+                <p class="post-desc" style="margin-bottom: 0;">
+                    Engineered high-performance data processing services in Rust with Tokio for low-latency data flows. Optimized PostgreSQL access layers and applied performance profiling to achieve a 30% reduction in processing latency.
+                </p>
             </div>
 
-            <div class="post">
-                <h3>BLEU Metric in NLP Evaluation</h3>
-                <p>Unraveling the Power of BLEU Metric in NLP Evaluation. Evaluating the quality of these generated
-                    texts is crucial.</p>
-                <a href="Blue.html" class="read-more">Read More &rarr;</a>
-                <p class="post-meta">Posted on December 10, 2023</p>
+            <!-- Technical Areas / Badges -->
+            <h2 class="section-title" id="projects">Technical Toolkit</h2>
+            <div class="badge-group">
+                <span class="badge">PyTorch</span>
+                <span class="badge">JAX</span>
+                <span class="badge">Sparse Autoencoders (SAEs)</span>
+                <span class="badge">Transformers &amp; PEFT</span>
+                <span class="badge">Ray Distributed</span>
+                <span class="badge">MLOps &amp; Docker</span>
+                <span class="badge">Rust &amp; Tokio</span>
+                <span class="badge">Python</span>
+                <span class="badge">FastAPI</span>
+                <span class="badge">Vector Databases &amp; RAG</span>
+                <span class="badge">Time-Series &amp; LSTMs</span>
+                <span class="badge">Computer Vision &amp; YOLO</span>
             </div>
-
-        </section>
-
-        <footer class="footer">
-            <p>&copy; 2024 Zulqarnain Haider. All rights reserved.</p>
-        </footer>
+        </main>
     </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Zulqarnain Haider. All rights reserved.</p>
+        <p><a href="#">Back to top &uarr;</a> &middot; <a href="Zulqarnain.pdf">Download Resume (PDF)</a></p>
+    </footer>
 </body>
 
 </html>

@@ -4,101 +4,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Posts</title>
+    <title>All Blog Posts | Zulqarnain Haider</title>
+    <link rel="stylesheet" href="style1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        .archive-container {
+            max-width: 860px;
+            margin: 40px auto 80px;
+            padding: 0 24px;
+        }
+
+        .archive-header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 18px;
+        }
+
+        .archive-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .archive-header p {
+            color: #4b5563;
+            font-size: 15px;
+        }
+
+        .archive-list {
+            list-style: none;
+            padding: 0;
             margin: 0;
-            padding: 0;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #ffffff;
         }
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-top: 50px;
+        .archive-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.15s ease;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 30px auto;
-            max-width: 1150px;
-            width: 92%;
-            box-sizing: border-box;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        @media (max-width: 768px) {
-            ul {
-                width: 96%;
-                margin: 15px auto;
-            }
-        }
-
-        li {
-            border-bottom: 1px solid #eee;
-            padding: 20px;
-        }
-
-        li:last-child {
+        .archive-item:last-child {
             border-bottom: none;
         }
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+        .archive-item:hover {
+            background-color: #f8fafc;
         }
 
-        a:hover {
-            color: #ff6600;
+        .archive-item a {
+            color: #1f2937;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.4;
+        }
+
+        .archive-item a:hover {
+            color: var(--link-color);
+            text-decoration: underline;
+        }
+
+        .archive-arrow {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-left: 12px;
         }
     </style>
 </head>
 
 <body>
+    <!-- Top Horizontal Navigation Bar -->
+    <header class="site-header">
+        <div class="site-nav-container">
+            <nav class="site-nav">
+                <a href="index.html">About me</a>
+                <a href="index.html#research">Research</a>
+                <a href="ML/index.html">ML Series</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="all.html" class="active">Blogs</a>
+                <a href="Zulqarnain.pdf" target="_blank">CV</a>
+                <a href="index.html#experience">Experience</a>
+            </nav>
+        </div>
+    </header>
 
-    <h1>List of Blog Posts</h1>
+    <div class="archive-container">
+        <div class="archive-header">
+            <h1>All Articles &amp; Blog Posts</h1>
+            <p>A comprehensive archive of write-ups on machine learning, deep learning, NLP, systems programming, and mathematics.</p>
+        </div>
 
-    <ul>
+        <ul class="archive-list">
+            <li class="archive-item">
+                <a href="ML/automatic_differentiation.html">Foundations of Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces (ML Series)</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="spatial_sae.html">Interpreting &amp; Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="crowd_density.html">Crowd Density Forecasting &ndash; CNN + LSTM over YOLO &amp; CSRNet</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="open_polymers.html">Open Polymers &ndash; Predicting Polymer Properties with ML (XGBoost &amp; PyTorch)</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="najm_poc.html">Najm POC &ndash; Car Damage Detection using YOLOv12 &amp; ResNet34</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="fine_tune.html">Fine-tuning large language models (LLMs) for code generation</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="https://medium.com/p/230cd14358af" target="_blank" rel="noopener noreferrer">What are embeddings (in depth details)</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="https://medium.com/p/0e802f263f88" target="_blank" rel="noopener noreferrer">Build an AI agent from scratch using python Q-network</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c" target="_blank" rel="noopener noreferrer">Unraveling the Power of Knowledge Graphs</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="Blue.html">BLEU Metric in NLP Evaluation</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="Rouge.html">Unlocking the Power of ROUGE in NLP</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="flask.html">Exploring Flask: A Lightweight and Powerful Framework for Web Development</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="rust_1.html">Understanding Rust Ownership: A Deep Dive into Memory Safety</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="rust_string_int.html">Exploring Rust: Strings and Integers</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="knn.html">Classifying with distance measurements &ndash; KNN</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="navie.html">Classifying with probability &ndash; Naïve Bayes</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="navie-2.html">Splitting datasets one feature at a time: decision trees</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="lr.html">Logistic regression</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="gpt.html">Google Appscript &amp; GPT-4</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="LSTM_using_NP_array.html">LSTM Layer using Keras</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="NLP_token.html">Exploring Text Preprocessing Techniques: A Journey through NLP</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="movie_review_example.html">Sentiment Analysis with Deep Learning: A Dive into IMDB Movie Reviews</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="A_rule_based_sentiment_analyzer.html">Unraveling Sentiment Analysis with VADER: Exploring Textual Emotion Analysis</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="PCA_IN_NLP.html">Text Analysis with NLP: Exploring SMS Spam Detection (PCA)</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="19p_0119.html">Power of Urdu Text Processing: Exploring Common Words Extraction</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+            <li class="archive-item">
+                <a href="urdu poetry.html">Exploring Urdu Text Analysis with NLTK and SpaCy</a>
+                <span class="archive-arrow">&rarr;</span>
+            </li>
+        </ul>
+    </div>
 
-        <li><a href="ML/automatic_differentiation.html">Foundations of Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces (ML Series)</a></li>
-        <li><a href="spatial_sae.html">Interpreting &amp; Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</a></li>
-        <li><a href="crowd_density.html">Crowd Density Forecasting &ndash; CNN + LSTM over YOLO &amp; CSRNet</a></li>
-        <li><a href="open_polymers.html">Open Polymers &ndash; Predicting Polymer Properties with ML (XGBoost &amp;
-                PyTorch)</a></li>
-        <li><a href="najm_poc.html">Najm POC &ndash; Car Damage Detection using YOLOv12 &amp; ResNet34</a></li>
-        <li><a href="fine_tune.html">Fine-tuning large language models (LLMs) for code generation</a></li>
-        <li><a href="https://medium.com/p/230cd14358af">What are embeddings(in depth details)</a></li>
-        <li><a href="https://medium.com/p/0e802f263f88">Build an AI agent from scratch using python Q-network</a></li>
-        <li><a
-                href="https://fir-speedboat-5ee.notion.site/Building-Knowledge-Graphs-Using-Python-82276798233c45e8a85280e4a9308a5c">Unraveling
-                the Power of Knowledge Graph</a></li>
-        <li><a href="Blue.html">BLEU Metric in NLP Evaluation</a></li>
-        <li><a href="Rouge.html">Unlocking the Power of ROUGE in NLP</a></li>
-        <li><a href="flask.html">Exploring Flask: A Lightweight and Powerful Framework for Web Development</a></li>
-        <li><a href="rust_1.html">Understanding Rust Ownership: A Deep Dive into Memory Safety</a></li>
-        <li><a href="rust_string_int.html">Exploring Rust: Strings and Integers</a></li>
-        <li><a href="knn.html">Classifying with distance measurements-KNN</a></li>
-        <li><a href="navie.html">Classifying with probability -naïve Bayes</a></li>
-        <li><a href="navie-2.html">Splitting datasets one feature at a time: decision trees</a></li>
-        <li><a href="lr.html">Logistic regression</a></li>
-        <li><a href="gpt.html">Google Appscript & GPT-4</a></li>
-        <li><a href="LSTM_using_NP_array.html">LSTM Layer using keras</a></li>
-        <li><a href="NLP_token.html">Exploring Text Preprocessing Techniques: A Journey through NLP</a></li>
-        <li><a href="movie_review_example.html">Sentiment Analysis with Deep Learning: A Dive into IMDB Movie
-                Reviews</a></li>
-        <li><a href="A_rule_based_sentiment_analyzer.html">Unraveling Sentiment Analysis with VADER: Exploring Textual
-                Emotion Analysis</a></li>
-        <li><a href="PCA_IN_NLP.html">Text Analysis with NLP: Exploring SMS Spam Detection(PCA)</a></li>
-        <li><a href="19p_0119.html"> Power of Urdu Text Processing: Exploring Common Words Extraction</a></li>
-        <li><a href="urdu poetry.html">Exploring Urdu Text Analysis with NLTK and SpaCy</a></li>
-
-        <!-- Add more list items for additional blog posts -->
-    </ul>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Zulqarnain Haider. All rights reserved.</p>
+        <p><a href="#">Back to top &uarr;</a> &middot; <a href="index.html">Home</a></p>
+    </footer>
 </body>
 
 </html>
