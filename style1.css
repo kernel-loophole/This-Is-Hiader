@@ -20,12 +20,20 @@ body {
   align-items: center;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .header h1 {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .nav a {
@@ -36,8 +44,22 @@ body {
   transition: color 0.3s ease;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav a.active {
   color: #007bff;
+}
+
+.series-badge {
+  display: inline-block;
+  background-color: #e3f2fd;
+  color: #007bff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Profile section */

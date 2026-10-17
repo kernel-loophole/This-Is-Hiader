@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundations of Automatic Differentiation: Primitives, Jacobians, &amp; Evaluation Traces | ML Series</title>
+    <!-- MathJax for rendering LaTeX formulas -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 40px 45px;
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 25px 20px;
+                margin: 15px auto;
+            }
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 18px;
+            margin-bottom: 35px;
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header-nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .header-nav a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .series-badge {
+            display: inline-block;
+            background-color: #e3f2fd;
+            color: #007bff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            color: #1a202c;
+            font-size: 2.15rem;
+            line-height: 1.3;
+            margin: 10px 0 16px;
+            font-weight: 700;
+        }
+
+        .meta {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 25px;
+        }
+
+        .tags {
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-right: 8px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        h2 {
+            color: #1a202c;
+            font-size: 1.55rem;
+            margin-top: 42px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.25rem;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin: 16px 0;
+            color: #374151;
+        }
+
+        ul, ol {
+            margin: 14px 0 20px 24px;
+            padding-left: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.02rem;
+            color: #374151;
+        }
+
+        /* Callout cards and feature boxes */
+        .callout-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #007bff;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 28px 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .callout-card.infographic {
+            border-left-color: #10b981;
+            background-color: #f0fdf4;
+        }
+
+        .callout-card.mindmap {
+            border-left-color: #8b5cf6;
+            background-color: #faf5ff;
+        }
+
+        .callout-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .callout-icon {
+            font-size: 1.2rem;
+        }
+
+        .definition-box {
+            background: #fffdf5;
+            border: 1px solid #fef08a;
+            border-left: 4px solid #eab308;
+            padding: 18px 22px;
+            margin: 24px 0;
+            border-radius: 6px;
+        }
+
+        .definition-box strong {
+            color: #854d0e;
+        }
+
+        .math-block {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 22px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        table.comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.98rem;
+        }
+
+        table.comparison-table th, table.comparison-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        table.comparison-table th {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        table.comparison-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Image and figure styles */
+        .img-figure {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .img-figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .img-figure img:hover {
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.14);
+        }
+
+        .img-caption {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin-top: 12px;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* ASCII diagrams and code/box styles */
+        pre.ascii-diagram {
+            background-color: #f8fafc;
+            color: #0f172a;
+            padding: 18px 24px;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+            white-space: pre;
+            width: fit-content;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 18px 0;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid #edf2f7;
+            text-align: center;
+            font-size: 14px;
+            color: #718096;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header-nav">
+            <a href="index.html">&larr; Back to ML Series</a>
+            <span>
+                <a href="../index.html">Home</a> &nbsp;|&nbsp; 
+                <a href="../Zulqarnain.pdf">Resume</a> &nbsp;|&nbsp; 
+                <a href="../all.html">All Blogs</a>
+            </span>
+        </div>
+
+        <article>
+            <span class="series-badge">Machine Learning Series</span>
+            <h1>Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces</h1>
+            <p class="meta">Posted on October 17, 2026</p>
+
+            <section>
+                <h2>Introduction</h2>
+                <p>
+                    How do modern AI frameworks like <strong>PyTorch</strong>, <strong>TensorFlow</strong>, and <strong>JAX</strong> train massive neural networks with billions of parameters without collapsing under the computational weight of calculus? The secret lies in <strong>Automatic Differentiation (AD)</strong> a mathematical and computational paradigm that transforms complex software programs into efficient gradient-computing machines.
+                </p>
+
+                <div class="callout-card">
+                
+                    <ul>
+                        <li><strong>Deconstruct</strong> complex computational graphs into atomic building blocks called primitives.</li>
+                        <li><strong>Differentiate</strong> between input Jacobians and weight Jacobians and predict their dimensions across single-vector and mini-batched inputs.</li>
+                        <li><strong>Explain</strong> how vectorization converts high-rank tensor operations into flattened matrix representations to save computational overhead.</li>
+                        <li><strong>Contrast</strong> functional (JAX) and object-oriented (PyTorch/TensorFlow) software paradigms for automatic differentiation.</li>
+                        <li><strong>Formulate</strong> the formal task of Automatic Differentiation using program evaluation traces.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>An Intuitive Mental Model: Imagine Your Factory </h2>
+                <p>
+                    Before diving deep into the mathematical formalism of tensors and Jacobians, let's build an intuitive mental model. Imagine you own a manufacturing factory with three departments:
+                </p>
+                <ul>
+                    <li><strong>Department 1:</strong> Receives raw materials.</li>
+                    <li><strong>Department 2:</strong> Processes and refines the materials.</li>
+                    <li><strong>Department 3:</strong> Inspects the final assembled product.</li>
+                </ul>
+                <p>
+                    Each department has workers, and each worker is responsible for a particular job:
+                </p>
+
+                <div class="diagram-container">
+<pre class="ascii-diagram">
+        RAW MATERIALS
+              |
+              v
+    +-------------------+
+    |   DEPARTMENT 1    |
+    |    Billions of    |
+    |      workers      |
+    +-------------------+
+              |
+              v
+    +-------------------+
+    |   DEPARTMENT 2    |
+    |    Billions of    |
+    |      workers      |
+    +-------------------+
+              |
+              v
+    +-------------------+
+    |   DEPARTMENT 3    |
+    |    Billions of    |
+    |      workers      |
+    +-------------------+
+              |
+              v
+        FINAL PRODUCT
+</pre>
+                </div>
+
+                <p>
+                    Every worker performs a small operation, and the result goes to the next worker or department. Now, let's map this directly to a deep neural network:
+                </p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Factory Analogy</th>
+                            <th>Neural Network Equivalent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Raw materials</strong></td>
+                            <td>Input data ($x$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Workers performing operations</strong></td>
+                            <td>Mathematical operations (primitives $f_i$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Departments</strong></td>
+                            <td>Layers (hidden representations $h_i$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Worker's adjustable settings</strong></td>
+                            <td>Model parameters / weights ($w$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Final product inspection</strong></td>
+                            <td>Loss calculation ($L$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Factory manager</strong></td>
+                            <td>Training algorithm / Optimizer (e.g., Adam, SGD)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Improving workers' settings</strong></td>
+                            <td>Updating model weights ($w \leftarrow w - \eta \nabla L$)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="definition-box">
+                    <strong>Important Note:</strong> A neural network doesn't literally contain billions of individual workers. The factory is an analogy for the mathematical operations and parameters in a model. However, state-of-the-art neural networks really do contain billions of parameters!
+                </div>
+
+                <h3>1. Your Factory Produces the Wrong Product!</h3>
+                <p>
+                    Suppose your factory manufactures water bottles. You want each bottle to contain exactly <strong>1.0 litre</strong> of water. However, after running the factory, you discover that the final bottle contains only <strong>0.6 litres</strong>.
+                </p>
+                <div class="math-block">
+                    $$\text{Target} = 1.0$$
+                    $$\text{Actual} = 0.6$$
+                    $$\text{Error} = (1.0 - 0.6)^2 = 0.16$$
+                </div>
+                <p>
+                    In machine learning, we call this error the <strong>loss ($L$)</strong>. The loss quantifies exactly how far the model's prediction is from the target:
+                </p>
+                <ul>
+                    <li><strong>Loss = 0:</strong> Perfect prediction for this sample.</li>
+                    <li><strong>Small loss:</strong> Prediction is close to the target.</li>
+                    <li><strong>Large loss:</strong> Prediction is far from the target.</li>
+                </ul>
+                <p>
+                    Your job as the factory owner is to reduce this loss. But here is the central dilemma: <strong>You have billions of adjustable settings. Which settings should you change, and by how much?</strong> This is the exact problem backpropagation and automatic differentiation solve.
+                </p>
+
+                <h3>2. Every Worker Has an Adjustable Setting</h3>
+                <p>
+                    Let's simplify the factory to just three workers in sequence. Each worker has an adjustable dial that controls how they perform their job:
+                </p>
+
+                <div class="diagram-container">
+<pre class="ascii-diagram">
+        Raw Material
+              |
+              v
+        +-----------+
+        |  Worker 1 |  &lt;-- Dial w1
+        +-----------+
+              |
+              v
+        +-----------+
+        |  Worker 2 |  &lt;-- Dial w2
+        +-----------+
+              |
+              v
+        +-----------+
+        |  Worker 3 |  &lt;-- Dial w3
+        +-----------+
+              |
+              v
+        Final Product
+              |
+              v
+        Calculate Loss
+</pre>
+                </div>
+
+                <p>
+                    In a neural network, these dials represent <strong>weights ($w$)</strong>. A weight determines how strongly one value influences another during a mathematical operation. For example, a worker might multiply the incoming value by their dial setting:
+                </p>
+                <div class="math-block">
+                    $$\text{Output} = \text{Input} \times w$$
+                </div>
+                <p>
+                    If the input is $5$ and the dial is set to $2$:
+                </p>
+                <div class="math-block">
+                    $$\text{Output} = 5 \times 2 = 10$$
+                </div>
+                <p>
+                    If the dial is turned to $3$:
+                </p>
+                <div class="math-block">
+                    $$\text{Output} = 5 \times 3 = 15$$
+                </div>
+                <p>
+                    Changing the dial changes the worker's output. Similarly, changing a neural network's weights changes its predictions. Now we need to answer a crucial question: <em>How do you know which dial to adjust?</em>
+                </p>
+
+                <h3>3. The Factory Manager Needs to Understand the Effect of Every Dial</h3>
+                <p>
+                    Imagine you turn Worker 1's dial:
+                </p>
+                <ul>
+                    <li>That change affects Worker 1's output.</li>
+                    <li>Worker 1's output affects Worker 2.</li>
+                    <li>Worker 2's output affects Worker 3.</li>
+                    <li>Worker 3's output affects the final product.</li>
+                    <li>Therefore, changing Worker 1's dial cascades through the chain and alters the final loss!</li>
+                </ul>
+                <p>
+                    However, changing Worker 3's dial directly affects the product right before inspection, having a very different effect on the loss. You need to calculate how sensitive the final loss is to <em>each individual dial</em>:
+                </p>
+                <div class="math-block">
+                    $$\frac{\partial L}{\partial w_1}, \quad \frac{\partial L}{\partial w_2}, \quad \frac{\partial L}{\partial w_3}$$
+                </div>
+                <p>
+                    Here:
+                </p>
+                <ul>
+                    <li>$L$ is the final scalar loss.</li>
+                    <li>$w_1, w_2, w_3$ are the workers' dials (parameters).</li>
+                    <li>The partial derivative tells you how the loss changes when you make an infinitesimal adjustment to a particular dial, keeping all other settings fixed.</li>
+                </ul>
+                <p>
+                    When applied to model parameters, this collection of derivatives is called the <strong>gradient</strong>. Think of it as a precise message to the factory manager: <em>"If you slightly increase dial $w_i$, will the final error increase or decrease, and by how much?"</em> That is the exact signal needed to optimize the factory.
+                </p>
+
+                <h3>4. But How Do We Calculate the Effect of Billions of Dials?</h3>
+                <p>
+                    This is where Automatic Differentiation reveals its magic. You <em>could</em> try changing every dial individually by a tiny amount, running the entire factory again, and measuring whether the error improved. But imagine doing that for billions of dials! It would require billions of full forward runs of the factory for every single training step—an impossible computational cost.
+                </p>
+                <p>
+                    Instead, Automatic Differentiation calculates all gradients simultaneously by leveraging the mathematical rules of the operations already performed. The trick is to split execution into <strong>two directions</strong>:
+                </p>
+
+                <h4>Direction 1: The Forward Pass</h4>
+                <p>
+                    First, let the factory operate normally. Each worker receives an input, executes their specific operation, and passes the result forward:
+                </p>
+                <div class="diagram-container">
+<pre class="ascii-diagram">
+           INPUT
+             |
+             v
+          Worker 1
+             |
+             v
+          Worker 2
+             |
+             v
+          Worker 3
+             |
+             v
+       FINAL PRODUCT
+             |
+             v
+      CALCULATE LOSS
+</pre>
+                </div>
+                <p>
+                    During this pass, the system caches intermediate values:
+                </p>
+                <ul>
+                    <li>What did Worker 1 receive?</li>
+                    <li>What did Worker 1 produce?</li>
+                    <li>What did Worker 2 produce?</li>
+                    <li>What was the final prediction and loss?</li>
+                </ul>
+                <p>
+                    Notice that we haven't updated any dials yet. We are simply running the factory and measuring its performance.
+                </p>
+
+                <h4>Direction 2: The Backward Pass (Backpropagation)</h4>
+                <p>
+                    Now the factory manager knows the final product is defective ($L = 0.16$). Instead of restarting from the beginning, the manager starts at the final loss and <strong>works backward</strong>:
+                </p>
+                <div class="diagram-container">
+<pre class="ascii-diagram">
+           INPUT
+             |
+             v
+          Worker 1
+             ^
+             |
+          Worker 2
+             ^
+             |
+          Worker 3
+             ^
+             |
+       FINAL PRODUCT
+             |
+             v
+      CALCULATE LOSS
+</pre>
+                </div>
+                <p>
+                    The backward pass recursively propagates how the loss depends on the preceding operations and their parameters:
+                </p>
+                <ol>
+                    <li>How sensitive is the loss to Worker 3's output?</li>
+                    <li>How does Worker 3's output depend on Worker 2's output?</li>
+                    <li>How does Worker 2's output depend on Worker 1's output?</li>
+                    <li>How does the loss depend on each worker's dial ($w_3, w_2, w_1$)?</li>
+                </ol>
+                <p>
+                    The <strong>chain rule of calculus</strong> allows us to combine these local sensitivities together cleanly. This backward calculation is what we call <strong>backpropagation</strong>. The system never needs to test dials one-by-one; it computes exact gradients for all dials in a single backward sweep!
+                </p>
+            </section>
+
+            <section>
+                <h2>The Building Blocks: Primitives and Jacobians</h2>
+                <p>
+                    Imagine taking a complex recipe say, a multi-layer deep neural network and breaking it down into its basic culinary actions: chopping, boiling, whisking. In automatic differentiation, these basic building blocks are called <strong>primitives</strong>.
+                </p>
+                <p>
+                    A primitive $y = f_i(x, w_i)$ is an atomic operation that takes an input vector $x$ (with shape $c_i$), parameterized by a weight vector $w_i$ (with shape $p_i$), and produces an output vector $y$ (with shape $c_i'$). Primitives are wonderfully flexible: a primitive might represent a simple matrix multiplication, a fully-connected layer with an activation function, or even an entire modular neural network block. This property of <strong>recursive composability</strong> allows us to chain simple functions into arbitrary computational graphs.
+                </p>
+
+                <p>
+                    Because our computational models are built on differential calculus, we assume that for every primitive, we know how to compute two critical partial derivative matrices called <strong>Jacobians</strong>:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Input Jacobian ($\partial_x [f(x, w)]$):</strong> Measures how sensitive the output $y$ is to changes in the input $x$. Its shape is $(c', c)$, where $c'$ is the output vector dimension and $c$ is the input vector dimension:
+                        $$\left( \frac{\partial y}{\partial x} \right)_{j, k} = \frac{\partial y_j}{\partial x_k}$$
+                    </li>
+                    <li>
+                        <strong>Weight Jacobian ($\partial_w [f(x, w)]$):</strong> Measures how sensitive the output $y$ is to changes in the trainable weights $w$. Its shape is $(c', p)$, where $p$ is the parameter vector dimension:
+                        $$\left( \frac{\partial y}{\partial w} \right)_{j, k} = \frac{\partial y_j}{\partial w_k}$$
+                    </li>
+                </ul>
+
+                <p>
+                    <strong>What happens if an operation isn't perfectly smooth and differentiable everywhere?</strong>
+                </p>
+                <p>
+                    For continuous primitives with isolated non-differentiable points—such as the ReLU activation function at $x = 0$ we incorporate them using <strong>subgradients</strong> (conventionally setting the derivative at $x=0$ to $0$ or $1$). For non-differentiable operations like discrete sampling or hard thresholding, we can apply <strong>gradient relaxations</strong> (e.g., Gumbel-Softmax) or stochastic estimators to keep the differentiation engine running smoothly.
+                </p>
+            </section>
+
+            <section>
+                <h2>Navigating High-Rank Tensors: Vectorization and Framework Architecture</h2>
+                <p>
+                    In real-world deep learning, we rarely process a single isolated input vector at a time. Instead, we bundle inputs into mini-batches. But mini-batching introduces high-rank tensors that can quickly become a memory nightmare if handled naively.
+                </p>
+                <p>
+                    Consider a basic fully-connected layer operating on a mini-batch:
+                </p>
+                <div class="math-block">
+                    $$f(X, W) = XW + b$$
+                </div>
+                <p>
+                    Here:
+                </p>
+                <ul>
+                    <li>The input matrix $X$ has shape $(n, c)$ (where $n$ is the mini-batch size and $c$ is the feature dimension).</li>
+                    <li>The weight matrix $W$ has shape $(c, c')$.</li>
+                    <li>The bias $b$ has shape $(c')$.</li>
+                    <li>The resulting output matrix has shape $(n, c')$.</li>
+                </ul>
+
+                <p>
+                    If we compute partial derivatives directly on these multi-dimensional tensors, the input Jacobian ends up with a 4D shape of $(n, c', n, c)$, and the weight Jacobian takes a 4D shape of $(n, c', c, c')$.
+                </p>
+                <p>
+                    To keep our mathematical equations clean and unified, we perform <strong>vectorization (or flattening)</strong>:
+                </p>
+                <ul>
+                    <li>We flatten the input into a single vector $x = \text{vect}(X)$ of size $nc$.</li>
+                    <li>We concatenate parameter vectors into $w = [\text{vect}(W); b]$ of size $cc' + c'$.</li>
+                </ul>
+                <p>
+                    The flattened Jacobians collapse neatly into standard 2D matrices of shapes $(nc', nc)$ and $(nc', cc')$.
+                </p>
+                <p>
+                    When AD theory refers to the "input size $c$", it means the product of all input dimensions including the mini-batch size $n$. This flattening highlights a fundamental rule of practical automatic differentiation: <strong>we rarely materialize these full Jacobian matrices in memory</strong>. Fully materializing a matrix of shape $(nc', nc)$ for millions of parameters would instantly exhaust GPU VRAM. Instead, frameworks compute <em>vector-Jacobian products (VJPs)</em> on the fly!
+                </p>
+
+                <h3>How Math Shapes Framework Architecture</h3>
+                <p>
+                    This underlying mathematical formulation directly dictates how software libraries are architected:
+                </p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Paradigm</th>
+                            <th>Functional Style (e.g., JAX)</th>
+                            <th>Object-Oriented Style (e.g., PyTorch / TensorFlow)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Philosophy</strong></td>
+                            <td>Pure mathematical function transformations</td>
+                            <td>Stateful layers encapsulated inside class objects</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Parameters $w$</strong></td>
+                            <td>Passed explicitly as function arguments</td>
+                            <td>Stored as internal attributes (`self.weight`, `self.bias`)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Differentiation</strong></td>
+                            <td>Higher-order functions (`jax.grad(f)`, `jax.vjp`)</td>
+                            <td>Tracing tape / dynamically generated graph (`loss.backward()`)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shape Resolution</strong></td>
+                            <td>Explicit shapes required ahead of time</td>
+                            <td>Supports lazy initialization (parameter allocation upon first input)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>The Evaluation Trace and the Core Task of Automatic Differentiation</h2>
+                <p>
+                    Now that we have established primitives and vector math, let's examine how an entire program executes from start to finish.
+                </p>
+                <p>
+                    When an input $x$ flows through a sequence of $l$ primitive calls followed by a final summation, it creates what is known as an <strong>evaluation trace</strong>:
+                </p>
+                <div class="math-block">
+                    $$\begin{aligned}
+                    h_1 &= f_1(x, w_1) \\
+                    h_2 &= f_2(h_1, w_2) \\
+                    &\ \ \vdots \\
+                    h_l &= f_l(h_{l-1}, w_l) \\
+                    y &= \sum h_l
+                    \end{aligned}$$
+                </div>
+                <p>
+                    In this program, the first $l - 1$ primitives represent the neural network layers, primitive $l$ computes a per-input loss (such as cross-entropy), and the final operation sums the losses across the mini-batch. The output $y = F(x)$ of our program is <strong>always a scalar</strong>, which is essential for numerical optimization algorithms.
+                </p>
+
+                <div class="definition-box">
+                    <strong>Definition (Automatic Differentiation):</strong><br>
+                    Given a program $F(x)$ composed of a sequence of differentiable primitives, automatic differentiation (AD) refers to the task of simultaneously and efficiently computing all weight Jacobians of the program given knowledge of the computational graph and all individual input and weight Jacobians:
+                    $$\text{AD}(F(x)) = \left\{ \frac{\partial y}{\partial w_i} \right\}_{i=1}^l$$
+                </div>
+
+                <p>
+                    The chain rule tells us that the gradient of composed functions is simply the matrix product of individual Jacobian matrices. However, <strong>how we multiply these matrices</strong> determines the computational efficiency:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Forward-mode AD:</strong> Accumulates Jacobians from the input forward toward the scalar output ($J_l \cdot (J_{l-1} \dots (J_2 \cdot J_1))$). Ideal when the number of inputs is much smaller than the number of outputs ($c \ll c'$).
+                    </li>
+                    <li>
+                        <strong>Backward-mode AD (Backpropagation):</strong> Traverses backwards from the final scalar loss output toward the inputs ($((J_l \cdot J_{l-1}) \dots J_2) \cdot J_1$). Ideal when the output is a single scalar and the parameter count is massive ($c' = 1 \ll p$).
+                    </li>
+                </ul>
+
+                <p>
+                    Because neural networks map high-dimensional parameter spaces ($p \approx 10^7 - 10^{11}$) to a single scalar loss $y$, <strong>backward-mode AD is dramatically more efficient</strong>,requiring only one backward pass to compute gradients for all parameters. While this formulation uses a sequential trace, the principles extend directly to general acyclic computational graphs and models with parameter sharing across layers.
+                </p>
+
+                <figure class="img-figure">
+                    <a href="map_ad.png" target="_blank" title="Click to view full resolution">
+                        <img src="map_ad.png" alt="Automatic Differentiation Mind Map &amp; Concept Architecture">
+                    </a>
+                    <figcaption class="img-caption"><strong>Figure 1:</strong> Concept Architecture Mind Map for Automatic Differentiation &mdash; detailing Computational Graphs, Primitives &amp; Jacobians, Vectorization/Framework Styles, and Forward vs. Reverse AD Algorithms. <em>(Click image to open full resolution)</em></figcaption>
+                </figure>
+            </section>
+
+            <section>
+                <h2>Summary &amp; Key Takeaways</h2>
+                <p>
+                    Automatic Differentiation transforms programs into efficient gradient calculation engines by decomposing operations into primitives and chaining their Jacobians via evaluation traces.
+                </p>
+                <ul>
+                    <li><strong>Primitives &amp; Composability:</strong> Programs consist of recursively composable atomic operations $y = f_i(x, w_i)$, each supplying an input Jacobian $\partial_x [f]$ and a weight Jacobian $\partial_w [f]$.</li>
+                    <li><strong>Vectorization &amp; Memory:</strong> Mini-batched high-rank tensors are flattened into 2D vectors $(nc', nc)$ and $(nc', cc')$ to streamline analysis, though explicit Jacobian materialization is avoided in memory via VJPs.</li>
+                    <li><strong>Framework Design:</strong> Functional frameworks (JAX) mirror explicit mathematical arguments, whereas Object-Oriented frameworks (PyTorch/TensorFlow) encapsulate weights inside stateful layer objects with lazy initialization.</li>
+                    <li><strong>Evaluation Trace:</strong> A sequential execution trace aggregates layer outputs into a per-input loss and a scalar sum $y = F(x)$.</li>
+                    <li><strong>The AD Task:</strong> AD calculates all weight Jacobians $\{\partial_{w_i} y\}_{i=1}^l$ simultaneously, where reverse-mode AD (backpropagation) provides superior computational scalability for scalar outputs.</li>
+                </ul>
+            </section>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Zulqarnain Haider. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

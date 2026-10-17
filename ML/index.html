@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Series | Zulqarnain Haider</title>
+    <link rel="stylesheet" href="../style1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .series-intro {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        .series-intro h2 {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #222;
+        }
+
+        .series-intro p {
+            font-size: 16px;
+            color: #555;
+            max-width: 650px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .series-stats {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0 10px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-item strong {
+            color: #007bff;
+        }
+
+        .tag-list {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: #f1f3f5;
+            color: #495057;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+            margin-bottom: 4px;
+        }
+
+        .section-divider {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 40px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e9ecef;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><a href="../index.html" style="text-decoration: none; color: inherit;">Zulqarnain Haider</a></h1>
+            <nav class="nav">
+                <a href="../index.html">Home</a>
+                <a href="../Zulqarnain.pdf">Resume</a>
+                <a href="index.html" class="active">ML Series</a>
+                <a href="../all.html">Blogs</a>
+                <a href="https://github.com/kernel-loophole/">GitHub</a>
+                <a href="https://www.linkedin.com/in/zulqarnain-haider-3229bb212/">LinkedIn</a>
+            </nav>
+        </header>
+
+        <section class="series-intro">
+            <span class="series-badge">Blog Series</span>
+            <h2>Machine Learning &amp; Deep Learning</h2>
+            <p>
+                A focused collection of articles spanning mechanistic interpretability, multimodal architectures, 
+                computer vision, transformer fine-tuning, and foundational ML algorithms.
+            </p>
+            <div class="series-stats">
+                <div class="stat-item"><strong>Focus:</strong> Deep Learning &amp; Classical ML</div>
+                <div class="stat-item"><strong>Topics:</strong> SAEs, Vision, LLMs, Algorithms</div>
+            </div>
+        </section>
+
+        <section class="blog-posts">
+            <h3 class="section-divider">Foundations &amp; Core Mechanics</h3>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Automatic Differentiation</span>
+                    <span class="tag-pill">PyTorch &amp; JAX</span>
+                    <span class="tag-pill">Jacobians</span>
+                    <span class="tag-pill">Backpropagation</span>
+                </div>
+                <h3>Foundations of Automatic Differentiation: Primitives, Jacobians, and Evaluation Traces</h3>
+                <p>How do modern AI frameworks train massive neural networks without collapsing under the weight of calculus? Explore primitives, input/weight Jacobians, vectorization, and reverse-mode AD.</p>
+                <a href="automatic_differentiation.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on October 17, 2026 &nbsp;&bull;&nbsp; Interactive Lesson &amp; Concept Architecture</p>
+            </div>
+
+            <h3 class="section-divider">Advanced &amp; Deep Learning</h3>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Interpretability</span>
+                    <span class="tag-pill">Sparse Autoencoders</span>
+                    <span class="tag-pill">Multimodal</span>
+                </div>
+                <h3>Interpreting &amp; Steering Spatial Reasoning via Multimodal Sparse Autoencoders (SAEs)</h3>
+                <p>Investigating whether Multimodal Sparse Autoencoders can identify, disentangle, and causally steer spatial reasoning features inside vision-language models without collateral semantic changes.</p>
+                <a href="../spatial_sae.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on October 5, 2026</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Computer Vision</span>
+                    <span class="tag-pill">CNN + LSTM</span>
+                    <span class="tag-pill">YOLO</span>
+                </div>
+                <h3>Crowd Density Forecasting – CNN + LSTM over YOLO &amp; CSRNet</h3>
+                <p>Extends YOLO+CSRNet crowd counting with a CNN+LSTM pipeline to forecast zone-level crowd density 5–10 minutes ahead and trigger proactive congestion alerts.</p>
+                <a href="../crowd_density.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on February 28, 2026</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">XGBoost</span>
+                    <span class="tag-pill">PyTorch</span>
+                    <span class="tag-pill">Cheminformatics</span>
+                </div>
+                <h3>Open Polymers – Predicting Polymer Properties with ML</h3>
+                <p>ML pipeline using RDKit, PyTorch, and XGBoost to predict Tg, FFV, Density, Tc, and Rg from SMILES strings. Ranked 656/2,400+ (65th on private leaderboard with XGBoost).</p>
+                <a href="../open_polymers.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on June 20, 2025</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Object Detection</span>
+                    <span class="tag-pill">YOLOv12</span>
+                    <span class="tag-pill">ResNet34</span>
+                </div>
+                <h3>Najm POC – Car Damage Detection using YOLOv12 &amp; ResNet34</h3>
+                <p>A POC that segments car parts with YOLOv12, classifies damage with a fine-tuned ResNet34, and generates a PDF damage report via Streamlit.</p>
+                <a href="../najm_poc.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on December 9, 2025</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">LLMs</span>
+                    <span class="tag-pill">Fine-Tuning</span>
+                    <span class="tag-pill">Transformers</span>
+                </div>
+                <h3>Fine-Tuning a Code LLM on Custom Code with a Single GPU</h3>
+                <p>Fine-tuning large language models (LLMs) for code generation, such as Codex, StarCoder, and Code Llama.</p>
+                <a href="../fine_tune.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on June 1, 2024</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Deep Learning</span>
+                    <span class="tag-pill">Keras</span>
+                    <span class="tag-pill">RNN / LSTM</span>
+                </div>
+                <h3>LSTM Layer using Keras &amp; NumPy</h3>
+                <p>An in-depth breakdown of recurrent cells, hidden state transitions, and step-by-step implementation of LSTM layers.</p>
+                <a href="../LSTM_using_NP_array.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on July 2023</p>
+            </div>
+
+            <h3 class="section-divider">Foundations &amp; Classical Algorithms</h3>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Classification</span>
+                    <span class="tag-pill">Distance Metrics</span>
+                </div>
+                <h3>Classifying with Distance Measurements – KNN</h3>
+                <p>How the K-Nearest Neighbors algorithm makes predictions using vector space proximity and various distance metrics.</p>
+                <a href="../knn.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on June 2, 2022</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Probability</span>
+                    <span class="tag-pill">Bayesian Learning</span>
+                </div>
+                <h3>Classifying with Probability – Naïve Bayes</h3>
+                <p>Exploring conditional probability, feature independence assumptions, and document classification using Naïve Bayes.</p>
+                <a href="../navie.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on May 2022</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Decision Trees</span>
+                    <span class="tag-pill">Information Gain</span>
+                </div>
+                <h3>Splitting Datasets One Feature at a Time: Decision Trees</h3>
+                <p>Understanding Shannon entropy, information gain, and tree pruning strategies for robust classification.</p>
+                <a href="../navie-2.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on May 2022</p>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Linear Models</span>
+                    <span class="tag-pill">Optimization</span>
+                </div>
+                <h3>Logistic Regression</h3>
+                <p>Diving into the sigmoid activation function, log-loss optimization, and gradient descent for binary classification.</p>
+                <a href="../lr.html" class="read-more">Read More &rarr;</a>
+                <p class="post-meta">Posted on April 2022</p>
+            </div>
+
+            <h3 class="section-divider">External Articles &amp; Guides</h3>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Medium</span>
+                    <span class="tag-pill">Embeddings</span>
+                    <span class="tag-pill">NLP</span>
+                </div>
+                <h3>What are Embeddings (In-depth Details)</h3>
+                <p>A deep exploration into high-dimensional embedding spaces, vector representations, and semantic proximity.</p>
+                <a href="https://medium.com/p/230cd14358af" target="_blank" rel="noopener noreferrer" class="read-more">Read on Medium &rarr;</a>
+            </div>
+
+            <div class="post">
+                <div class="tag-list">
+                    <span class="tag-pill">Medium</span>
+                    <span class="tag-pill">Reinforcement Learning</span>
+                    <span class="tag-pill">Q-Network</span>
+                </div>
+                <h3>Build an AI Agent from Scratch Using Python Q-Network</h3>
+                <p>Implementing reinforcement learning basics, building a Q-learning policy network from scratch, and training autonomous decision agents.</p>
+                <a href="https://medium.com/p/0e802f263f88" target="_blank" rel="noopener noreferrer" class="read-more">Read on Medium &rarr;</a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 Zulqarnain Haider. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
